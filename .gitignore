@@ -1,0 +1,47 @@
+# === WordPress Core (don't track WP core — it's in the Docker image) ===
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/xmlrpc.php
+/index.php
+/license.txt
+/readme.html
+
+# === Keep wp-content but exclude heavy / generated dirs ===
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup*/
+wp-content/ai1wm-backups/
+wp-content/wflogs/
+
+# === Default WP themes (included in Docker image, only track elena) ===
+wp-content/themes/twenty*/
+
+# === Default WP plugins (hello.php, akismet etc.) ===
+wp-content/plugins/hello.php
+wp-content/plugins/akismet/
+
+# === Local dev files ===
+wp-config.php
+local-xdebuginfo.php
+check_images.php
+add_gallery.php
+
+# === Environment & secrets ===
+.env
+
+# === OS / editor junk ===
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+
+# === Node (if ever used) ===
+node_modules/
+
+# === IDE ===
+.vscode/
+.idea/
