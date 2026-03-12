@@ -2,6 +2,7 @@
 /wp-admin/
 /wp-includes/
 /wp-*.php
+!wp-config-production.php
 /xmlrpc.php
 /index.php
 /license.txt
