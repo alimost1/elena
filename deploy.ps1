@@ -33,10 +33,14 @@ if ($LASTEXITCODE -eq 0) {
     
     # Trigger Coolify via SSH (Bypassing Cloudflare)
     Write-Host "`n🚀 Triggering deployment on VPS..." -ForegroundColor Cyan
-    ssh root@69.10.53.215 "docker exec -i coolify php -r 'include \""vendor/autoload.php\""; `$app = require_once \""bootstrap/app.php\""; `$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); `$app->make(App\Actions\Application\DeployApplication::class)->run(App\Models\Application::where(\""uuid\"", \""josgk00c0ook04cs8cck00c4\"")->first(), \""\"); '"
+    $uuid = "josgk00c0ook04cs8cck00c4"
+    $phpCmd = 'include "vendor/autoload.php"; $app = require_once "bootstrap/app.php"; $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); $app->make(App\Actions\Application\DeployApplication::class)->run(App\Models\Application::where("uuid", "' + $uuid + '")->first(), "");'
+    
+    ssh root@69.10.53.215 "docker exec -i coolify php -r '$phpCmd'"
     
     Write-Host "`n🎉 Deployment started! Check your Coolify dashboard." -ForegroundColor Green
-} else {
+}
+else {
     Write-Host "`n❌ Push failed. Check your remote and credentials." -ForegroundColor Red
     exit 1
 }
