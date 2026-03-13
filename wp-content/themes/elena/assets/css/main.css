@@ -1328,6 +1328,24 @@ button {
         --elena-header-height: 64px;
     }
 
+    .elena-header-inner {
+        position: relative;
+    }
+
+    .elena-logo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        margin: 0;
+    }
+
+    .elena-logo a {
+        display: block;
+        line-height: 1;
+    }
+
     .elena-section {
         padding: 3.5rem 0;
     }
@@ -1411,10 +1429,27 @@ button {
         gap: 1rem;
     }
 
+    .elena-header-actions {
+        margin-left: auto;
+    }
+
+    /* Footer Refinements */
     .elena-footer-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.5rem;
         text-align: center;
+    }
+
+    .elena-footer-brand {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .elena-footer-brand img,
+    .elena-footer-brand .custom-logo-link {
+        margin: 0 auto;
+        max-width: 150px;
     }
 
     .elena-social-links {
@@ -1439,6 +1474,16 @@ button {
 @media (max-width: 480px) {
     .elena-hero-title {
         font-size: 2.2rem;
+    }
+
+    .elena-hero {
+        min-height: 80vh;
+        /* Better for mobile product visibility */
+    }
+
+    .elena-hero-bg-img {
+        object-position: 60% center;
+        /* Frame the shoes better */
     }
 
     .elena-section-title {
