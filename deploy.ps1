@@ -34,9 +34,12 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "Triggering deployment on VPS..." -ForegroundColor Cyan
     
     $uuid = "josgk00c0ook04cs8cck00c4"
-    $remoteScript = 'docker exec -i coolify php -r "include \"vendor/autoload.php\"; \$app = require_once \"bootstrap/app.php\"; \$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); \$app->make(App\Actions\Application\DeployApplication::class)->run(App\Models\Application::where(\"uuid\", \"' + $uuid + '\")->first(), \"\");"'
     
-    ssh root@69.10.53.215 $remoteScript
+    # We use a very simple quoted approach for SSH
+    # Escape inner quotes for PowerShell with ` and for the remote shell with \
+    $php = "include 'vendor/autoload.php'; `$app = require_once 'bootstrap/app.php'; `$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); `$app->make(App\Actions\Application\DeployApplication::class)->run(App\Models\Application::where('uuid', '$uuid')->first(), '');"
+    
+    ssh root@69.10.53.215 "docker exec -i coolify php -r `"$php`""
     
     Write-Host "Deployment started! Check your Coolify dashboard." -ForegroundColor Green
 }
