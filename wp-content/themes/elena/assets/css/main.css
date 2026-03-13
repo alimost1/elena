@@ -110,7 +110,7 @@ button {
     width: 100%;
     max-width: var(--elena-container);
     margin: 0 auto;
-    padding: 0 4rem;
+    padding: 0 5%;
 }
 
 /* CTA Section Styles */
@@ -143,6 +143,7 @@ button {
 .elena-cta-text {
     flex: 1;
     min-width: 300px;
+    padding: 2rem 0;
 }
 
 .elena-cta-title {
@@ -500,6 +501,8 @@ button {
 
 .elena-collection-text {
     max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .elena-section-subtitle {
@@ -524,6 +527,7 @@ button {
    ═══════════════════════════════════════════════ */
 .elena-section-header {
     margin-bottom: 3rem;
+    text-align: center;
 }
 
 .elena-section-title {
@@ -544,7 +548,7 @@ button {
 
 .elena-section-footer {
     margin-top: 2.5rem;
-    text-align: right;
+    text-align: center;
 }
 
 
@@ -718,6 +722,7 @@ button {
 .elena-reviews-content {
     position: relative;
     z-index: 2;
+    text-align: center;
 }
 
 .elena-reviews .elena-section-title {
@@ -741,6 +746,8 @@ button {
     gap: 2rem;
     margin-bottom: 2rem;
     max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .elena-testimonial {
