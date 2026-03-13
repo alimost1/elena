@@ -33,13 +33,11 @@ if ($LASTEXITCODE -eq 0) {
     # Trigger Coolify via SSH (Bypassing Cloudflare)
     Write-Host "Triggering deployment on VPS..." -ForegroundColor Cyan
     
-    $uuid = "josgk00c0ook04cs8cck00c4"
+    # Upload trigger script to VPS
+    scp "trigger_deploy.php" root@69.10.53.215:/tmp/trigger_deploy.php
     
-    # We use a very simple quoted approach for SSH
-    # Escape inner quotes for PowerShell with ` and for the remote shell with \
-    $php = "include 'vendor/autoload.php'; `$app = require_once 'bootstrap/app.php'; `$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); `$app->make(App\Actions\Application\DeployApplication::class)->run(App\Models\Application::where('uuid', '$uuid')->first(), '');"
-    
-    ssh root@69.10.53.215 "docker exec -i coolify php -r `"$php`""
+    # Run trigger script inside Coolify container
+    ssh root@69.10.53.215 "docker cp /tmp/trigger_deploy.php coolify:/var/www/html/trigger_deploy.php && docker exec coolify php /var/www/html/trigger_deploy.php"
     
     Write-Host "Deployment started! Check your Coolify dashboard." -ForegroundColor Green
 }
