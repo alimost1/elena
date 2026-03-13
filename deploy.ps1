@@ -33,8 +33,10 @@ if ($LASTEXITCODE -eq 0) {
     # Trigger Coolify via SSH (Bypassing Cloudflare/WAF)
     Write-Host "Triggering deployment on VPS via Webhook..." -ForegroundColor Cyan
     
-    $webhook = "https://coolify1.dragena.com/api/v1/deploy?uuid=josgk00c0ook04cs8cck00c4&force=false"
-    ssh root@69.10.53.215 "curl -X GET '$webhook'"
+    # Use localhost:8000 to bypass Cloudflare WAF on public URL
+    $uuid = "josgk00c0ook04cs8cck00c4"
+    $webhook = "http://localhost:8000/api/v1/deploy?uuid=$uuid&force=false"
+    ssh root@69.10.53.215 "curl -s -X GET '$webhook'"
     
     Write-Host "`n🎉 Deployment started! Check your Coolify dashboard." -ForegroundColor Green
 }
