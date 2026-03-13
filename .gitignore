@@ -14,6 +14,7 @@ wp-content/cache/
 wp-content/upgrade/
 wp-content/backup*/
 wp-content/ai1wm-backups/
+wp-content/wpvividbackups/
 wp-content/wflogs/
 
 # === Default WP themes (included in Docker image, only track elena) ===
