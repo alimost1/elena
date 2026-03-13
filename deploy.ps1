@@ -29,10 +29,14 @@ Write-Host "🌐 Pushing to GitHub..." -ForegroundColor Yellow
 git push origin main
 
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "`n✅ Pushed! Coolify will auto-deploy if webhook is configured." -ForegroundColor Green
+    Write-Host "`n✅ Pushed to GitHub!" -ForegroundColor Green
+    
+    # Trigger Coolify via SSH (Bypassing Cloudflare)
+    Write-Host "`n🚀 Triggering deployment on VPS..." -ForegroundColor Cyan
+    ssh root@69.10.53.215 "docker exec -i coolify php -r 'include \""vendor/autoload.php\""; `$app = require_once \""bootstrap/app.php\""; `$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); `$app->make(App\Actions\Application\DeployApplication::class)->run(App\Models\Application::where(\""uuid\"", \""josgk00c0ook04cs8cck00c4\"")->first(), \""\"); '"
+    
+    Write-Host "`n🎉 Deployment started! Check your Coolify dashboard." -ForegroundColor Green
 } else {
     Write-Host "`n❌ Push failed. Check your remote and credentials." -ForegroundColor Red
     exit 1
 }
-
-Write-Host "`n🎉 Done!`n" -ForegroundColor Cyan
