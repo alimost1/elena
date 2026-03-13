@@ -30,16 +30,13 @@ git push origin main
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Pushed to GitHub!" -ForegroundColor Green
     
-    # Trigger Coolify via SSH (Bypassing Cloudflare)
-    Write-Host "Triggering deployment on VPS..." -ForegroundColor Cyan
+    # Trigger Coolify via SSH (Bypassing Cloudflare/WAF)
+    Write-Host "Triggering deployment on VPS via Webhook..." -ForegroundColor Cyan
     
-    # Upload trigger script to VPS
-    scp "trigger_deploy.php" root@69.10.53.215:/tmp/trigger_deploy.php
+    $webhook = "https://coolify1.dragena.com/api/v1/deploy?uuid=josgk00c0ook04cs8cck00c4&force=false"
+    ssh root@69.10.53.215 "curl -X GET '$webhook'"
     
-    # Run trigger script inside Coolify container
-    ssh root@69.10.53.215 "docker cp /tmp/trigger_deploy.php coolify:/var/www/html/trigger_deploy.php && docker exec coolify php /var/www/html/trigger_deploy.php"
-    
-    Write-Host "Deployment started! Check your Coolify dashboard." -ForegroundColor Green
+    Write-Host "`n🎉 Deployment started! Check your Coolify dashboard." -ForegroundColor Green
 }
 else {
     Write-Host "Push failed. Check your remote and credentials." -ForegroundColor Red
