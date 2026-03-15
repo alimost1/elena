@@ -1154,7 +1154,8 @@ button {
 }
 
 /* WooCommerce product loop */
-.elena-shop-page ul.products {
+.elena-shop-page ul.products,
+.woocommerce .related.products ul.products {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
@@ -1424,7 +1425,8 @@ button {
     }
 
     .elena-products-grid,
-    .elena-shop-page ul.products {
+    .elena-shop-page ul.products,
+    .woocommerce .related.products ul.products {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
@@ -1499,7 +1501,8 @@ button {
     }
 
     .elena-products-grid,
-    .elena-shop-page ul.products {
+    .elena-shop-page ul.products,
+    .woocommerce .related.products ul.products {
         grid-template-columns: 1fr;
     }
 
@@ -1739,6 +1742,11 @@ button {
 }
 
 /* Related Products */
+.woocommerce div.product .related.products {
+    width: 100%;
+    flex: 0 0 100%;
+}
+
 .woocommerce .related.products h2 {
     font-family: 'Yeseva One', serif;
     font-size: 2.5rem;
@@ -1763,4 +1771,77 @@ button {
         background: white;
         color: black;
     }
+}
+
+/* ═══════════════════════════════════════════════
+   Language Switcher Flags
+   ═══════════════════════════════════════════════ */
+.xl-list.menu-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xl-list.menu-item a.elena-nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 16px;
+    padding: 0;
+    margin: 0 6px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    /* Finer border */
+    border-radius: 2px;
+    background-size: 100% 100%;
+    /* Ensure full flag is shown */
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all var(--elena-transition);
+    image-rendering: -webkit-optimize-contrast;
+    /* Sharpness */
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    /* Added for extra sharpness on small icons */
+    backface-visibility: hidden;
+    position: relative;
+    top: 1px;
+    /* Fine-tune vertical alignment with text baseline */
+
+    /* Remove text */
+    font-size: 0 !important;
+    color: transparent !important;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+/* Remove the underline effect for flags */
+.xl-list.menu-item a.elena-nav-link::after {
+    display: none;
+}
+
+.xl-list.menu-item a.elena-nav-link:hover {
+    transform: translateY(-1px) scale(1.1);
+    border-color: var(--elena-orange);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: transparent !important;
+}
+
+.xl-list.lang-en_us a.elena-nav-link {
+    background-image: url('../images/flags/en_us.png');
+}
+
+.xl-list.lang-fr_fr a.elena-nav-link {
+    background-image: url('../images/flags/fr_fr.png');
+}
+
+.xl-list.lang-arabic a.elena-nav-link {
+    background-image: url('../images/flags/ar_xx.png');
+}
+
+/* Current language style */
+.xl-list.current-lang a.elena-nav-link {
+    border-color: var(--elena-orange);
+    border-width: 1.5px;
+    box-shadow: 0 0 8px rgba(255, 92, 0, 0.2);
 }

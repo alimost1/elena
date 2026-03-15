@@ -3,14 +3,14 @@
  * Elena Theme Functions
  *
  * @package Elena
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'ELENA_VERSION', '1.0.0' );
+define( 'ELENA_VERSION', '1.0.1' );
 define( 'ELENA_DIR', get_template_directory() );
 define( 'ELENA_URI', get_template_directory_uri() );
 
@@ -18,6 +18,9 @@ define( 'ELENA_URI', get_template_directory_uri() );
  * 1. Theme Setup
  * ───────────────────────────────────────────── */
 function elena_setup() {
+    // Load text domain
+    load_theme_textdomain( 'elena', get_template_directory() . '/languages' );
+
     // Title tag
     add_theme_support( 'title-tag' );
 
@@ -246,7 +249,7 @@ function elena_best_sellers_shortcode( $atts ) {
         }
         echo '</div>';
     } else {
-        echo '<p class="elena-no-products">No products found. Add some products to WooCommerce.</p>';
+        echo '<p class="elena-no-products">' . esc_html__( 'No products found. Add some products to WooCommerce.', 'elena' ) . '</p>';
     }
 
     wp_reset_postdata();
@@ -298,7 +301,7 @@ function elena_customize_register( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting( 'elena_announcement_text', array(
-        'default'           => 'DELIVERY AVAILABLE ALL OVER MOROCCO',
+        'default'           => __( 'DELIVERY AVAILABLE ALL OVER MOROCCO', 'elena' ),
         'sanitize_callback' => 'sanitize_text_field',
     ) );
 
