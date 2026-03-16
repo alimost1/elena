@@ -92,6 +92,15 @@ class xili_language_admin extends xili_language {
 
 	var $changelog = '*'; // used in welcome and pointer
 
+	// PHP 8.2 compat: declare dynamic properties
+	var $examples_list = array();
+	var $thehook;
+	var $thehook2;
+	var $thehook3;
+	var $thehook4;
+	var $thehook5;
+	var $thehook6;
+
 	/**
 	 * PHP 5 Constructor
 	 */
@@ -5453,7 +5462,7 @@ class xili_language_admin extends xili_language {
 	 *
 	 * @param unknown_type $found_action -
 	 */
-	function xili_find_posts_div($found_action = '', $post_type, $post_label ) {
+	function xili_find_posts_div($found_action = '', $post_type = '', $post_label = '' ) {
 
 	?>
 		<div id="find-posts" class="find-box" style="display:none;">
@@ -6117,7 +6126,7 @@ class xili_language_admin extends xili_language {
 		$listlanguages = $this->get_listlanguages () ;
 		$trans = array();
 			foreach ( $listlanguages as $language ) {
-				if ( $language->slug != $curlang[QUETAG] ) {
+				if ( ! is_array( $curlang ) || $language->slug != $curlang[QUETAG] ) {
 					$otherpost = $this->linked_post_in( $post_ID, $language->slug ) ;
 					if ( $otherpost ) {
 						$linepost = $this->temp_get_post ( $otherpost );
@@ -6872,7 +6881,7 @@ class xili_language_admin extends xili_language {
 	 *
 	 *
 	 */
-	function download_mo_from_automattic( $locale = 'en_US', $version , $theme_name = "", $upgrade = 0 ) {
+	function download_mo_from_automattic( $locale = 'en_US', $version = '' , $theme_name = "", $upgrade = 0 ) {
 
 		$mofile = WP_LANG_DIR."/$locale.mo";
 
@@ -6948,7 +6957,7 @@ class xili_language_admin extends xili_language {
 	 * Download from translation.wordpress.org
 	 *
 	 */
-	function download_mo_from_translate_wordpress( $locale = 'en_US', $version , $theme_name = "", $upgrade = 0 ) {
+	function download_mo_from_translate_wordpress( $locale = 'en_US', $version = '' , $theme_name = "", $upgrade = 0 ) {
 
 		$locale_subfolder = $this->check_versions_in_glotpress ( $locale, $version ) ;
 		// return subfolder at WP (en, en-ca, fr, zn-tw…)

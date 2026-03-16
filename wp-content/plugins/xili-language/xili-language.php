@@ -269,6 +269,12 @@ class xili_language {
 
 	var $theme_mod_to_be_filtered = array(); // array of theme_mod to be filtered - 2.18.2
 
+	// PHP 8.2 compat: declare dynamic properties
+	var $locale_method = false;
+	var $class_admin = false;
+	var $get_template_directory = '';
+	var $get_parent_theme_directory = '';
+
 	public function __construct( $locale_method = false, $show = false, $class_admin = false ) {
 
 		if ( self::$instance && !is_admin() ) {

@@ -19,7 +19,7 @@ function clean_pll_languages_list( $result = false ) {
 		foreach( $listlanguages as $language ) {
 			// search iso = locale in description
 			$pll_description = unserialize( $language->description );
-			if (!empty( $pll_description['locale'] )) {
+			if ( is_array( $pll_description ) && !empty( $pll_description['locale'] )) {
 				$xl_name = $pll_description['locale'];
 				$xl_description = $language->name;
 				$xl_alias = $language->slug;
@@ -76,7 +76,7 @@ function rename_pll_uninstall_file () {
 function xl_import_previous_pll_aliases ( $result ) {
 
 	global $xili_language;
-	if ( ( $pll_xl_aliases = get_option( 'xili_language_pll_languages', false ) ) && $xili_language->xili_settings['pll_cleaned'] = 2 ) {
+	if ( ( $pll_xl_aliases = get_option( 'xili_language_pll_languages', false ) ) && $xili_language->xili_settings['pll_cleaned'] == 2 ) {
 
 		foreach ( $pll_xl_aliases as $pll_alias => $slug ) {
 			$xili_language->xili_settings['lang_features'][$slug]['alias'] = $pll_alias ;
@@ -106,8 +106,10 @@ function recreate_links_from_pll( $messages = array() ) {
 	$array_groups = array();
 	if ( !is_wp_error( $pll_post_groups ) && $pll_post_groups ) {
 		foreach( $pll_post_groups as $pll_one_post_group ) {
-			if ($pll_one_post_group->description)
-				$array_groups[] = unserialize ( $pll_one_post_group->description );
+			if ($pll_one_post_group->description) {
+				$val = unserialize ( $pll_one_post_group->description );
+				if ( is_array( $val ) ) $array_groups[] = $val;
+			}
 		}
 		$pll_languages = get_option( 'xili_language_pll_languages', false );
 
