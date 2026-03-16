@@ -733,7 +733,8 @@ button {
     color: var(--elena-white);
 }
 
-.elena-header.elena-header-dark .elena-mobile-toggle span {
+.elena-header.elena-header-dark .elena-mobile-toggle span,
+.elena-header.masha-header .elena-mobile-toggle span {
     background-color: var(--elena-white);
 }
 
@@ -2183,7 +2184,9 @@ button {
         text-align: center;
     }
 
-    .elena-nav-link {
+    .elena-nav-link,
+    .masha-nav-list .elena-nav-link {
+        color: var(--elena-black);
         font-size: 1.25rem;
     }
 
@@ -2238,6 +2241,11 @@ button {
 
     .elena-header-actions {
         margin-left: auto;
+    }
+    
+    .masha-header .masha-header-link,
+    .masha-header .elena-cart-btn {
+        color: var(--elena-white);
     }
 
     /* Footer Refinements */
