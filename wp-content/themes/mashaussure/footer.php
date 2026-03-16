@@ -88,7 +88,7 @@ endif; ?>
 
 			<div class="masha-footer-bottom-bar">
 				<div class="masha-footer-social">
-					<span><?php esc_html_e('elena.ma', 'elena'); ?></span>
+					<span><?php esc_html_e('Suivre elena.com', 'mashaussure'); ?></span>
 					<div class="elena-social-links masha-social-links">
 						<?php $fb = get_theme_mod('elena_facebook', '#');
 $ig = get_theme_mod('elena_instagram', '#'); ?>
