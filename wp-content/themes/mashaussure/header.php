@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
 	<div class="masha-topbar">
 		<div class="elena-container masha-topbar-inner">
 			<span class="masha-topbar-delivery">Livraison 20 DH partout au Maroc</span>
-			<span class="masha-topbar-contact">Contactez-Nous: sav.machaussure@gmail.com | +212 687873820</span>
+			<span class="masha-topbar-contact">Contactez-Nous: info@elena.com | +212 667-631578</span>
 		</div>
 	</div>
 	<?php
