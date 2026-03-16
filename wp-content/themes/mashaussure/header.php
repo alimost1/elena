@@ -27,8 +27,8 @@ if (!defined('ABSPATH')) {
 	<?php if (get_theme_mod('elena_announcement_show', true)): ?>
 	<div class="masha-topbar">
 		<div class="elena-container masha-topbar-inner">
-			<span class="masha-topbar-delivery"><?php echo esc_html(get_theme_mod('elena_announcement_text', 'Livraison 20 DH partout au Maroc')); ?></span>
-			<span class="masha-topbar-contact"><?php esc_html_e('Contactez-Nous:', 'mashaussure'); ?> <?php echo esc_html(get_theme_mod('elena_footer_email', 'info@elena.com')); ?> | <?php echo esc_html(get_theme_mod('elena_footer_phone', '+212 667-631578')); ?></span>
+			<span class="masha-topbar-delivery">Livraison 20 DH partout au Maroc</span>
+			<span class="masha-topbar-contact">Contactez-Nous: sav.machaussure@gmail.com | +212 687873820</span>
 		</div>
 	</div>
 	<?php
