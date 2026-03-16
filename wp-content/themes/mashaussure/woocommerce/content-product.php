@@ -1,9 +1,8 @@
 <?php
 /**
- * Elena - WooCommerce Product Content (Machaussure style)
- * Black discount badge on image, green NEW badge below, sizes row, title, price.
+ * Machaussure - WooCommerce Product Content (same as Elena / image style)
  *
- * @package Elena
+ * @package Mashaussure
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -24,7 +23,7 @@ $is_new = false;
 if ( has_term( 'new', 'product_tag', $product->get_id() ) || has_term( 'NEW', 'product_tag', $product->get_id() ) ) {
     $is_new = true;
 } elseif ( ( time() - get_the_time( 'U', $product->get_id() ) ) < ( 30 * 24 * 60 * 60 ) ) {
-    $is_new = true; // Published in last 30 days
+    $is_new = true;
 }
 
 $size_attrs = array();
@@ -43,7 +42,6 @@ if ( $product->is_type( 'variable' ) ) {
         }
     }
 } else {
-    // Simple product: try product attributes (e.g. Taille, Pointure)
     foreach ( array( 'pa_taille', 'pa_pointure', 'taille', 'pointure', 'size' ) as $key ) {
         $val = $product->get_attribute( $key );
         if ( $val ) {
@@ -53,7 +51,7 @@ if ( $product->is_type( 'variable' ) ) {
     }
 }
 ?>
-<li <?php wc_product_class( 'elena-product-card elena-product-card-masha', $product ); ?>>
+<li <?php wc_product_class( 'elena-product-card elena-product-card-masha masha-product-card', $product ); ?>>
     <div class="elena-product-card-inner">
         <a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="elena-product-link">
             <div class="elena-product-image">
@@ -79,8 +77,6 @@ if ( $product->is_type( 'variable' ) ) {
             </h3>
             <div class="elena-product-price"><?php echo $product->get_price_html(); ?></div>
         </div>
-        <div class="elena-product-actions">
-            <?php woocommerce_template_loop_add_to_cart(); ?>
-        </div>
+        <div class="elena-product-actions"><?php woocommerce_template_loop_add_to_cart(); ?></div>
     </div>
 </li>

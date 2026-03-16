@@ -72,59 +72,49 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                 $products = new WP_Query( $args );
 
                 if ( $products->have_posts() ) {
-                    echo '<div class="elena-products-grid elena-animate">';
+                    echo '<ul class="elena-products-grid elena-animate">';
                     while ( $products->have_posts() ) {
                         $products->the_post();
                         global $product;
-                        ?>
-                        <div class="elena-product-card">
-                            <a href="<?php the_permalink(); ?>" class="elena-product-link">
-                                <div class="elena-product-image">
-                                    <?php if ( has_post_thumbnail() ) : ?>
-                                        <?php the_post_thumbnail( 'elena-product-thumb' ); ?>
-                                    <?php else : ?>
-                                        <div class="elena-product-placeholder">
-                                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="elena-product-info">
-                                    <h3 class="elena-product-title"><?php the_title(); ?></h3>
-                                    <span class="elena-product-price"><?php echo $product->get_price_html(); ?></span>
-                                </div>
-                            </a>
-                        </div>
-                        <?php
+                        $product = wc_get_product( get_the_ID() );
+                        if ( $product && $product->is_visible() ) {
+                            wc_get_template_part( 'content', 'product' );
+                        }
                     }
-                    echo '</div>';
+                    echo '</ul>';
                     wp_reset_postdata();
                 } else {
-                    // Demo placeholder cards
-                    echo '<div class="elena-products-grid elena-animate">';
+                    echo '<ul class="elena-products-grid elena-animate">';
                     $demos = array(
-                        array( 'name' => 'Air Max Pro', 'price' => '$149.99' ),
-                        array( 'name' => 'Urban Runner', 'price' => '$129.99' ),
-                        array( 'name' => 'Sport Flex', 'price' => '$139.99' ),
-                        array( 'name' => 'Classic Elite', 'price' => '$159.99' ),
+                        array( 'name' => 'Air Max Pro', 'price' => 'د.م. 149,00' ),
+                        array( 'name' => 'Urban Runner', 'price' => 'د.م. 129,00' ),
+                        array( 'name' => 'Sport Flex', 'price' => 'د.م. 139,00' ),
+                        array( 'name' => 'Classic Elite', 'price' => 'د.م. 159,00' ),
                     );
                     foreach ( $demos as $demo ) {
                         ?>
-                        <div class="elena-product-card">
-                            <div class="elena-product-link">
-                                <div class="elena-product-image">
-                                    <div class="elena-product-placeholder">
-                                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                        <li class="elena-product-card elena-product-card-masha">
+                            <div class="elena-product-card-inner">
+                                <a href="<?php echo esc_url( $shop_url ); ?>" class="elena-product-link">
+                                    <div class="elena-product-image">
+                                        <div class="elena-product-placeholder">
+                                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                                 <div class="elena-product-info">
-                                    <h3 class="elena-product-title"><?php echo esc_html( $demo['name'] ); ?></h3>
-                                    <span class="elena-product-price"><?php echo esc_html( $demo['price'] ); ?></span>
+                                    <div class="elena-product-sizes">36 37 38 39 40 41</div>
+                                    <h3 class="elena-product-title"><a href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( $demo['name'] ); ?></a></h3>
+                                    <div class="elena-product-price"><?php echo esc_html( $demo['price'] ); ?></div>
+                                </div>
+                                <div class="elena-product-actions">
+                                    <a href="<?php echo esc_url( $shop_url ); ?>" class="button"><?php esc_html_e( 'Ajouter au panier', 'elena' ); ?></a>
                                 </div>
                             </div>
-                        </div>
+                        </li>
                         <?php
                     }
-                    echo '</div>';
+                    echo '</ul>';
                 }
             } else {
                 echo '<p class="elena-no-products">' . esc_html__( 'Installez WooCommerce pour afficher les produits ici.', 'elena' ) . '</p>';
@@ -182,42 +172,6 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                     <?php esc_html_e( 'Commander maintenant', 'elena' ); ?>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════ FEATURES SECTION ═══════════ -->
-    <section class="elena-features elena-section" id="features">
-        <div class="elena-container">
-            <div class="elena-features-grid elena-animate">
-                <div class="elena-feature">
-                    <div class="elena-feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 3 20 16 16 16 16 8"/><line x1="1" y1="16" x2="5" y2="16"/><line x1="8" y1="16" x2="12" y2="16"/><line x1="15" y1="16" x2="19" y2="16"/><circle cx="5" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-                    </div>
-                    <h3><?php esc_html_e( 'Livraison partout', 'elena' ); ?></h3>
-                    <p><?php esc_html_e( 'Plus de 1 000 destinations', 'elena' ); ?></p>
-                </div>
-                <div class="elena-feature">
-                    <div class="elena-feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    </div>
-                    <h3><?php esc_html_e( 'Service client', 'elena' ); ?></h3>
-                    <p><?php esc_html_e( 'Assistance 24/7', 'elena' ); ?></p>
-                </div>
-                <div class="elena-feature">
-                    <div class="elena-feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                    </div>
-                    <h3><?php esc_html_e( 'Paiement sécurisé', 'elena' ); ?></h3>
-                    <p><?php esc_html_e( 'Paiement à la livraison', 'elena' ); ?></p>
-                </div>
-                <div class="elena-feature">
-                    <div class="elena-feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    </div>
-                    <h3><?php esc_html_e( 'Livraison rapide', 'elena' ); ?></h3>
-                    <p><?php esc_html_e( 'Sous 48h', 'elena' ); ?></p>
-                </div>
             </div>
         </div>
     </section>

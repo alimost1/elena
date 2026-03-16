@@ -108,7 +108,7 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                                     <div class="elena-product-price"><?php echo esc_html( $demo['price'] ); ?></div>
                                 </div>
                                 <div class="elena-product-actions">
-                                    <a href="<?php echo esc_url( $shop_url ); ?>" class="button"><?php esc_html_e( 'Add to cart', 'elena' ); ?></a>
+                                    <a href="<?php echo esc_url( $shop_url ); ?>" class="button"><?php esc_html_e( 'Add to cart', 'mashaussure' ); ?></a>
                                 </div>
                             </div>
                         </li>
@@ -117,7 +117,7 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                     echo '</ul>';
                 }
             } else {
-                echo '<p class="elena-no-products">' . esc_html__( 'Install WooCommerce to display products here.', 'elena' ) . '</p>';
+                echo '<p class="elena-no-products">' . esc_html__( 'Install WooCommerce to display products here.', 'mashaussure' ) . '</p>';
             }
             ?>
 

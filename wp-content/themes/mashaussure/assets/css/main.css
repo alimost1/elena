@@ -22,6 +22,11 @@
     --elena-border: #E0E0E0;
     --elena-white: #FFFFFF;
 
+    /* Mashaussure alias variables (used by masha templates) */
+    --masha-green: #2d7a3e;
+    --masha-green-dark: #246b32;
+    --masha-black: #000000;
+
     --elena-font-heading: 'Montserrat', -apple-system, sans-serif;
     --elena-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
@@ -32,6 +37,147 @@
     --elena-transition: 0.25s ease;
 
     --elena-header-height: 72px;
+}
+
+/* ═══════════════════════════════════════════════
+   Mashaussure Header / Promo / Footer (missing blocks)
+   ═══════════════════════════════════════════════ */
+.masha-topbar {
+    background-color: var(--masha-black);
+    color: var(--elena-white);
+    padding: 0.4rem 0;
+    font-size: 0.8rem;
+}
+
+.masha-topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.masha-topbar-delivery { font-weight: 600; }
+.masha-topbar-contact { opacity: 0.9; }
+
+.elena-header.masha-header {
+    background-color: #000;
+    color: var(--elena-white);
+    height: auto;
+    min-height: var(--elena-header-height);
+}
+
+.masha-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    height: var(--elena-header-height);
+    position: relative;
+}
+
+.masha-header-search { flex: 0 0 280px; max-width: 360px; width: 100%; }
+.masha-header-search .search-form { margin: 0; }
+.masha-header-search .header-search-field-wrap { position: relative; display: block; }
+.masha-header-search .header-search-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 3rem 0 1.25rem;
+    border: none;
+    border-radius: 9999px;
+    background: #fff;
+    color: var(--elena-black);
+    outline: none;
+}
+.masha-header-search .header-search-input::placeholder { color: #6b7280; }
+.masha-header-search .header-search-submit {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    color: #000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.masha-header-search .header-search-submit:hover { color: var(--masha-green); }
+
+.masha-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 1rem 0;
+}
+.masha-logo .elena-logo-text,
+.masha-logo a {
+    color: var(--elena-white);
+    letter-spacing: 0.12em;
+    font-weight: 700;
+}
+
+.masha-header-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.masha-header-link { color: var(--elena-white); font-size: 0.8rem; font-weight: 500; display: inline-flex; gap: 0.35rem; align-items: center; }
+.masha-header-link:hover { color: var(--masha-green); }
+.masha-cart { color: var(--elena-white); }
+.masha-cart:hover { color: var(--masha-green); }
+.masha-cart-count { background: var(--masha-green); color: #fff; }
+
+.masha-nav-wrap {
+    background: #000;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+.masha-nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0.75rem 0;
+    margin: 0;
+    list-style: none;
+}
+.masha-nav-list .elena-nav-link { color: var(--elena-white); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+.masha-nav-list .elena-nav-link:hover { color: var(--masha-green); }
+
+.masha-promo-banner {
+    background: linear-gradient(135deg, var(--masha-green) 0%, var(--masha-green-dark) 100%);
+    color: var(--elena-white);
+    border-top: 3rem solid #000; /* spacing without white line */
+    padding: 1.25rem 0;
+    text-align: center;
+}
+.masha-promo-inner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+.masha-promo-btn { background: #fff; color: var(--masha-green); padding: 0.5rem 1.5rem; border-radius: var(--elena-radius); font-weight: 600; }
+.masha-promo-btn:hover { background: var(--elena-dark); color: #fff; }
+
+.masha-footer-services { background: #fff; border-top: 1px solid var(--elena-border); padding: 2rem 0; }
+.masha-services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+.masha-service-item h4 { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.masha-service-item p { font-size: 0.8rem; color: var(--elena-gray); margin: 0; }
+
+.elena-footer.masha-footer { background: #000; color: #fff; border-top: none; padding: 3rem 0 1.5rem; }
+.masha-footer-columns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; padding-bottom: 2rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.15); text-align: center; }
+.masha-footer-col { display: flex; flex-direction: column; align-items: center; }
+.masha-footer-col ul { list-style: none; padding: 0; margin: 0; width: 100%; display: flex; flex-direction: column; align-items: center; }
+.masha-footer-col li { width: 100%; text-align: center; margin-bottom: 0.5rem; }
+.masha-footer-col a { display: inline-block; color: rgba(255,255,255,0.8); font-size: 0.875rem; }
+.masha-footer-col a:hover { color: #fff; }
+.masha-footer-bottom-bar { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+.masha-newsletter-form { display: flex; gap: 0.5rem; }
+.masha-newsletter-form input[type="email"] { padding: 0.5rem 0.75rem; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--elena-radius); background: rgba(255,255,255,0.1); color: #fff; min-width: 180px; }
+.masha-newsletter-form button { padding: 0.5rem 1rem; background: var(--masha-green); color: #fff; border: none; border-radius: var(--elena-radius); font-weight: 600; }
+.masha-newsletter-form button:hover { background: var(--masha-green-dark); }
+
+@media (max-width: 768px) {
+    .masha-header-search { display: none; }
+    .masha-header-actions { margin-left: auto; }
+    .masha-services-grid { grid-template-columns: 1fr; }
+    .masha-footer-columns { grid-template-columns: 1fr; }
 }
 
 
@@ -827,7 +973,7 @@ button {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-bottom: 0.6rem;
 }
 
@@ -837,8 +983,8 @@ button {
     justify-content: center;
     min-width: 30px;
     height: 30px;
-    padding: 0 0.5rem;
-    font-size: 0.3rem;
+    padding: 0 1.7rem;
+    font-size: 0.7rem;
     font-weight: 600;
     line-height: 1;
     color: #111;
@@ -859,8 +1005,9 @@ button {
     transform: translateY(-1px);
 }
 
+/* If there are many sizes, keep layout clean */
 .elena-product-card .elena-product-sizes {
-    max-height: 64px;
+    max-height: 64px; /* ~2 rows */
     overflow: hidden;
 }
 
@@ -1752,6 +1899,7 @@ button {
         transform: translate(-50%, -50%);
         z-index: 10;
         margin: 0;
+        margin-top: 3rem;
     }
 
     .elena-logo a {

@@ -19,6 +19,7 @@ define( 'ELENA_URI', get_template_directory_uri() );
  * ───────────────────────────────────────────── */
 function elena_setup() {
     // Load text domain
+    load_theme_textdomain( 'mashaussure', get_template_directory() . '/languages' );
     load_theme_textdomain( 'elena', get_template_directory() . '/languages' );
 
     // Title tag
@@ -301,7 +302,7 @@ function elena_customize_register( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting( 'elena_announcement_text', array(
-        'default'           => 'Livraison 20 DH partout au Maroc',
+        'default'           => __( 'DELIVERY AVAILABLE ALL OVER MOROCCO', 'elena' ),
         'sanitize_callback' => 'sanitize_text_field',
     ) );
 
@@ -438,25 +439,25 @@ function elena_customize_register( $wp_customize ) {
         'type'    => 'url',
     ) );
 
-    // Promo banner (Machaussure style)
-    $wp_customize->add_section( 'elena_promo', array(
-        'title'    => __( 'Bannière promo', 'elena' ),
+    /* Machaussure: Promo banner */
+    $wp_customize->add_section( 'masha_promo', array(
+        'title'    => __( 'Bannière promo (Machaussure)', 'mashaussure' ),
         'priority' => 28,
     ) );
-    $wp_customize->add_setting( 'elena_promo_show', array( 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ) );
-    $wp_customize->add_control( 'elena_promo_show', array( 'label' => __( 'Afficher la bannière promo', 'elena' ), 'section' => 'elena_promo', 'type' => 'checkbox' ) );
-    $wp_customize->add_setting( 'elena_promo_title', array( 'default' => 'رمضان كريم', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'elena_promo_title', array( 'label' => __( 'Titre promo', 'elena' ), 'section' => 'elena_promo', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'elena_promo_text', array( 'default' => 'Nouvelle Collection', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'elena_promo_text', array( 'label' => __( 'Texte promo', 'elena' ), 'section' => 'elena_promo', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'elena_promo_discount', array( 'default' => '-30%', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'elena_promo_discount', array( 'label' => __( 'Réduction (ex: -30%)', 'elena' ), 'section' => 'elena_promo', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'elena_promo_btn', array( 'default' => 'Découvrir', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'elena_promo_btn', array( 'label' => __( 'Bouton', 'elena' ), 'section' => 'elena_promo', 'type' => 'text' ) );
-    $wp_customize->add_setting( 'elena_promo_url', array( 'default' => '', 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( 'elena_promo_url', array( 'label' => __( 'URL du bouton', 'elena' ), 'section' => 'elena_promo', 'type' => 'url' ) );
-    $wp_customize->add_setting( 'elena_promo_all_pages', array( 'default' => false, 'sanitize_callback' => 'wp_validate_boolean' ) );
-    $wp_customize->add_control( 'elena_promo_all_pages', array( 'label' => __( 'Afficher sur toutes les pages', 'elena' ), 'section' => 'elena_promo', 'type' => 'checkbox' ) );
+    $wp_customize->add_setting( 'masha_promo_show', array( 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ) );
+    $wp_customize->add_control( 'masha_promo_show', array( 'label' => __( 'Afficher la bannière promo', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'checkbox' ) );
+    $wp_customize->add_setting( 'masha_promo_title', array( 'default' => 'رمضان كريم', 'sanitize_callback' => 'sanitize_text_field' ) );
+    $wp_customize->add_control( 'masha_promo_title', array( 'label' => __( 'Titre promo', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'text' ) );
+    $wp_customize->add_setting( 'masha_promo_text', array( 'default' => 'Nouvelle Collection', 'sanitize_callback' => 'sanitize_text_field' ) );
+    $wp_customize->add_control( 'masha_promo_text', array( 'label' => __( 'Texte promo', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'text' ) );
+    $wp_customize->add_setting( 'masha_promo_discount', array( 'default' => '-30%', 'sanitize_callback' => 'sanitize_text_field' ) );
+    $wp_customize->add_control( 'masha_promo_discount', array( 'label' => __( 'Réduction (ex: -30%)', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'text' ) );
+    $wp_customize->add_setting( 'masha_promo_btn', array( 'default' => 'Découvrir', 'sanitize_callback' => 'sanitize_text_field' ) );
+    $wp_customize->add_control( 'masha_promo_btn', array( 'label' => __( 'Bouton', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'text' ) );
+    $wp_customize->add_setting( 'masha_promo_url', array( 'default' => '', 'sanitize_callback' => 'esc_url_raw' ) );
+    $wp_customize->add_control( 'masha_promo_url', array( 'label' => __( 'URL du bouton', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'url' ) );
+    $wp_customize->add_setting( 'masha_promo_all_pages', array( 'default' => false, 'sanitize_callback' => 'wp_validate_boolean' ) );
+    $wp_customize->add_control( 'masha_promo_all_pages', array( 'label' => __( 'Afficher sur toutes les pages', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'checkbox' ) );
 }
 add_action( 'customize_register', 'elena_customize_register' );
 
