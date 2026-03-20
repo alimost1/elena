@@ -14,8 +14,6 @@ services:
       WP_SITEURL: ${WP_SITEURL:-http://localhost}
     volumes:
       - wp_uploads:/var/www/html/wp-content/uploads
-      - root/elena/wp-content/themes:/var/www/html/wp-content/themes
-      - data/coolify/services/josgk00c0ook04cs8cck00c4/themes:/var/www/html/wp-content/themes
     depends_on:
       db:
         condition: service_healthy
