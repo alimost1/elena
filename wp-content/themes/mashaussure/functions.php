@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'ELENA_VERSION', '1.0.1' );
+define( 'ELENA_VERSION', '1.0.2' );
 define( 'ELENA_DIR', get_template_directory() );
 define( 'ELENA_URI', get_template_directory_uri() );
 
@@ -96,6 +96,14 @@ function elena_enqueue_assets() {
         'elena-style',
         get_stylesheet_uri(),
         array( 'elena-main' ),
+        ELENA_VERSION
+    );
+
+    // Custom patches (for mobile fixes)
+    wp_enqueue_style(
+        'elena-custom-patches',
+        ELENA_URI . '/assets/css/custom-patches.css',
+        array( 'elena-style' ),
         ELENA_VERSION
     );
 

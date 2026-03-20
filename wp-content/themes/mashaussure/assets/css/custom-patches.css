@@ -1,0 +1,40 @@
+/**
+ * Custom Mobile Patches
+ */
+@media (max-width: 768px) {
+    /* Menu Icon visibility on black header */
+    .elena-mobile-toggle span {
+        background-color: #ffffff !important;
+    }
+    
+    /* Menu text visibility (black on white background) */
+    .elena-nav-link,
+    .masha-nav-list .elena-nav-link {
+        color: #000000 !important;
+    }
+    
+    /* Header action links visibility */
+    .masha-header .masha-header-link,
+    .masha-header .elena-cart-btn {
+        color: #ffffff !important;
+    }
+
+    /* Move login and wishlist to left */
+    .elena-header-actions.masha-header-actions {
+        display: flex !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 15px !important;
+        padding: 0 5px !important;
+    }
+
+    .masha-wishlist {
+        margin-right: auto !important;
+    }
+    
+    .elena-cart-btn {
+        margin-left: auto !important;
+    }
+}
