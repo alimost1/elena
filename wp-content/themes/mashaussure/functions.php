@@ -391,6 +391,18 @@ function elena_customize_register( $wp_customize ) {
         'type'    => 'url',
     ) );
 
+    // CTA Section Image (Bottom CTA)
+    $wp_customize->add_setting( 'elena_cta_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'elena_cta_image', array(
+        'label'       => __( 'Bottom CTA Section Image', 'elena' ),
+        'description' => __( 'Image used in the "Buy Your Sneakers Today" section at the bottom of the front page.', 'elena' ),
+        'section'     => 'elena_hero',
+    ) ) );
+
     // Footer
     $wp_customize->add_section( 'elena_footer', array(
         'title'    => __( 'Footer Settings', 'elena' ),

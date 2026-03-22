@@ -18,13 +18,15 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
     $hero_image    = get_theme_mod( 'elena_hero_image', '' );
     $hero_cta_text = get_theme_mod( 'elena_hero_cta_text', 'See More' );
     $hero_cta_url  = get_theme_mod( 'elena_hero_cta_url', '#' );
+    $cta_image     = get_theme_mod( 'elena_cta_image', '' );
     $shop_url      = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : '#';
     ?>
 
     <!-- ═══════════ HERO SECTION ═══════════ -->
     <?php
-    // Use Customizer image or fall back to bundled hero
-    $hero_bg = $hero_image ? $hero_image : ELENA_URI . '/assets/images/hero-bg.png';
+    // Use Page Featured Image as priority, then Customizer, then fallback
+    $featured_img = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+    $hero_bg = $featured_img ? $featured_img : ( $hero_image ? $hero_image : ELENA_URI . '/assets/images/hero-bg.png' );
     ?>
     <section class="elena-hero" id="hero">
         <div class="elena-hero-image-wrap">
@@ -164,7 +166,8 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
     <section class="elena-cta elena-section" id="cta">
         <div class="elena-container elena-cta-inner">
             <div class="elena-cta-image elena-animate">
-                <img src="<?php echo esc_url( ELENA_URI . '/assets/images/store-interior.jpg' ); ?>" alt="Sneakers Store" class="elena-cta-img">
+                <?php $cta_bg = $cta_image ? $cta_image : ELENA_URI . '/assets/images/store-interior.jpg'; ?>
+                <img src="<?php echo esc_url( $cta_bg ); ?>" alt="Sneakers Store" class="elena-cta-img">
             </div>
             <div class="elena-cta-text elena-animate">
                 <h2 class="elena-cta-title"><?php echo wp_kses_post( __( 'Buy Your<br>Sneakers<br>Today', 'elena' ) ); ?></h2>
