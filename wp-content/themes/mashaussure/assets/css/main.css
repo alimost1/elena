@@ -2196,6 +2196,11 @@ button {
 
     .elena-hero {
         min-height: 60vh;
+        margin-top: 0 !important;
+    }
+
+    .masha-promo-banner {
+        border-top: 0;
     }
 
     .elena-btn-order {
