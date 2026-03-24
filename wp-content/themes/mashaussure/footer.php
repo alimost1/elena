@@ -13,31 +13,7 @@ if (!defined('ABSPATH')) {
 
 	</main><!-- #content -->
 
-	<!-- Service features bar -->
-	<div class="masha-footer-services">
-		<div class="elena-container masha-services-grid">
-			<div class="masha-service-item">
-				<span class="masha-service-icon">🚚</span>
-				<h4><?php esc_html_e('Livraison Partout', 'mashaussure'); ?></h4>
-				<p>+1400 <?php esc_html_e('Destinations', 'mashaussure'); ?></p>
-			</div>
-			<div class="masha-service-item">
-				<span class="masha-service-icon">🎧</span>
-				<h4><?php esc_html_e('Service Client', 'mashaussure'); ?></h4>
-				<p>9h - 18h</p>
-			</div>
-			<div class="masha-service-item">
-				<span class="masha-service-icon">💳</span>
-				<h4><?php esc_html_e('Paiement Sécurisé', 'mashaussure'); ?></h4>
-				<p><?php esc_html_e('En ligne ou à la livraison', 'mashaussure'); ?></p>
-			</div>
-			<div class="masha-service-item">
-				<span class="masha-service-icon">📦</span>
-				<h4><?php esc_html_e('Livraison Rapide', 'mashaussure'); ?></h4>
-				<p><?php esc_html_e('Sous 48h', 'mashaussure'); ?></p>
-			</div>
-		</div>
-	</div>
+	</main><!-- #content -->
 
 	<footer class="elena-footer masha-footer">
 		<div class="elena-container">
