@@ -52,16 +52,7 @@ endif; ?>
 
 			<!-- Logo -->
 			<div class="elena-logo masha-logo">
-				<?php
-$custom_logo_id = get_theme_mod('custom_logo');
-if ($custom_logo_id && wp_get_attachment_image_src($custom_logo_id)) {
-	the_custom_logo();
-}
-else {
-?>
-					<a href="<?php echo esc_url(home_url('/')); ?>" class="elena-logo-text">MACHAUSSURE</a>
-				<?php
-}?>
+				<a href="<?php echo esc_url(home_url('/')); ?>" class="elena-logo-text">MACHAUSSURE</a>
 			</div>
 
 			<!-- Actions: Login, Wishlist, Cart -->

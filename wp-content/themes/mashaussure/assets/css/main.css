@@ -143,7 +143,10 @@
 .masha-logo a {
     color: var(--elena-white);
     letter-spacing: 0.12em;
-    font-weight: 700;
+    font-weight: 300;
+    font-family: 'Century Gothic', 'Montserrat', 'Inter', sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 .masha-header-actions {
@@ -2980,7 +2983,10 @@ button {
     .masha-header .masha-logo .elena-logo-text {
         color: #fff !important;
         font-size: 1.25rem;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.1em;
+        font-weight: 300;
+        font-family: 'Century Gothic', 'Montserrat', 'Inter', sans-serif;
+        text-transform: uppercase;
     }
 
     .masha-header .elena-logo img,
