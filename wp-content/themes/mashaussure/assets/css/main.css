@@ -144,7 +144,7 @@
     color: var(--elena-white);
     letter-spacing: 0.12em;
     font-weight: 300;
-    font-family: 'Century Gothic', 'Montserrat', 'Inter', sans-serif;
+    font-family: 'Monticello Roman SC', 'Century Gothic', 'Montserrat', 'Inter', sans-serif;
     text-decoration: none;
     text-transform: uppercase;
 }
@@ -2985,7 +2985,7 @@ button {
         font-size: 1.25rem;
         letter-spacing: 0.1em;
         font-weight: 300;
-        font-family: 'Century Gothic', 'Montserrat', 'Inter', sans-serif;
+        font-family: 'Monticello Roman SC', 'Century Gothic', 'Montserrat', 'Inter', sans-serif;
         text-transform: uppercase;
     }
 
