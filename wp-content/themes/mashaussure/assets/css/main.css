@@ -238,30 +238,75 @@
     color: #fff;
 }
 
-.masha-footer-services {
-    background: #fff;
-    border-top: 1px solid var(--elena-border);
-    padding: 2rem 0;
+/* ═══════════════════════════════════════════════
+   Masha Services Section (Black 2x2 Grid)
+   ═══════════════════════════════════════════════ */
+.masha-services-section {
+    background: #000;
+    color: #fff;
+    padding: 6rem 0;
 }
 
 .masha-services-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    gap: 4rem 2rem;
     text-align: center;
 }
 
-.masha-service-item h4 {
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
+.masha-service-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-.masha-service-item p {
-    font-size: 0.8rem;
-    color: var(--elena-gray);
+.masha-service-icon {
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.masha-service-box:hover .masha-service-icon {
+    transform: translateY(-5px);
+}
+
+.masha-service-info h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.masha-service-info p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
     margin: 0;
+}
+
+@media (max-width: 768px) {
+    .masha-services-section {
+        padding: 4rem 0;
+    }
+    
+    .masha-services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem 1rem;
+    }
+
+    .masha-service-info h3 {
+        font-size: 1.05rem;
+    }
+
+    .masha-service-info p {
+        font-size: 0.8rem;
+    }
+    
+    .masha-service-icon svg {
+        width: 38px;
+        height: 38px;
+    }
 }
 
 .elena-footer.masha-footer {
