@@ -1378,7 +1378,7 @@ button {
     background-image:
         linear-gradient(135deg, rgba(45, 122, 62, 0.08) 0%, transparent 50%),
         linear-gradient(225deg, rgba(45, 122, 62, 0.05) 0%, transparent 50%);
-    padding: 5rem 0;
+    padding: 5rem 0 0;
     position: relative;
     overflow: hidden;
 }
@@ -1456,7 +1456,8 @@ button {
    CTA Section
    ═══════════════════════════════════════════════ */
 .elena-cta {
-    padding: 4rem 0;
+    padding: 0 0 4rem;
+    margin-top: 0;
     background: var(--elena-orange);
     overflow: hidden;
 }
@@ -2220,6 +2221,19 @@ button {
 
     .elena-section {
         padding: 2.5rem 0;
+    }
+
+    .elena-cta {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    .elena-reviews {
+        padding-bottom: 0 !important;
+    }
+
+    .elena-reviews-bg {
+        padding-bottom: 0 !important;
     }
 
     .elena-section-header {
