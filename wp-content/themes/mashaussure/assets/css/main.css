@@ -3073,8 +3073,25 @@ button {
 
     /* ── Hero section ── */
     .elena-hero {
-        min-height: 50vh;
+        min-height: 0;
+        height: auto;
+        display: block;
+        background-color: transparent;
         margin-top: 0 !important;
+    }
+
+    .elena-hero-image-wrap {
+        display: block;
+    }
+
+    .elena-hero-bg-img {
+        height: auto;
+        width: 100%;
+        object-fit: contain;
+    }
+    
+    .elena-hero-cta {
+        padding-bottom: 1.5rem;
     }
 
     /* ── Promo banner ── */
