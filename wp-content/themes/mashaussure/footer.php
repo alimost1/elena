@@ -116,6 +116,25 @@ endif; ?>
 		</div>
 	</footer>
 
+	<!-- Fixed bottom nav (mobile only) -->
+	<div class="masha-bottom-nav masha-mobile-only">
+		<a href="<?php echo esc_url(home_url('/')); ?>" class="masha-bottom-nav-item<?php echo is_front_page() ? ' active' : ''; ?>">
+			<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+			<span><?php esc_html_e('Home', 'mashaussure'); ?></span>
+		</a>
+		<a href="<?php echo class_exists('WooCommerce') ? esc_url(wc_get_cart_url()) : '#'; ?>" class="masha-bottom-nav-item">
+			<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+			<?php if (class_exists('WooCommerce') && WC()->cart->get_cart_contents_count() > 0): ?>
+				<span class="masha-bottom-nav-badge"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+			<?php endif; ?>
+			<span><?php esc_html_e('Cart', 'mashaussure'); ?></span>
+		</a>
+		<a href="<?php echo class_exists('WooCommerce') ? esc_url(wc_get_page_permalink('shop')) : '#'; ?>" class="masha-bottom-nav-item">
+			<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+			<span><?php esc_html_e('Categories', 'mashaussure'); ?></span>
+		</a>
+	</div>
+
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

@@ -1,40 +1,31 @@
 /**
- * Custom Mobile Patches
+ * Custom Mobile Patches – Machaussure style
+ * White header on mobile with black icons/text
  */
 @media (max-width: 768px) {
-    /* Menu Icon visibility on black header */
-    .elena-mobile-toggle span {
-        background-color: #ffffff !important;
+    /* Hamburger icon: white on black header */
+    .masha-header-left .elena-mobile-toggle span {
+        background-color: #fff !important;
     }
-    
-    /* Menu text visibility (black on white background) */
+
+    /* Cart icon: white on black header */
+    .masha-header .elena-cart-btn {
+        color: #fff !important;
+    }
+
+    /* Nav overlay links: black on white overlay */
     .elena-nav-link,
     .masha-nav-list .elena-nav-link {
-        color: #000000 !important;
-    }
-    
-    /* Header action links visibility */
-    .masha-header .masha-header-link,
-    .masha-header .elena-cart-btn {
-        color: #ffffff !important;
+        color: #000 !important;
     }
 
-    /* Move login and wishlist to left */
+    /* Header actions: compact for mobile */
     .elena-header-actions.masha-header-actions {
         display: flex !important;
-        width: 100% !important;
-        margin-left: 0 !important;
         align-items: center !important;
-        justify-content: flex-start !important;
-        gap: 15px !important;
-        padding: 0 5px !important;
-    }
-
-    .masha-wishlist {
-        margin-right: auto !important;
-    }
-    
-    .elena-cart-btn {
-        margin-left: auto !important;
+        width: auto !important;
+        gap: 0.5rem !important;
+        padding: 0 !important;
+        justify-content: flex-end !important;
     }
 }
