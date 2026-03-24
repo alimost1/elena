@@ -45,7 +45,12 @@ if ( $product->is_type( 'variable' ) ) {
     foreach ( array( 'pa_taille', 'pa_pointure', 'taille', 'pointure', 'size' ) as $key ) {
         $val = $product->get_attribute( $key );
         if ( $val ) {
-            $size_attrs = array_map( 'trim', explode( ',', $val ) );
+            // Handle both comma and space separated attributes
+            if ( strpos( $val, ',' ) !== false ) {
+                $size_attrs = array_map( 'trim', explode( ',', $val ) );
+            } else {
+                $size_attrs = array_filter( array_map( 'trim', explode( ' ', $val ) ) );
+            }
             break;
         }
     }

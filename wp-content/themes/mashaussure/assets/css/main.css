@@ -1095,6 +1095,11 @@ button {
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: #fff;
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    padding-bottom: 1rem;
+    overflow: hidden;
 }
 
 .elena-product-link {
@@ -1202,8 +1207,9 @@ button {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 0.35rem;
+    gap: 0.25rem;
     margin-bottom: 0.75rem;
+    padding: 0 0.5rem;
 }
 
 .elena-size-option {
