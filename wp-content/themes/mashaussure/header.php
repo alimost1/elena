@@ -109,25 +109,6 @@ wp_nav_menu(array(
 		</div>
 	</div>
 
-	<!-- Promo banner (green) - optional, show on front or all pages -->
-	<?php if (get_theme_mod('masha_promo_show', true) && (is_front_page() || get_theme_mod('masha_promo_all_pages', false))): ?>
-	<div class="masha-promo-banner">
-		<div class="elena-container masha-promo-inner">
-			<span class="masha-promo-title"><?php echo esc_html(get_theme_mod('masha_promo_title', 'رمضان كريم')); ?></span>
-			<span class="masha-promo-text"><?php echo esc_html(get_theme_mod('masha_promo_text', 'Nouvelle Collection')); ?> <strong><?php echo esc_html(get_theme_mod('masha_promo_discount', '-30%')); ?></strong></span>
-			<?php
-	$promo_url = get_theme_mod('masha_promo_url', '');
-	if (!$promo_url && function_exists('wc_get_page_permalink')) {
-		$promo_url = wc_get_page_permalink('shop');
-	}
-	if (!$promo_url) {
-		$promo_url = '#';
-	}
-?>
-<a href="<?php echo esc_url($promo_url); ?>" class="masha-promo-btn"><?php echo esc_html(get_theme_mod('masha_promo_btn', 'Découvrir')); ?></a>
-		</div>
-	</div>
-	<?php
-endif; ?>
+
 
 	<main id="content" class="elena-main">
