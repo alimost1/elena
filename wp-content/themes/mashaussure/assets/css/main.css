@@ -232,8 +232,6 @@
 .masha-promo-banner {
     background: linear-gradient(135deg, var(--masha-green) 0%, var(--masha-green-dark) 100%);
     color: var(--elena-white);
-    border-top: 3rem solid #000;
-    /* spacing without white line */
     padding: 1.25rem 0;
     text-align: center;
 }
