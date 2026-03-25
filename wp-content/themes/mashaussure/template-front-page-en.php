@@ -248,7 +248,7 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                 <!-- Item 1: Livraison -->
                 <div class="masha-service-box">
                     <div class="masha-service-icon">
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3m0 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0m14 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0m-8 0h6V12h3.5L22 17v2h-4"/><path d="M16 12h4.5"/></svg>
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3m0 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0m14 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0m-8 0h6V12h3.5L22 17v2h-4"/><path d="M16 12h4.5"/></svg>
                     </div>
                     <div class="masha-service-info">
                         <h3>Livraison Partout</h3>
@@ -259,7 +259,7 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                 <!-- Item 2: Customer Service -->
                 <div class="masha-service-box">
                     <div class="masha-service-icon">
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/><path d="M21 11a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2"/><circle cx="12" cy="11" r="3"/><path d="M7 21v-2a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v2"/></svg>
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/><path d="M21 11a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2"/><circle cx="12" cy="11" r="3"/><path d="M7 21v-2a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v2"/></svg>
                     </div>
                     <div class="masha-service-info">
                         <h3>Service Client</h3>
@@ -270,7 +270,7 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                 <!-- Item 3: Secure Payment -->
                 <div class="masha-service-box">
                     <div class="masha-service-icon">
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/><path d="M5 15h2"/><path d="M10 15h4"/></svg>
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/><path d="M5 15h2"/><path d="M10 15h4"/></svg>
                     </div>
                     <div class="masha-service-info">
                         <h3>Paiement Sécurisé</h3>
@@ -281,7 +281,7 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                 <!-- Item 4: Fast Delivery -->
                 <div class="masha-service-box">
                     <div class="masha-service-icon">
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     </div>
                     <div class="masha-service-info">
                         <h3>Livraison Rapide</h3>
