@@ -1197,6 +1197,7 @@ button {
     justify-content: center;
     aspect-ratio: 1 / 1.1;
     overflow: hidden;
+    padding: 1.5rem;
 }
 .masha-fc-image img {
     max-width: 100%;
@@ -1234,9 +1235,16 @@ button {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 15px !important;
 }
+.masha-right-products .elena-product-image {
+    padding: 1.5rem !important;
+}
 
 /* Mobile responsive */
 @media (max-width: 991px) {
+    .masha-coups-section {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
     .masha-coups-left, .masha-coups-right {
         flex: 0 0 100%;
         max-width: 100%;
