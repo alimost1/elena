@@ -40,8 +40,25 @@ if ( post_password_required() ) {
 
 	<div class="masha-product-gallery-wrap" style="position:relative;">
 		<?php
-		// Output sale badge inside gallery wrapper
-		woocommerce_show_product_sale_flash();
+		// Calculate precise percentage for sale badge
+		global $product;
+		if ( $product->is_on_sale() && $product->get_regular_price() && (float) $product->get_regular_price() > 0 ) {
+			$percent = round( ( ( (float) $product->get_regular_price() - (float) $product->get_sale_price() ) / (float) $product->get_regular_price() ) * 100 );
+			echo '<span class="onsale masha-sale-badge">-' . esc_html( $percent ) . '%</span>';
+		}
+		
+		// Check for NEW condition
+		$is_new = false;
+		if ( has_term( 'new', 'product_tag', $product->get_id() ) || has_term( 'NEW', 'product_tag', $product->get_id() ) ) {
+			$is_new = true;
+		} elseif ( ( time() - get_the_time( 'U', $product->get_id() ) ) < ( 30 * 24 * 60 * 60 ) ) {
+			$is_new = true;
+		}
+
+		if ( $is_new ) {
+			echo '<span class="elena-new-badge elena-new-badge-green masha-single-new">NEW</span>';
+		}
+
 		// Output product images
 		woocommerce_show_product_images();
 		?>
