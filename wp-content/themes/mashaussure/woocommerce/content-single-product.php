@@ -33,15 +33,20 @@ if ( post_password_required() ) {
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
 
-	<?php
-	/**
-	 * Hook: woocommerce_before_single_product_summary.
-	 *
-	 * @hooked woocommerce_show_product_sale_flash - 10
-	 * @hooked woocommerce_show_product_images - 20
-	 */
-	do_action( 'woocommerce_before_single_product_summary' );
+<?php
+	// Remove default sale flash (it renders outside the gallery)
+	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 	?>
+
+	<div class="masha-product-gallery-wrap" style="position:relative;">
+		<?php
+		// Output sale badge inside gallery wrapper
+		woocommerce_show_product_sale_flash();
+		// Output product images
+		woocommerce_show_product_images();
+		?>
+	</div>
+
 
 	<div class="summary entry-summary">
 		<?php
