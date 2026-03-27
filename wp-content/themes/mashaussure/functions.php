@@ -485,7 +485,8 @@ add_action( 'customize_register', 'elena_customize_register' );
 /* ─────────────────────────────────────────────
  * 9. Remove WooCommerce default styles selectively
  * ───────────────────────────────────────────── */
-add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+/* add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' ); */
+
 
 
 /* ─────────────────────────────────────────────
