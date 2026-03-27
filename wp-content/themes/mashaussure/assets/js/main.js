@@ -111,14 +111,51 @@
     }
 
     /* ─────────────────────────────────────────────
-     * WooCommerce Gallery Initialize
+     * Variation Swatches (JS replacement for selects)
      * ───────────────────────────────────────────── */
-    function initWooCommerceGallery() {
-        if (typeof jQuery !== 'undefined' && typeof jQuery.fn.wc_product_gallery !== 'undefined') {
-            jQuery('.woocommerce-product-gallery').each(function () {
-                jQuery(this).wc_product_gallery();
+    function initVariationSwatches() {
+        if (typeof jQuery === 'undefined') return;
+
+        jQuery('.variations_form select').each(function() {
+            var $select = jQuery(this);
+            var $parent = $select.parent();
+            
+            // Check if swatches already exist
+            if ($parent.find('.elena-swatches-wrap').length) return;
+
+            var $swatchColorClass = 'elena-swatch-item';
+            var $wrapper = jQuery('<div class="elena-swatches-wrap"></div>');
+
+            $select.find('option').each(function() {
+                var $opt = jQuery(this);
+                if (!$opt.val()) return; // Skip "Choose an option"
+
+                var $item = jQuery('<div class="'+$swatchColorClass+'" data-value="'+$opt.val()+'">'+$opt.text()+'</div>');
+                
+                if ($opt.is(':selected')) {
+                    $item.addClass('active');
+                }
+
+                $item.on('click', function() {
+                    $select.val(jQuery(this).data('value')).trigger('change');
+                    $wrapper.find('.elena-swatch-item').removeClass('active');
+                    jQuery(this).addClass('active');
+                });
+
+                $wrapper.append($item);
             });
-        }
+
+            // Hide the original select and add swatches
+            $select.hide();
+            $parent.append($wrapper);
+            
+            // Sync if select changes elsewhere (e.g. clear button)
+            $select.on('change', function() {
+                var val = jQuery(this).val();
+                $wrapper.find('.elena-swatch-item').removeClass('active');
+                $wrapper.find('.elena-swatch-item[data-value="'+val+'"]').addClass('active');
+            });
+        });
     }
 
     /* ─────────────────────────────────────────────
@@ -131,6 +168,8 @@
         initSmoothScroll();
         initHeroParallax();
         initWooCommerceGallery();
+        initVariationSwatches();
     });
+
 
 })();
