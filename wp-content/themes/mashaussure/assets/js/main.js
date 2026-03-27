@@ -119,24 +119,41 @@
         jQuery('.variations_form select').each(function() {
             var $select = jQuery(this);
             var $parent = $select.parent();
+            var attributeName = $select.attr('name') || '';
+            var isColor = attributeName.toLowerCase().indexOf('color') !== -1 || attributeName.toLowerCase().indexOf('couleur') !== -1;
             
             // Check if swatches already exist
             if ($parent.find('.elena-swatches-wrap').length) return;
 
-            var $swatchColorClass = 'elena-swatch-item';
             var $wrapper = jQuery('<div class="elena-swatches-wrap"></div>');
+            if (isColor) {
+                $wrapper.addClass('couleur-swatches');
+            } else {
+                $wrapper.addClass('pointure-swatches');
+            }
 
             $select.find('option').each(function() {
                 var $opt = jQuery(this);
                 if (!$opt.val()) return; // Skip "Choose an option"
 
-                var $item = jQuery('<div class="'+$swatchColorClass+'" data-value="'+$opt.val()+'">'+$opt.text()+'</div>');
+                var label = $opt.text();
+                var isOutOfStock = label.toLowerCase().indexOf('out of stock') !== -1 || label.toLowerCase().indexOf('rupture') !== -1;
                 
+                // Clean label from WooCommerce stock status if present
+                var cleanLabel = label.split(' (')[0];
+
+                var $item = jQuery('<div class="elena-swatch-item" data-value="'+$opt.val()+'">'+cleanLabel+'</div>');
+                
+                if (isOutOfStock) {
+                    $item.addClass('out-of-stock');
+                }
+
                 if ($opt.is(':selected')) {
                     $item.addClass('active');
                 }
 
                 $item.on('click', function() {
+                    if (jQuery(this).hasClass('out-of-stock')) return;
                     $select.val(jQuery(this).data('value')).trigger('change');
                     $wrapper.find('.elena-swatch-item').removeClass('active');
                     jQuery(this).addClass('active');
@@ -170,6 +187,7 @@
         initWooCommerceGallery();
         initVariationSwatches();
     });
+
 
 
 })();
