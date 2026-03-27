@@ -3499,8 +3499,21 @@ button {
 }
 
 .woocommerce .related.products ul.products {
+    display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
     gap: 1rem !important;
+}
+
+.woocommerce .related.products ul.products::before,
+.woocommerce .related.products ul.products::after {
+    display: none !important;
+}
+
+.woocommerce .related.products ul.products li.product {
+    width: 100% !important;
+    margin: 0 !important;
+    float: none !important;
+    list-style: none !important;
 }
 
 @media (max-width: 768px) {
@@ -3509,6 +3522,7 @@ button {
         gap: 0.5rem !important;
     }
 }
+
 
 .woocommerce .related.products .elena-product-title {
     font-size: 0.8rem !important;
