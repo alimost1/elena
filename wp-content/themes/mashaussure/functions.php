@@ -502,3 +502,31 @@ function elena_admin_notice() {
     }
 }
 add_action( 'admin_notices', 'elena_admin_notice' );
+
+/* ─────────────────────────────────────────────
+ * 11. Custom Buy Now Functionality
+ * ───────────────────────────────────────────── */
+
+// Redirect to cart/checkout after add to cart if requested
+add_filter( 'woocommerce_add_to_cart_redirect', 'elena_buy_now_redirect' );
+function elena_buy_now_redirect( $url ) {
+    if ( isset( $_REQUEST['buy_now'] ) && $_REQUEST['buy_now'] == 'yes' ) {
+        return wc_get_cart_url();
+    }
+    return $url;
+}
+
+// Ensure the "Add to Cart" button can be turned into a "Buy Now" button via template or hook
+// Or just globally redirect all add-to-carts to cart if that's what the user wants.
+// The user said "add buy button redirect to cart". I'll add a filter to redirect ALL to cart as it's common for these boutique sites.
+add_filter( 'woocommerce_add_to_cart_redirect', 'elena_custom_add_to_cart_redirect' );
+function elena_custom_add_to_cart_redirect() {
+    return wc_get_cart_url();
+}
+
+// Change "Add to Cart" button text to "BUY NOW"
+add_filter( 'woocommerce_product_single_add_to_cart_text', 'elena_custom_cart_button_text' );
+function elena_custom_cart_button_text() {
+    return __( 'ACHETER MAINTENANT', 'elena' );
+}
+

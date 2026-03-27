@@ -2341,14 +2341,14 @@ button {
 .woocommerce div.product span.onsale.masha-sale-badge,
 .masha-product-gallery-wrap>span.onsale.masha-sale-badge {
     position: absolute !important;
-    top: 5% !important;
-    right: 0 !important;
-    left: auto !important;
+    top: 15% !important; /* Move it slightly down from the top */
+    left: 0 !important;
+    right: auto !important;
     background: #000 !important;
     color: #fff !important;
     font-size: 0.75rem !important;
     font-weight: 700 !important;
-    padding: 0.35rem 0.65rem !important;
+    padding: 0.4rem 0.8rem !important;
     border-radius: 0 !important;
     z-index: 10 !important;
     margin: 0 !important;
@@ -2357,27 +2357,55 @@ button {
     line-height: 1.4 !important;
     display: inline-block !important;
     width: auto !important;
-    letter-spacing: -0.02em !important;
+    letter-spacing: 0.05em !important;
 }
 
 .masha-single-new {
     position: absolute !important;
-    bottom: 0 !important;
+    top: 6% !important; /* Above the sale badge if both appear */
     left: 0 !important;
-    z-index: 10 !important;
+    z-index: 11 !important;
     background-color: #4CAF50 !important;
     color: #fff !important;
     font-size: 0.8rem !important;
     font-weight: 700 !important;
-    padding: 0.25rem 0.75rem !important;
+    padding: 0.4rem 0.8rem !important;
     border-radius: 0 !important;
     text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
 }
 
 /* Make single product image background gray and blend */
 .masha-product-gallery-wrap {
     background-color: #f0f0f0 !important;
     padding: 1.5rem 0 !important;
+    max-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible; /* Allow zoom and badges to show correctly */
+}
+
+.masha-product-gallery-wrap .woocommerce-product-gallery {
+    width: 100%;
+}
+
+.masha-product-gallery-wrap .woocommerce-product-gallery__image img {
+    max-height: 450px;
+    width: auto !important;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .masha-product-gallery-wrap {
+        max-height: 400px;
+        padding: 1rem 0 !important;
+    }
+    .masha-product-gallery-wrap .woocommerce-product-gallery__image img {
+        max-height: 350px;
+    }
 }
 
 .masha-product-gallery-wrap .woocommerce-product-gallery {
@@ -2574,7 +2602,9 @@ button {
     font-weight: 600;
     padding: 0;
     height: 100%;
+    -webkit-appearance: none;
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .woocommerce div.product form.cart .quantity .qty::-webkit-inner-spin-button,
@@ -2998,8 +3028,8 @@ button {
     .elena-products-grid,
     .elena-shop-page ul.products,
     .woocommerce .related.products ul.products {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
     }
 
     .elena-header-actions {
@@ -3193,13 +3223,15 @@ button {
 }
 
 @media (min-width: 768px) {
-    .woocommerce div.product div.images {
+    .woocommerce div.product .masha-product-gallery-wrap {
         width: 50%;
+        margin-bottom: 0;
     }
 
     .woocommerce div.product div.summary {
-        width: 42%;
+        width: 45%;
         margin-left: auto;
+        margin-bottom: 0;
     }
 }
 
@@ -3248,7 +3280,46 @@ button {
 .woocommerce div.product div.images .flex-control-thumbs li img:hover {
     opacity: 1;
     border-color: var(--elena-orange);
-    /* Highlight selected thumb with green border */
+}
+
+/* Image Zoom and Lightbox support */
+.woocommerce-product-gallery__trigger {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 44px !important;
+    height: 44px !important;
+    background: #fff !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+    cursor: pointer;
+    color: #333;
+    font-size: 0;
+    transition: all 0.3s ease;
+}
+
+.woocommerce-product-gallery__trigger::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-search' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.woocommerce-product-gallery__trigger:hover {
+    background: var(--elena-orange) !important;
+    color: #fff !important;
+    transform: scale(1.1);
+}
+
+.zoomImg {
+    cursor: zoom-in;
+    background-color: #f0f0f0;
 }
 
 .woocommerce span.onsale {
@@ -3273,12 +3344,15 @@ button {
 
 /* Summary Details */
 .woocommerce div.product .product_title {
-    font-family: 'Yeseva One', serif;
-    font-size: 2.2rem;
-    color: var(--elena-orange);
-    margin-bottom: 0.5rem;
-    line-height: 1;
+    font-family: var(--elena-font-heading);
+    font-size: 1.4rem !important; /* Made smaller as requested */
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    color: var(--elena-black) !important;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
     margin-top: 0;
+    letter-spacing: 0.02em;
 }
 
 .woocommerce div.product p.price,
@@ -3328,6 +3402,8 @@ button {
     float: none;
     margin: 0;
     align-self: flex-start;
+    display: flex;
+    align-items: center;
 }
 
 .woocommerce div.product form.cart .quantity input.qty {
@@ -3346,12 +3422,12 @@ button {
     float: none;
     width: 100% !important;
     height: 55px;
-    background-color: var(--elena-orange);
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    border-radius: 8px;
+    background-color: #4CAF50 !important; /* Green like machaussure.ma */
+    color: white !important;
+    font-family: var(--elena-font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 4px;
     transition: all var(--elena-transition);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -3400,18 +3476,99 @@ button {
 }
 
 .woocommerce .related.products h2 {
-    font-family: 'Yeseva One', serif;
-    font-size: 2.5rem;
-    color: var(--elena-orange);
-    text-align: center;
-    margin-bottom: 2.5rem;
+    font-family: var(--elena-font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111;
+    text-align: left;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
+
+.woocommerce .related.products ul.products {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1rem !important;
+}
+
+@media (max-width: 768px) {
+    .woocommerce .related.products ul.products {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+    }
+}
+
+.woocommerce .related.products .elena-product-title {
+    font-size: 0.8rem !important;
+}
+
+.woocommerce .related.products .elena-product-price {
+    font-size: 0.85rem !important;
+}
+
+/* Variations / Size Swatches style fallback */
+.woocommerce div.product form.cart .variations {
+    width: 100%;
+    margin-bottom: 2rem;
+    border: none;
+}
+
+.woocommerce div.product form.cart .variations td {
+    padding: 10px 0;
+    line-height: 1;
+    display: block;
+    width: 100%;
+}
+
+.woocommerce div.product form.cart .variations td.label {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    color: #111;
+}
+
+.woocommerce div.product form.cart .variations select {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background-color: #f9f9f9;
+}
+
+/* If the user installs a swatch plugin, these colors match */
+.wd-swatches-grid, .variations_form .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.swatch-item {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    min-width: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.swatch-item.active {
+    border-color: #111;
+    background: #111;
+    color: #fff;
+}
+
 
 /* ═══════════════════════════════════════════════
    Print Styles
    ═══════════════════════════════════════════════ */
 @media print {
-
     .elena-header,
     .elena-announcement-bar,
     .elena-mobile-toggle,
@@ -3424,6 +3581,7 @@ button {
         color: black;
     }
 }
+
 
 /* ═══════════════════════════════════════════════
    Language Switcher Flags

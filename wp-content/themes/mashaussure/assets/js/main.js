@@ -111,6 +111,17 @@
     }
 
     /* ─────────────────────────────────────────────
+     * WooCommerce Gallery Initialize
+     * ───────────────────────────────────────────── */
+    function initWooCommerceGallery() {
+        if (typeof jQuery !== 'undefined' && typeof jQuery.fn.wc_product_gallery !== 'undefined') {
+            jQuery('.woocommerce-product-gallery').each(function () {
+                jQuery(this).wc_product_gallery();
+            });
+        }
+    }
+
+    /* ─────────────────────────────────────────────
      * Initialize All
      * ───────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', function () {
@@ -119,6 +130,7 @@
         initMobileMenu();
         initSmoothScroll();
         initHeroParallax();
+        initWooCommerceGallery();
     });
 
 })();
