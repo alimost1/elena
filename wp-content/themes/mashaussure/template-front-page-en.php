@@ -22,7 +22,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
         <div class="masha-slide active">
             <img src="<?php echo esc_url($hero_bg); ?>" alt="New Collection" class="masha-slide-img">
             <div class="masha-slide-overlay">
-                <a href="<?php echo esc_url($shop_url); ?>" class="masha-slide-btn">Découvrir</a>
+                <a href="<?php echo esc_url($shop_url); ?>" class="masha-slide-btn">Shop Now</a>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                         <circle cx="7" cy="18" r="2" />
                     </svg>
                 </div>
-                <h3>Livraison Partout</h3>
+                <h3>Worldwide Delivery</h3>
                 <p>+1400 Destinations</p>
             </div>
             <div class="masha-benefit-divider"></div>
@@ -135,8 +135,8 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                             d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                     </svg>
                 </div>
-                <h3>Service Client</h3>
-                <p>9h - 18h</p>
+                <h3>Customer Service</h3>
+                <p>9am - 6pm</p>
             </div>
             <div class="masha-benefit-divider"></div>
             <div class="masha-benefit-item">
@@ -149,8 +149,8 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                         <path d="M10 15h4" />
                     </svg>
                 </div>
-                <h3>Paiement Sécurisé</h3>
-                <p>En ligne ou à la livraison</p>
+                <h3>Secure Payment</h3>
+                <p>Online or on delivery</p>
             </div>
             <div class="masha-benefit-divider"></div>
             <div class="masha-benefit-item">
@@ -163,8 +163,8 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
                 </div>
-                <h3>Livraison Rapide</h3>
-                <p>Sous 48h</p>
+                <h3>Fast Delivery</h3>
+                <p>Within 48h</p>
             </div>
         </div>
     </div>
@@ -175,7 +175,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
     <section class="masha-coups-section elena-section" id="coups-de-coeur">
         <div class="elena-container">
             <div class="masha-coups-header">
-                <h2 class="masha-coups-title">Nos coups de cœur ❤️</h2>
+                <h2 class="masha-coups-title">Our Favorites ❤️</h2>
             </div>
             <div class="masha-coups-layout">
                 <div class="masha-coups-left">
@@ -244,8 +244,8 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                 </div>
                 <div class="masha-coups-right">
                     <ul class="masha-coups-tabs">
-                        <li class="active">ESCARPINS CHIC</li>
-                        <li>MOCASSINS</li>
+                        <li class="active">CHIC HEELS</li>
+                        <li>LOAFERS</li>
                         <li>DERBIES</li>
                     </ul>
                     <div class="masha-coups-grid">
@@ -267,7 +267,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
             </div>
             <div class="elena-section-footer" style="margin-top: 2rem;">
                 <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="elena-link-arrow">
-                    Voir tous les produits
+                    View all products
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12" />
                         <polyline points="12 5 19 12 12 19" />
@@ -281,7 +281,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
     <section class="masha-coups-section masha-coups-men elena-section" id="style-authentique">
         <div class="elena-container">
             <div class="masha-coups-header">
-                <h2 class="masha-coups-title">Style Authentique 🖤</h2>
+                <h2 class="masha-coups-title">Authentic Style 🖤</h2>
             </div>
             <div class="masha-coups-layout">
                 <div class="masha-coups-left">
@@ -344,9 +344,9 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                 </div>
                 <div class="masha-coups-right">
                     <ul class="masha-coups-tabs">
-                        <li class="active">MOCASSINS</li>
-                        <li>BASKETS URBAINES</li>
-                        <li>VILLE & ÉLÉGANCE</li>
+                        <li class="active">LOAFERS</li>
+                        <li>URBAN SNEAKERS</li>
+                        <li>CITY & ELEGANCE</li>
                     </ul>
                     <div class="masha-coups-grid">
                         <ul class="elena-products-grid masha-right-products">
@@ -367,7 +367,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
             </div>
             <div class="elena-section-footer" style="margin-top: 2rem;">
                 <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="elena-link-arrow">
-                    Voir tous les produits
+                    View all products
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12" />
                         <polyline points="12 5 19 12 12 19" />
@@ -383,8 +383,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
     style="background-image: url('<?php echo esc_url(ELENA_URI . '/assets/images/store-banner.jpg'); ?>'); background-size: cover; background-position: center; background-attachment: fixed;">
     <div class="masha-store-banner-overlay">
         <div class="elena-container">
-            <p class="masha-store-banner-text">Découvrez Elena.ma, votre destination pour les meilleures offres en ligne
-                et dans la boutique en exclusivité !</p>
+            <p class="masha-store-banner-text">Discover Elena.ma, your destination for the best exclusive offers online and in-store!</p>
         </div>
     </div>
 </section>
@@ -404,7 +403,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                         <circle cx="7" cy="18" r="2" />
                     </svg></div>
                 <div class="masha-service-info">
-                    <h3>Livraison Partout</h3>
+                    <h3>Worldwide Delivery</h3>
                     <p>+1400 Destinations</p>
                 </div>
             </div>
@@ -415,8 +414,8 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                             d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                     </svg></div>
                 <div class="masha-service-info">
-                    <h3>Service Client</h3>
-                    <p>9h - 18h</p>
+                    <h3>Customer Service</h3>
+                    <p>9am - 6pm</p>
                 </div>
             </div>
             <div class="masha-service-box">
@@ -428,8 +427,8 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                         <path d="M10 15h4" />
                     </svg></div>
                 <div class="masha-service-info">
-                    <h3>Paiement Sécurisé</h3>
-                    <p>En ligne ou à la livraison</p>
+                    <h3>Secure Payment</h3>
+                    <p>Online or on delivery</p>
                 </div>
             </div>
             <div class="masha-service-box">
@@ -441,8 +440,8 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg></div>
                 <div class="masha-service-info">
-                    <h3>Livraison Rapide</h3>
-                    <p>Sous 48h</p>
+                    <h3>Fast Delivery</h3>
+                    <p>Within 48h</p>
                 </div>
             </div>
         </div>
