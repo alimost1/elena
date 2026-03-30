@@ -1,8 +1,8 @@
 /**
- * Elena Theme - Main JavaScript
+ * Machaussure Theme - Main JavaScript
  *
- * @package Elena
- * @version 1.0.0
+ * @package Mashaussure
+ * @version 2.0.0
  */
 
 (function () {
@@ -96,18 +96,90 @@
     }
 
     /* ─────────────────────────────────────────────
-     * Parallax-lite on Hero
+     * Scroll to Top Button
      * ───────────────────────────────────────────── */
-    function initHeroParallax() {
-        var hero = document.querySelector('.elena-hero');
-        if (!hero) return;
+    function initScrollToTop() {
+        var btn = document.getElementById('masha-scroll-top');
+        if (!btn) return;
 
         window.addEventListener('scroll', function () {
-            var scrolled = window.scrollY;
-            if (scrolled < hero.offsetHeight) {
-                hero.style.backgroundPositionY = (scrolled * 0.4) + 'px';
+            if (window.scrollY > 400) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
             }
         }, { passive: true });
+
+        btn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    /* ─────────────────────────────────────────────
+     * Hero Slider (auto-play + arrows)
+     * ───────────────────────────────────────────── */
+    function initHeroSlider() {
+        var slides = document.querySelectorAll('.masha-slide');
+        var prevBtn = document.querySelector('.masha-slider-prev');
+        var nextBtn = document.querySelector('.masha-slider-next');
+        if (!slides.length) return;
+
+        var current = 0;
+        var total = slides.length;
+        var autoInterval;
+
+        function showSlide(index) {
+            slides.forEach(function (s) { s.classList.remove('active'); });
+            current = (index + total) % total;
+            slides[current].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(current + 1);
+        }
+
+        function prevSlide() {
+            showSlide(current - 1);
+        }
+
+        if (nextBtn) nextBtn.addEventListener('click', function () {
+            nextSlide();
+            resetAutoplay();
+        });
+
+        if (prevBtn) prevBtn.addEventListener('click', function () {
+            prevSlide();
+            resetAutoplay();
+        });
+
+        function startAutoplay() {
+            autoInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoInterval);
+            startAutoplay();
+        }
+
+        if (total > 1) {
+            startAutoplay();
+        }
+    }
+
+    /* ─────────────────────────────────────────────
+     * Coups de Coeur Tabs
+     * ───────────────────────────────────────────── */
+    function initCoupsTabs() {
+        document.querySelectorAll('.masha-coups-tabs').forEach(function (tabList) {
+            var tabs = tabList.querySelectorAll('li');
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(function (t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    // Future: load different product sets via AJAX
+                });
+            });
+        });
     }
 
     /* ─────────────────────────────────────────────
@@ -122,7 +194,6 @@
             var attributeName = $select.attr('name') || '';
             var isColor = attributeName.toLowerCase().indexOf('color') !== -1 || attributeName.toLowerCase().indexOf('couleur') !== -1;
             
-            // Check if swatches already exist
             if ($parent.find('.elena-swatches-wrap').length) return;
 
             var $wrapper = jQuery('<div class="elena-swatches-wrap"></div>');
@@ -134,12 +205,10 @@
 
             $select.find('option').each(function() {
                 var $opt = jQuery(this);
-                if (!$opt.val()) return; // Skip "Choose an option"
+                if (!$opt.val()) return;
 
                 var label = $opt.text();
                 var isOutOfStock = label.toLowerCase().indexOf('out of stock') !== -1 || label.toLowerCase().indexOf('rupture') !== -1;
-                
-                // Clean label from WooCommerce stock status if present
                 var cleanLabel = label.split(' (')[0];
 
                 var $item = jQuery('<div class="elena-swatch-item" data-value="'+$opt.val()+'">'+cleanLabel+'</div>');
@@ -162,11 +231,9 @@
                 $wrapper.append($item);
             });
 
-            // Hide the original select and add swatches
             $select.hide();
             $parent.append($wrapper);
             
-            // Sync if select changes elsewhere (e.g. clear button)
             $select.on('change', function() {
                 var val = jQuery(this).val();
                 $wrapper.find('.elena-swatch-item').removeClass('active');
@@ -183,11 +250,10 @@
         initStickyHeader();
         initMobileMenu();
         initSmoothScroll();
-        initHeroParallax();
-        initWooCommerceGallery();
+        initScrollToTop();
+        initHeroSlider();
+        initCoupsTabs();
         initVariationSwatches();
     });
-
-
 
 })();

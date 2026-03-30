@@ -4188,4 +4188,561 @@ button {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
+
+    /* ── New sections mobile ── */
+    .masha-hero-slider {
+        min-height: 0;
+        height: auto;
+    }
+    .masha-slide-img {
+        height: auto;
+        min-height: 200px;
+    }
+    .masha-categories-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+    .masha-benefits-row {
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+    }
+    .masha-benefit-divider {
+        display: none !important;
+    }
+    .masha-boutiques-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════
+   MACHAUSSURE.MA – Hero Slider
+   ═══════════════════════════════════════════════ */
+.masha-hero-slider {
+    position: relative;
+    width: 100%;
+    min-height: 50vh;
+    overflow: hidden;
+    background: #e8e6e3;
+}
+
+.masha-slider-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.masha-slide {
+    display: none;
+    width: 100%;
+    position: relative;
+}
+
+.masha-slide.active {
+    display: block;
+}
+
+.masha-slide-img {
+    width: 100%;
+    height: 70vh;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.masha-slide-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 3rem 1rem 2.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%);
+}
+
+.masha-slide-btn {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: all 0.25s ease;
+    border: 2px solid #1a1a1a;
+}
+
+.masha-slide-btn:hover {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.masha-slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.85);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.masha-slider-arrow:hover {
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.masha-slider-prev {
+    left: 1.5rem;
+}
+
+.masha-slider-next {
+    right: 1.5rem;
+}
+
+
+/* ═══════════════════════════════════════════════
+   MACHAUSSURE.MA – Top Categories
+   ═══════════════════════════════════════════════ */
+.masha-top-categories {
+    background: #f5f5f5;
+    padding: 3.5rem 0 4rem;
+}
+
+.masha-section-heading {
+    margin-bottom: 2rem;
+}
+
+.masha-section-heading h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+    font-family: var(--elena-font-heading);
+}
+
+.masha-heading-line {
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #1a1a1a;
+    border-radius: 2px;
+}
+
+.masha-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.masha-cat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+}
+
+.masha-cat-card:hover {
+    transform: translateY(-4px);
+}
+
+.masha-cat-img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.masha-cat-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.masha-cat-card:hover .masha-cat-img-wrap img {
+    transform: scale(1.05);
+}
+
+.masha-cat-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+}
+
+.masha-cat-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+}
+
+
+/* ═══════════════════════════════════════════════
+   MACHAUSSURE.MA – White Benefits Bar
+   ═══════════════════════════════════════════════ */
+.masha-benefits-white {
+    background: #f5f5f5;
+    padding: 3rem 0;
+}
+
+.masha-benefits-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    background: #fff;
+    padding: 2.5rem 2rem;
+    border-radius: 0;
+}
+
+.masha-benefit-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.5rem;
+}
+
+.masha-benefit-icon {
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+}
+
+.masha-benefit-item h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.25rem;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.masha-benefit-item p {
+    font-size: 0.85rem;
+    color: #777;
+    margin: 0;
+}
+
+.masha-benefit-divider {
+    width: 1px;
+    height: 60px;
+    background: #ddd;
+    flex-shrink: 0;
+}
+
+
+/* ═══════════════════════════════════════════════
+   MACHAUSSURE.MA – Store Banner
+   ═══════════════════════════════════════════════ */
+.masha-store-banner {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+    overflow: hidden;
+}
+
+.masha-store-banner-overlay {
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.65);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.masha-store-banner-text {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    max-width: 700px;
+    line-height: 1.5;
+    font-family: var(--elena-font-heading);
+}
+
+
+/* ═══════════════════════════════════════════════
+   MACHAUSSURE.MA – Nos Boutiques
+   ═══════════════════════════════════════════════ */
+.masha-boutiques-section {
+    background: #f5f5f5;
+    padding: 3.5rem 0 4rem;
+}
+
+.masha-boutiques-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.masha-boutiques-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+}
+
+.masha-boutique-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.masha-boutique-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+}
+
+.masha-boutique-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #3a3a3a, #222);
+}
+
+.masha-boutique-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+    z-index: 2;
+}
+
+.masha-boutique-overlay h3 {
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.masha-boutique-link {
+    display: inline-block;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    letter-spacing: 0.05em;
+}
+
+.masha-boutique-link:hover {
+    color: var(--masha-green);
+}
+
+
+/* ═══════════════════════════════════════════════
+   MACHAUSSURE.MA – Footer Overrides
+   ═══════════════════════════════════════════════ */
+.masha-footer .masha-footer-columns {
+    grid-template-columns: 2fr 1.5fr 1fr 1.5fr;
+    text-align: left;
+}
+
+.masha-footer .masha-footer-col {
+    align-items: flex-start;
+}
+
+.masha-footer .masha-footer-col ul {
+    align-items: flex-start;
+}
+
+.masha-footer .masha-footer-col li {
+    text-align: left;
+}
+
+.masha-footer .masha-footer-col h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+/* Social Icons */
+.masha-social-icons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.masha-social-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.masha-social-icon svg {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.masha-social-icon:hover {
+    background: var(--masha-green);
+    transform: translateY(-2px);
+}
+
+/* Payment Badges */
+.masha-payment-badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.masha-payment-badge {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.masha-copyright {
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.masha-copyright p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+}
+
+
+/* ═══════════════════════════════════════════════
+   MACHAUSSURE.MA – Scroll to Top
+   ═══════════════════════════════════════════════ */
+.masha-scroll-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 900;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.25s ease;
+}
+
+.masha-scroll-top.visible {
+    display: flex;
+}
+
+.masha-scroll-top:hover {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+}
+
+
+/* ═══════════════════════════════════════════════
+   Small screen overrides for new sections
+   ═══════════════════════════════════════════════ */
+@media (max-width: 991px) {
+    .masha-categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .masha-boutiques-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .masha-footer .masha-footer-columns {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .masha-slide-img {
+        height: 40vh;
+    }
+    .masha-slide-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.85rem;
+    }
+    .masha-slider-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    .masha-slider-prev {
+        left: 0.75rem;
+    }
+    .masha-slider-next {
+        right: 0.75rem;
+    }
+    .masha-store-banner {
+        min-height: 200px;
+    }
+    .masha-store-banner-overlay {
+        min-height: 200px;
+        padding: 2rem 1rem;
+    }
+    .masha-store-banner-text {
+        font-size: 1.1rem;
+    }
+    .masha-boutiques-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .masha-footer .masha-footer-columns {
+        grid-template-columns: 1fr;
+    }
+    .masha-scroll-top {
+        bottom: 5rem;
+        right: 1rem;
+    }
 }

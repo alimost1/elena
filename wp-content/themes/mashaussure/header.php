@@ -52,7 +52,11 @@ endif; ?>
 
 			<!-- Logo -->
 			<div class="elena-logo masha-logo">
-				<a href="<?php echo esc_url(home_url('/')); ?>" class="elena-logo-text">ELENA</a>
+				<?php if ( has_custom_logo() ) : ?>
+					<?php the_custom_logo(); ?>
+				<?php else : ?>
+					<a href="<?php echo esc_url(home_url('/')); ?>" class="elena-logo-text"><?php bloginfo( 'name' ); ?></a>
+				<?php endif; ?>
 			</div>
 
 			<!-- Actions: Login, Wishlist, Cart -->
