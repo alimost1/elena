@@ -4870,3 +4870,88 @@ body.rtl .masha-footer-col ul li a, [dir="rtl"] .masha-footer-col ul li a {
         transform: translateY(-50%) rotate(180deg);
     }
 }
+
+/* =========================================================================
+   SHOP PAGE (ARCHIVE) FIXES
+   ========================================================================= */
+
+.elena-shop-page .masha-shop-layout {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.elena-shop-page .masha-shop-sidebar-wrap {
+    width: 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.elena-shop-page .masha-shop-main {
+    flex: 1;
+    min-width: 0;
+    width: 75%;
+}
+
+/* Make WooCommerce default products loop identical to .elena-products-grid */
+.elena-shop-page ul.products {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.elena-shop-page ul.products::before,
+.elena-shop-page ul.products::after {
+    display: none !important;
+}
+
+/* Ensure inner card occupies full grid height */
+.elena-shop-page ul.products li.product {
+    width: 100% !important;
+    float: none !important;
+    margin-bottom: 0 !important;
+}
+
+.elena-shop-page .elena-product-card {
+    height: 100%;
+}
+
+.elena-shop-page .elena-product-card-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.elena-shop-page .elena-product-info {
+    flex: 1;
+}
+
+@media (max-width: 991px) {
+    .elena-shop-page .masha-shop-layout {
+        flex-wrap: wrap;
+    }
+    .elena-shop-page .masha-shop-sidebar-wrap {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+        margin-bottom: 30px;
+    }
+    .elena-shop-page .masha-shop-main {
+        width: 100%;
+        flex: 0 0 100%;
+    }
+    .elena-shop-page ul.products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 575px) {
+    .elena-shop-page ul.products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

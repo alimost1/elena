@@ -60,7 +60,14 @@ if ( $product->is_type( 'variable' ) ) {
     <div class="elena-product-card-inner">
         <a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="elena-product-link">
             <div class="elena-product-image">
-                <?php echo $product->get_image( 'elena-product-thumb' ); ?>
+                <?php 
+                $thumbnail = woocommerce_get_product_thumbnail( 'woocommerce_thumbnail' ); 
+                if ( empty( $thumbnail ) ) {
+                    echo '<img src="' . esc_url( wc_placeholder_img_src( 'woocommerce_thumbnail' ) ) . '" alt="Placeholder" class="woocommerce-placeholder wp-post-image" />';
+                } else {
+                    echo $thumbnail;
+                }
+                ?>
                 <?php if ( $sale_badge ) : ?>
                     <span class="elena-sale-badge elena-sale-badge-black"><?php echo esc_html( $sale_badge ); ?></span>
                 <?php endif; ?>
