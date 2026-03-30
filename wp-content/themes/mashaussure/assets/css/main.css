@@ -4604,22 +4604,30 @@ button {
 }
 
 .masha-social-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.15) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #fff !important;
     transition: all 0.25s ease;
-    text-decoration: none;
+    text-decoration: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 0 !important;
 }
 
 .masha-social-icon svg {
-    margin: 0;
-    padding: 0;
-    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
 }
 
 .masha-social-icon:hover {
