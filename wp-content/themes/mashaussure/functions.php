@@ -466,7 +466,7 @@ function elena_customize_register( $wp_customize ) {
         'title'    => __( 'Bannière promo (Machaussure)', 'mashaussure' ),
         'priority' => 28,
     ) );
-    $wp_customize->add_setting( 'masha_promo_show', array( 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ) );
+    $wp_customize->add_setting( 'masha_promo_show', array( 'default' => false, 'sanitize_callback' => 'wp_validate_boolean' ) );
     $wp_customize->add_control( 'masha_promo_show', array( 'label' => __( 'Afficher la bannière promo', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'checkbox' ) );
     $wp_customize->add_setting( 'masha_promo_title', array( 'default' => 'رمضان كريم', 'sanitize_callback' => 'sanitize_text_field' ) );
     $wp_customize->add_control( 'masha_promo_title', array( 'label' => __( 'Titre promo', 'mashaussure' ), 'section' => 'masha_promo', 'type' => 'text' ) );
