@@ -533,3 +533,5 @@ function elena_custom_cart_button_text() {
     return __( 'ACHETER MAINTENANT', 'elena' );
 }
 
+/ /   f o r c e   d e p l o y   t r i g g e r   0 4 / 0 2 / 2 0 2 6   1 6 : 5 0 : 5 2  
+ 
