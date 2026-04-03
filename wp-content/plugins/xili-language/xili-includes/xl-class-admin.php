@@ -6126,7 +6126,8 @@ class xili_language_admin extends xili_language {
 		$listlanguages = $this->get_listlanguages () ;
 		$trans = array();
 			foreach ( $listlanguages as $language ) {
-				if ( ! is_array( $curlang ) || $language->slug != $curlang[QUETAG] ) {
+				$is_curlang_match = is_array( $curlang ) && isset( $curlang[QUETAG] ) && ( $language->slug == $curlang[QUETAG] );
+				if ( ! $is_curlang_match ) {
 					$otherpost = $this->linked_post_in( $post_ID, $language->slug ) ;
 					if ( $otherpost ) {
 						$linepost = $this->temp_get_post ( $otherpost );

@@ -17,6 +17,12 @@ if ( strpos( $locale, 'fr' ) === 0 || strpos( strtolower( $lang_param ), 'fr' ) 
     if ( $template ) {
         include( $template );
     }
+} elseif ( strpos( $locale, 'ar' ) === 0 || strpos( strtolower( $lang_param ), 'ar' ) === 0 ) {
+    // Load Arabic Template
+    $template = locate_template( 'template-front-page-ar.php' );
+    if ( $template ) {
+        include( $template );
+    }
 } else {
     // Load English Template (Default)
     $template = locate_template( 'template-front-page-en.php' );
