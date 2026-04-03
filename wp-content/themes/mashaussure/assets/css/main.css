@@ -342,72 +342,106 @@
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    text-align: center;
 }
 
 .masha-footer-col {
     display: flex;
     flex-direction: column;
-    align-items: center;
+}
+
+.masha-footer-col h4 {
+    color: #fff !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0;
 }
 
 .masha-footer-col ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .masha-footer-col li {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .masha-footer-col a {
-    display: inline-block;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    transition: color 0.3s;
 }
 
 .masha-footer-col a:hover {
-    color: #fff;
+    color: var(--masha-green);
 }
 
-.masha-footer-bottom-bar {
+.masha-social-icons {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.masha-social-icon {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.masha-social-icon:hover {
+    background: var(--masha-green);
+    transform: translateY(-3px);
+}
+
+.masha-payment-badges {
+    display: flex;
+    gap: 0.5rem;
     flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
+}
+
+.masha-payment-badge {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
 }
 
 .masha-newsletter-form {
     display: flex;
     gap: 0.5rem;
+    margin-top: 1rem;
 }
 
 .masha-newsletter-form input[type="email"] {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: var(--elena-radius);
-    background: rgba(255, 255, 255, 0.1);
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
     color: #fff;
-    min-width: 180px;
+    font-size: 0.9rem;
 }
 
 .masha-newsletter-form button {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     background: var(--masha-green);
     color: #fff;
     border: none;
-    border-radius: var(--elena-radius);
+    border-radius: 4px;
     font-weight: 600;
+    transition: background 0.3s;
 }
 
 .masha-newsletter-form button:hover {
@@ -425,10 +459,32 @@
 
     .masha-services-grid {
         grid-template-columns: 1fr;
+        padding: 0 1.5rem;
     }
 
     .masha-footer-columns {
         grid-template-columns: 1fr;
+        text-align: left;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .masha-footer-col {
+        align-items: flex-start;
+        margin-bottom: 2rem;
+    }
+
+    .masha-footer-col ul {
+        align-items: flex-start;
+    }
+
+    .masha-footer-col li {
+        text-align: left;
+    }
+
+    .masha-newsletter-form {
+        flex-direction: column;
+        width: 100%;
     }
 }
 

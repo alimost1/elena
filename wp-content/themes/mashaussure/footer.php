@@ -101,14 +101,14 @@ if (!defined('ABSPATH')) {
 					</a>
 				</div>
 
-				<h4 style="margin-top: 1.5rem;">Mode de Paiements</h4>
+				<h4>Mode de Paiements</h4>
 				<div class="masha-payment-badges">
 					<span class="masha-payment-badge">CMI</span>
 					<span class="masha-payment-badge">VISA</span>
 					<span class="masha-payment-badge">MasterCard</span>
 				</div>
 
-				<h4 style="margin-top: 1.5rem;">S'abonner</h4>
+				<h4>S'abonner</h4>
 				<form class="masha-newsletter-form" action="#" method="post">
 					<input type="email" placeholder="Votre email" name="masha_email" aria-label="Email">
 					<button type="submit">S'abonner</button>
