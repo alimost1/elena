@@ -5099,3 +5099,104 @@ body.rtl .masha-footer-col ul li a, [dir="rtl"] .masha-footer-col ul li a {
         margin: 0 !important; 
     }
 }
+
+/* ═══════════════════════════════════════════════
+   Right-To-Left (RTL) Support for Arabic
+   ═══════════════════════════════════════════════ */
+html[dir="rtl"], .rtl {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+html[dir="rtl"] .masha-header-search .header-search-input {
+    padding: 0 1.25rem 0 3rem;
+}
+
+html[dir="rtl"] .masha-header-search .header-search-submit {
+    right: auto;
+    left: 0.5rem;
+}
+
+html[dir="rtl"] .masha-slider-arrow.masha-slider-next {
+    right: auto;
+    left: 20px;
+    transform: translateY(-50%) rotate(180deg);
+}
+
+html[dir="rtl"] .masha-slider-arrow.masha-slider-prev {
+    left: auto;
+    right: 20px;
+    transform: translateY(-50%) rotate(180deg);
+}
+
+html[dir="rtl"] .elena-product-info,
+html[dir="rtl"] .masha-fc-content,
+html[dir="rtl"] .masha-fc-title {
+    text-align: right !important;
+}
+
+html[dir="rtl"] .elena-sale-badge {
+    left: auto;
+    right: 15px;
+}
+
+html[dir="rtl"] .elena-new-badge {
+    left: auto;
+    right: 15px;
+}
+
+/* Footer / Service alignment RTL */
+html[dir="rtl"] .masha-footer .masha-footer-columns,
+html[dir="rtl"] .masha-footer-col,
+html[dir="rtl"] .masha-footer-col ul,
+html[dir="rtl"] .masha-footer-col li,
+html[dir="rtl"] .masha-services-grid,
+html[dir="rtl"] .masha-service-box,
+html[dir="rtl"] .masha-service-info,
+html[dir="rtl"] .masha-service-info h3,
+html[dir="rtl"] .masha-service-info p {
+    text-align: right !important;
+}
+
+html[dir="rtl"] .masha-footer-col {
+    align-items: flex-start !important;
+}
+
+@media (max-width: 768px) {
+    html[dir="rtl"] .masha-footer-col {
+        align-items: flex-end !important;
+    }
+    html[dir="rtl"] .masha-footer-col ul {
+        align-items: flex-start !important;
+    }
+}
+
+html[dir="rtl"] .elena-footer-col ul li a::before {
+    margin-right: 0;
+    margin-left: 8px;
+    transform: rotate(180deg);
+}
+
+html[dir="rtl"] .masha-header-inner,
+html[dir="rtl"] .masha-topbar-inner,
+html[dir="rtl"] .masha-footer-bottom {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .masha-header-actions {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .elena-nav-list {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .masha-coups-header,
+html[dir="rtl"] .masha-section-heading {
+    text-align: right !important;
+}
+
+html[dir="rtl"] .masha-section-heading h2::after {
+    left: auto;
+    right: 0;
+}
