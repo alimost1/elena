@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'ELENA_VERSION', '1.1.6' );
+define( 'ELENA_VERSION', '1.1.7' );
 
 
 define( 'ELENA_DIR', get_template_directory() );
