@@ -5103,10 +5103,17 @@ body.rtl .masha-footer-col ul li a, [dir="rtl"] .masha-footer-col ul li a {
 /* ═══════════════════════════════════════════════
    Right-To-Left (RTL) Support for Arabic
    ═══════════════════════════════════════════════ */
-html[dir="rtl"], .rtl {
+html[dir="rtl"], html[dir="rtl"] body {
     direction: rtl !important;
     text-align: right !important;
+    overflow-x: hidden;
 }
+
+html[dir="rtl"] .masha-site {
+    overflow-x: hidden;
+    position: relative;
+}
+
 
 html[dir="rtl"] .masha-header-search .header-search-input {
     padding: 0 1.25rem 0 3rem;
