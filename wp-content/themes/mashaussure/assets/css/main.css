@@ -342,7 +342,7 @@
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    text-align: center;
+    text-align: left;
     justify-items: center;
 }
 
@@ -355,7 +355,7 @@
 .masha-footer-col-categories,
 .masha-footer-col-social {
     align-items: center;
-    text-align: center;
+    text-align: left;
 }
 
 .masha-footer-col h4 {
@@ -376,7 +376,7 @@
 
 .masha-footer-col li {
     margin-bottom: 0.75rem;
-    text-align: center;
+    text-align: left;
 }
 
 .masha-footer-col a {
@@ -474,7 +474,7 @@
 
     .masha-footer-columns {
         grid-template-columns: 1fr;
-        text-align: center;
+        text-align: left;
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
@@ -489,7 +489,7 @@
     }
 
     .masha-footer-col li {
-        text-align: center;
+        text-align: left;
     }
 
     .masha-newsletter-form {
