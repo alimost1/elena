@@ -28,6 +28,73 @@
         padding: 0 !important;
         justify-content: flex-end !important;
     }
+
+}
+
+/* --- Language flags showing on all devices --- */
+.masha-mobile-langs {
+    display: flex !important;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.masha-lang-list {
+    display: flex !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 10px !important;
+}
+
+.masha-lang-list li a {
+    display: block !important;
+    width: 26px !important;
+    height: 18px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 2px !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    font-size: 0 !important;
+    color: transparent !important;
+    overflow: hidden !important;
+    line-height: 0 !important;
+    text-indent: -9999px !important;
+    transition: transform 0.2s ease !important;
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: crisp-edges !important;
+}
+
+.masha-lang-list li a:hover {
+    transform: scale(1.15) !important;
+    border-color: #ff9d00 !important;
+}
+
+/* Lang Slugs */
+.masha-lang-list li.lang-en_us a,
+.masha-lang-list li.lang-en a,
+.masha-lang-list li.lang-english a {
+    background-image: url('../images/flags/en_us.png') !important;
+}
+
+.masha-lang-list li.lang-fr_fr a,
+.masha-lang-list li.lang-fr a,
+.masha-lang-list li.lang-french a {
+    background-image: url('../images/flags/fr_fr.png') !important;
+}
+
+.masha-lang-list li.lang-arabic a,
+.masha-lang-list li.lang-ar_xx a,
+.masha-lang-list li.lang-ar a {
+    background-image: url('../images/flags/ar_xx.png') !important;
+}
+
+.masha-lang-list li.current-lang a {
+    border-color: #ff9d00 !important;
+    border-width: 1.5px !important;
+    box-shadow: 0 0 5px rgba(255, 157, 0, 0.4) !important;
 }
 
 /* RTL Layout fixes */
