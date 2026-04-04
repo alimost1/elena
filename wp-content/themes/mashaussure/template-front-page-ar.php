@@ -7,6 +7,9 @@
  */
 
 get_header();
+?>
+<div dir="rtl" class="masha-rtl-wrapper">
+<?php
 
 $shop_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#';
 $hero_image = get_theme_mod('elena_hero_image', '');
@@ -536,5 +539,6 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
     </div>
 </section>
 
+</div> <!-- .masha-rtl-wrapper -->
 <?php
 get_footer();

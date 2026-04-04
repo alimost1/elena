@@ -43,50 +43,53 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="elena-container">
 			<div class="elena-footer-columns">
 				<div class="elena-footer-col">
-					<h4><?php esc_html_e( 'Catégories', 'elena' ); ?></h4>
+					<h4><?php esc_html_e( 'Catégories', 'mashaussure' ); ?></h4>
 					<?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
 						<?php dynamic_sidebar( 'footer-1' ); ?>
 					<?php else : ?>
 						<ul>
-							<li><a href="#"><?php esc_html_e( 'Bottines Femmes', 'elena' ); ?></a></li>
-							<li><a href="#"><?php esc_html_e( 'Boots Hommes', 'elena' ); ?></a></li>
-							<li><a href="#"><?php esc_html_e( 'Mocassins femmes', 'elena' ); ?></a></li>
-							<li><a href="#"><?php esc_html_e( 'Escarpins', 'elena' ); ?></a></li>
-							<li><a href="#"><?php esc_html_e( 'Baskets Femmes', 'elena' ); ?></a></li>
-							<li><a href="#"><?php esc_html_e( 'Baskets Hommes', 'elena' ); ?></a></li>
-						</ul>
+						<li><a href="#"><?php esc_html_e('Bottines Femmes', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Boots Hommes', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Mocassins femmes', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Mocassins et Chaussures Bateau', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Escarpins', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Chaussures de ville', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Baskets Femmes', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Baskets Hommes', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Chaussures Enfants', 'mashaussure'); ?></a></li>
+					</ul>
 					<?php endif; ?>
 				</div>
 				<div class="elena-footer-col">
-					<h4>Business</h4>
+					<h4><?php esc_html_e('CATÉGORIES', 'mashaussure'); ?></h4>
 					<ul>
-						<li><a href="#"><?php esc_html_e( 'Acheter en Gros', 'elena' ); ?></a></li>
-						<li><a href="#"><?php esc_html_e( 'Devenir franchiseur', 'elena' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Acheter en Gros', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Devenir franchiseur', 'mashaussure'); ?></a></li>
 					</ul>
 				</div>
 				<div class="elena-footer-col">
-					<h4><?php esc_html_e( 'Nos boutiques', 'elena' ); ?></h4>
+					<h4><?php esc_html_e( 'Nos boutiques', 'mashaussure' ); ?></h4>
 					<ul>
-						<li><a href="#"><?php esc_html_e( 'Boutique Maarif', 'elena' ); ?></a></li>
-						<li><a href="#"><?php esc_html_e( 'Boutique Ain Chock', 'elena' ); ?></a></li>
-						<li><a href="#"><?php esc_html_e( 'Boutique Oulfa', 'elena' ); ?></a></li>
-						<li><a href="#"><?php esc_html_e( 'Morocco Mall', 'elena' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e( 'Boutique Maarif', 'mashaussure' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e( 'Boutique Ain Chock', 'mashaussure' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e( 'Boutique Oulfa', 'mashaussure' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e( 'Morocco Mall', 'mashaussure' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="elena-footer-col">
-					<h4><?php esc_html_e( 'Liens', 'elena' ); ?></h4>
+					<h4><?php esc_html_e( 'Liens', 'mashaussure' ); ?></h4>
 					<ul>
-						<li><a href="#"><?php esc_html_e( 'A Propos de Nous', 'elena' ); ?></a></li>
-						<li><a href="#"><?php esc_html_e( 'Politique d\'Échange', 'elena' ); ?></a></li>
-						<li><a href="#"><?php esc_html_e( 'Confidentialité', 'elena' ); ?></a></li>
-						<li><a href="#"><?php esc_html_e( 'CGV', 'elena' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e('A Propos de Nous', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Politique d\'Échange', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('Confidentialité', 'mashaussure'); ?></a></li>
+						<li><a href="#"><?php esc_html_e('CGV', 'mashaussure'); ?></a></li>
 					</ul>
 				</div>
 			</div>
 
 			<div class="elena-footer-bottom-bar">
 				<div class="elena-footer-social">
-					<span><?php esc_html_e( 'Suivre Machaussure.ma', 'elena' ); ?></span>
+					<span><?php esc_html_e( 'Suivre Machaussure.ma', 'mashaussure' ); ?></span>
 					<div class="elena-social-links">
 						<?php $fb = get_theme_mod( 'elena_facebook', '#' ); $ig = get_theme_mod( 'elena_instagram', '#' ); ?>
 						<?php if ( $fb ) : ?><a href="<?php echo esc_url( $fb ); ?>" target="_blank" rel="noopener" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a><?php endif; ?>
@@ -94,19 +97,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				</div>
 				<div class="elena-footer-payments">
-					<span><?php esc_html_e( 'Mode de Paiements', 'elena' ); ?></span>
+					<span><?php esc_html_e('Mode de Paiements', 'mashaussure'); ?></span>
 					<span class="elena-payment-icons">VISA • CMI</span>
 				</div>
 				<div class="elena-footer-newsletter">
 					<form class="elena-newsletter-form" action="#" method="post">
-						<input type="email" placeholder="<?php esc_attr_e( 'Votre email', 'elena' ); ?>" name="elena_email" aria-label="Email">
-						<button type="submit"><?php esc_html_e( 'S\'abonner', 'elena' ); ?></button>
+						<input type="email" placeholder="<?php esc_attr_e('Votre email', 'mashaussure'); ?>" name="masha_email" aria-label="Email">
+						<button type="submit"><?php esc_html_e('S\'abonner', 'mashaussure'); ?></button>
 					</form>
 				</div>
 			</div>
 
 			<div class="elena-footer-bottom">
-				<p>&copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>. <?php esc_html_e( 'Tous droits réservés.', 'elena' ); ?></p>
+				<p>&copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>. <?php esc_html_e( 'Tous droits réservés.', 'mashaussure' ); ?></p>
 			</div>
 		</div>
 	</footer>

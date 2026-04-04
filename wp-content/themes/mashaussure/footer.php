@@ -18,48 +18,125 @@ if (!defined('ABSPATH')) {
 		<div class="masha-footer-columns">
 			<!-- Column 1: Catégories -->
 			<div class="masha-footer-col masha-footer-col-categories">
-				<h4>CATÉGORIES</h4>
+				<h4><?php 
+                    $locale = get_locale();
+                    if ($locale === 'ar') echo 'الأقسام';
+                    elseif ($locale === 'en_US' || $locale === 'en_GB' || strpos($locale, 'en_') === 0) echo 'CATEGORIES';
+                    else echo 'CATÉGORIES';
+                ?></h4>
 				<?php if (is_active_sidebar('footer-1')): ?>
 					<?php dynamic_sidebar('footer-1'); ?>
 				<?php else: ?>
 					<ul>
-						<li><a href="#">Bottines Femmes</a></li>
-						<li><a href="#">Boots Hommes</a></li>
-						<li><a href="#">Mocassins femmes</a></li>
-						<li><a href="#">Mocassins et Chaussures Bateau</a></li>
-						<li><a href="#">Escarpins</a></li>
-						<li><a href="#">Chaussures de ville</a></li>
-						<li><a href="#">Baskets Femmes</a></li>
-						<li><a href="#">Baskets Hommes</a></li>
-						<li><a href="#">Chaussures Enfants</a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'أحذية كاحل نسائية';
+                            elseif (strpos($locale, 'en_') === 0) echo 'Women\'s Ankle Boots';
+                            else echo 'Bottines Femmes';
+                        ?></a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'أحذية رجالية';
+                            elseif (strpos($locale, 'en_') === 0) echo 'Men\'s Boots';
+                            else echo 'Boots Hommes';
+                        ?></a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'موكاسين نسائي';
+                            elseif (strpos($locale, 'en_') === 0) echo 'Women\'s Loafers';
+                            else echo 'Mocassins femmes';
+                        ?></a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'موكاسين وأحذية قوارب';
+                            elseif (strpos($locale, 'en_') === 0) echo 'Loafers & Boat Shoes';
+                            else echo 'Mocassins et Chaussures Bateau';
+                        ?></a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'أحذية كلاسيكية';
+                            elseif (strpos($locale, 'en_') === 0) echo 'Heels';
+                            else echo 'Escarpins';
+                        ?></a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'أحذية مدينة';
+                            elseif (strpos($locale, 'en_') === 0) echo 'City Shoes';
+                            else echo 'Chaussures de ville';
+                        ?></a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'أحذية رياضية نسائية';
+                            elseif (strpos($locale, 'en_') === 0) echo 'Women\'s Sneakers';
+                            else echo 'Baskets Femmes';
+                        ?></a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'أحذية رياضية رجالية';
+                            elseif (strpos($locale, 'en_') === 0) echo 'Men\'s Sneakers';
+                            else echo 'Baskets Hommes';
+                        ?></a></li>
+						<li><a href="#"><?php 
+                            if ($locale === 'ar') echo 'أحذية أطفال';
+                            elseif (strpos($locale, 'en_') === 0) echo 'Kids\' Shoes';
+                            else echo 'Chaussures Enfants';
+                        ?></a></li>
 					</ul>
 				<?php endif; ?>
 			</div>
 
 			<!-- Column 2: Business + Nos Boutiques -->
 			<div class="masha-footer-col">
-				<h4>BUSINESS</h4>
+				<h4><?php 
+                    if ($locale === 'ar') echo 'الأعمال';
+                    elseif (strpos($locale, 'en_') === 0) echo 'BUSINESS';
+                    else echo 'BUSINESS';
+                ?></h4>
 				<ul>
-					<li><a href="#">Acheter en Gros</a></li>
-					<li><a href="#">Devenir franchiseur</a></li>
+					<li><a href="#"><?php 
+                        if ($locale === 'ar') echo 'الشراء بالجملة';
+                        elseif (strpos($locale, 'en_') === 0) echo 'Wholesale';
+                        else echo 'Acheter en Gros';
+                    ?></a></li>
+					<li><a href="#"><?php 
+                        if ($locale === 'ar') echo 'كن وكيلاً';
+                        elseif (strpos($locale, 'en_') === 0) echo 'Become a Franchisee';
+                        else echo 'Devenir franchiseur';
+                    ?></a></li>
 				</ul>
 
 			</div>
 
 			<!-- Column 3: Liens -->
 			<div class="masha-footer-col">
-				<h4>LIENS</h4>
+				<h4><?php 
+                    if ($locale === 'ar') echo 'روابط';
+                    elseif (strpos($locale, 'en_') === 0) echo 'LINKS';
+                    else echo 'LIENS';
+                ?></h4>
 				<ul>
-					<li><a href="#">A Propos de Nous</a></li>
-					<li><a href="#">Politique d'Échange</a></li>
-					<li><a href="#">Confidentialité</a></li>
-					<li><a href="#">CGV</a></li>
+					<li><a href="#"><?php 
+                        if ($locale === 'ar') echo 'من نحن';
+                        elseif (strpos($locale, 'en_') === 0) echo 'About Us';
+                        else echo 'A Propos de Nous';
+                    ?></a></li>
+					<li><a href="#"><?php 
+                        if ($locale === 'ar') echo 'سياسة الاستبدال';
+                        elseif (strpos($locale, 'en_') === 0) echo 'Exchange Policy';
+                        else echo 'Politique d\'Échange';
+                    ?></a></li>
+					<li><a href="#"><?php 
+                        if ($locale === 'ar') echo 'الخصوصية';
+                        elseif (strpos($locale, 'en_') === 0) echo 'Privacy';
+                        else echo 'Confidentialité';
+                    ?></a></li>
+					<li><a href="#"><?php 
+                        if ($locale === 'ar') echo 'الشروط العامة';
+                        elseif (strpos($locale, 'en_') === 0) echo 'Terms & Conditions';
+                        else echo 'CGV';
+                    ?></a></li>
 				</ul>
 			</div>
 
 			<!-- Column 4: Social + Payments + Newsletter -->
 			<div class="masha-footer-col masha-footer-col-social">
-				<h4>Suivre Elena.ma</h4>
+				<h4><?php 
+                    if ($locale === 'ar') echo 'تابع Elena.ma';
+                    elseif (strpos($locale, 'en_') === 0) echo 'Follow Elena.ma';
+                    else echo 'Suivre Elena.ma';
+                ?></h4>
 				<div class="masha-social-icons">
 					<?php $fb = get_theme_mod('elena_facebook', '#');
 					$ig = get_theme_mod('elena_instagram', '#'); ?>
@@ -101,23 +178,43 @@ if (!defined('ABSPATH')) {
 					</a>
 				</div>
 
-				<h4>Mode de Paiements</h4>
+				<h4><?php 
+                    if ($locale === 'ar') echo 'طرق الدفع';
+                    elseif (strpos($locale, 'en_') === 0) echo 'Payment Methods';
+                    else echo 'Mode de Paiements';
+                ?></h4>
 				<div class="masha-payment-badges">
 					<span class="masha-payment-badge">CMI</span>
 					<span class="masha-payment-badge">VISA</span>
 					<span class="masha-payment-badge">MasterCard</span>
 				</div>
 
-				<h4>S'abonner</h4>
+				<h4><?php 
+                    if ($locale === 'ar') echo 'اشترك';
+                    elseif (strpos($locale, 'en_') === 0) echo 'Subscribe';
+                    else echo 'S\'abonner';
+                ?></h4>
 				<form class="masha-newsletter-form" action="#" method="post">
-					<input type="email" placeholder="Votre email" name="masha_email" aria-label="Email">
-					<button type="submit">S'abonner</button>
+					<input type="email" placeholder="<?php 
+                        if ($locale === 'ar') echo 'بريدك الإلكتروني';
+                        elseif (strpos($locale, 'en_') === 0) echo 'Your email';
+                        else echo 'Votre email';
+                    ?>" name="masha_email" aria-label="Email">
+					<button type="submit"><?php 
+                        if ($locale === 'ar') echo 'اشترك';
+                        elseif (strpos($locale, 'en_') === 0) echo 'Subscribe';
+                        else echo 'S\'abonner';
+                    ?></button>
 				</form>
 			</div>
 		</div>
 
 		<div class="elena-footer-bottom masha-copyright">
-			<p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. Tous droits réservés.</p>
+			<p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. <?php 
+                if ($locale === 'ar') echo 'جميع الحقوق محفوظة.';
+                elseif (strpos($locale, 'en_') === 0) echo 'All rights reserved.';
+                else echo 'Tous droits réservés.';
+            ?></p>
 		</div>
 	</div>
 </footer>
