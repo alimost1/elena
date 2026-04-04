@@ -35,7 +35,7 @@ if ($LASTEXITCODE -eq 0) {
     
     # Use localhost:8000 to bypass Cloudflare WAF on public URL
     $uuid = "josgk00c0ook04cs8cck00c4"
-    $webhook = "http://localhost:8000/api/v1/deploy?uuid=$uuid&force=false"
+    $webhook = "http://localhost:8000/api/v1/deploy?uuid=$uuid&force=true"
     ssh root@69.10.53.215 "curl -s -X GET '$webhook'"
     
     Write-Host "`n🎉 Deployment started! Check your Coolify dashboard." -ForegroundColor Green
