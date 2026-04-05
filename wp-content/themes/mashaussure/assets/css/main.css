@@ -3484,7 +3484,7 @@ button {
 .woocommerce div.product p.price,
 .woocommerce div.product span.price {
     font-family: 'Montserrat', sans-serif;
-    color: var(--elena-dark);
+    color: #000;
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
@@ -3506,7 +3506,7 @@ button {
 .woocommerce div.product span.price ins {
     text-decoration: none;
     font-weight: 700;
-    color: #b61e2e;
+    color: #000;
     font-size: 1.5rem;
 }
 
@@ -3541,9 +3541,9 @@ button {
 
 .woocommerce div.product form.cart .variations td.label {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin-bottom: 0.25rem;
-    color: #111;
+    color: #000;
     text-transform: none;
     font-family: 'Montserrat', sans-serif;
 }
@@ -3572,18 +3572,18 @@ button {
     margin-bottom: 10px;
 }
 
-/* ── Color Swatches (image-based, round) ── */
+/* ── Color Swatches (image-based, square with rounded corners) ── */
 .elena-swatches-wrap.couleur-swatches .elena-swatch-item {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border: 1px solid #e0e0e0;
-    border-radius: 0;
-    padding: 3px;
+    border-radius: 4px;
+    padding: 2px;
     cursor: pointer;
     position: relative;
     background: #fff;
     transition: all 0.2s ease;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .elena-swatches-wrap.couleur-swatches .elena-swatch-item .swatch-label {
@@ -3595,65 +3595,19 @@ button {
 }
 
 .elena-swatches-wrap.couleur-swatches .elena-swatch-item.active {
-    border-color: #333;
-    border-width: 2px;
-    padding: 2px;
+    border-color: #000;
 }
 
 .elena-swatches-wrap.couleur-swatches .elena-swatch-item.active::after {
-    display: none;
-}
-
-/* ── Size Swatches (text-based, square) ── */
-.elena-swatch-item {
-    border: 1px solid #e0e0e0;
-    padding: 6px 10px;
-    min-width: 42px;
-    height: 42px;
-    text-align: center;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 0.85rem;
-    background: #fff;
-    transition: all 0.2s ease;
-    border-radius: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    user-select: none;
-    font-family: 'Montserrat', sans-serif;
-    color: #333;
-}
-
-.elena-swatch-item:hover {
-    border-color: #555;
-}
-
-.elena-swatch-item.active {
-    border-color: #333;
-    border-width: 2px;
-    font-weight: 700;
-}
-
-/* Out of stock swatch */
-.elena-swatch-item.out-of-stock {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: #f5f5f5;
-    color: #bbb;
-}
-
-.elena-swatch-item.out-of-stock::after {
     content: '';
     position: absolute;
-    top: 50%;
+    bottom: -1px;
     left: 0;
     width: 100%;
-    height: 1px;
-    background: #999;
-    transform: rotate(-45deg);
-    transform-origin: center;
+    height: 3px;
+    background: #000;
+    border-radius: 0 0 4px 4px;
+    z-index: 2;
 }
 
 /* Color swatch images */
@@ -3661,7 +3615,69 @@ button {
     max-width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 2px;
 }
+
+/* ── Size Swatches (text-based, square) ── */
+.elena-swatch-item {
+    border: 1px solid #e0e0e0;
+    padding: 6px 10px;
+    min-width: 44px;
+    height: 44px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    background: #fff;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+    font-family: 'Montserrat', sans-serif;
+    color: #111;
+}
+
+.elena-swatch-item:hover {
+    border-color: #555;
+}
+
+.elena-swatch-item.active {
+    border-color: #000;
+    font-weight: 700;
+}
+
+/* Out of stock swatch */
+.elena-swatch-item.out-of-stock {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #fdfdfd;
+    color: #999;
+}
+
+/* Draw a clear red X through the out of stock size swatch */
+.elena-swatches-wrap.pointure-swatches .elena-swatch-item.out-of-stock::before,
+.elena-swatches-wrap.pointure-swatches .elena-swatch-item.out-of-stock::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: 1.5px;
+    background: #e74c3c;
+    z-index: 10;
+}
+
+.elena-swatches-wrap.pointure-swatches .elena-swatch-item.out-of-stock::before {
+    transform: rotate(45deg);
+}
+
+.elena-swatches-wrap.pointure-swatches .elena-swatch-item.out-of-stock::after {
+    transform: rotate(-45deg);
+}
+
 
 /* ══════════════════════════════════════
    Add to Cart Section
