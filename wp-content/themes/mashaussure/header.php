@@ -75,7 +75,7 @@ endif; ?>
 				<div class="masha-mobile-langs">
 					<ul class="masha-lang-list">
 						<?php if (function_exists('xili_language_list')) {
-							xili_language_list('<li>', '</li>', 'navmenu', true, false);
+							xili_language_list('<li class="xl-list menu-item">', '</li>', 'link', true, false);
 						} ?>
 					</ul>
 				</div>

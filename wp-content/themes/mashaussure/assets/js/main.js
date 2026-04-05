@@ -1,8 +1,9 @@
 /**
  * Machaussure Theme - Main JavaScript
+ * Matching machaussure.ma reference design
  *
  * @package Mashaussure
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 (function () {
@@ -176,9 +177,43 @@
                 tab.addEventListener('click', function () {
                     tabs.forEach(function (t) { t.classList.remove('active'); });
                     tab.classList.add('active');
-                    // Future: load different product sets via AJAX
                 });
             });
+        });
+    }
+
+    /* ─────────────────────────────────────────────
+     * Quantity +/- Buttons
+     * ───────────────────────────────────────────── */
+    function initQuantityButtons() {
+        document.addEventListener('click', function(e) {
+            var target = e.target;
+            
+            // Handle minus button
+            if (target.classList.contains('masha-qty-minus')) {
+                var input = target.parentElement.querySelector('.qty');
+                if (input) {
+                    var val = parseInt(input.value, 10) || 1;
+                    var min = parseInt(input.getAttribute('min'), 10) || 1;
+                    if (val > min) {
+                        input.value = val - 1;
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                }
+            }
+            
+            // Handle plus button
+            if (target.classList.contains('masha-qty-plus')) {
+                var input = target.parentElement.querySelector('.qty');
+                if (input) {
+                    var val = parseInt(input.value, 10) || 1;
+                    var max = parseInt(input.getAttribute('max'), 10) || Infinity;
+                    if (val < max) {
+                        input.value = val + 1;
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                }
+            }
         });
     }
 
@@ -211,7 +246,14 @@
                 var isOutOfStock = label.toLowerCase().indexOf('out of stock') !== -1 || label.toLowerCase().indexOf('rupture') !== -1;
                 var cleanLabel = label.split(' (')[0];
 
-                var $item = jQuery('<div class="elena-swatch-item" data-value="'+$opt.val()+'">'+cleanLabel+'</div>');
+                var $item;
+                if (isColor) {
+                    // Color swatches: try to find the product image for this variation
+                    $item = jQuery('<div class="elena-swatch-item elena-color-swatch" data-value="'+$opt.val()+'"><span class="swatch-label">'+cleanLabel+'</span></div>');
+                } else {
+                    // Size swatches: text-based
+                    $item = jQuery('<div class="elena-swatch-item elena-size-swatch" data-value="'+$opt.val()+'">'+cleanLabel+'</div>');
+                }
                 
                 if (isOutOfStock) {
                     $item.addClass('out-of-stock');
@@ -243,6 +285,17 @@
     }
 
     /* ─────────────────────────────────────────────
+     * Product Tabs Enhancement
+     * ───────────────────────────────────────────── */
+    function initProductTabs() {
+        var tabList = document.querySelector('.woocommerce-tabs .tabs');
+        if (!tabList) return;
+        
+        // Add center alignment class
+        tabList.classList.add('masha-tabs-centered');
+    }
+
+    /* ─────────────────────────────────────────────
      * Initialize All
      * ───────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', function () {
@@ -253,7 +306,9 @@
         initScrollToTop();
         initHeroSlider();
         initCoupsTabs();
+        initQuantityButtons();
         initVariationSwatches();
+        initProductTabs();
     });
 
 })();

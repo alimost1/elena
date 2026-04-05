@@ -3631,6 +3631,7 @@ class xili_language {
 	function xili_language_list( $before = '<li>', $after ='</li>', $option='', $echo = true, $hidden = false ) {
 		// new way to add parameters now and in future
 
+		$flagstyle = false;
 		if ( is_array ( $before ) ) {
 			$default = array (
 				'before' => '<li>>',

@@ -2036,14 +2036,18 @@ button {
     margin-bottom: 2em;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .woocommerce div.product div.images {
-        width: 50%;
+        flex: 0 0 55%;
+        max-width: 55%;
+        margin-bottom: 0;
     }
 
     .woocommerce div.product div.summary {
-        width: 42%;
+        flex: 0 0 40%;
+        max-width: 40%;
         margin-left: auto;
+        margin-bottom: 0;
     }
 }
 
@@ -2226,8 +2230,12 @@ button {
 
 /* Product Description Tabs */
 .woocommerce div.product .woocommerce-tabs {
-    margin: 4rem 2rem 2rem 2rem;
-    padding: 0;
+    margin: 4rem 0 2rem 0;
+    padding: 3rem 0;
+    width: 100%;
+    flex: 0 0 100%;
+    border-top: 1px solid #eee;
+    clear: both;
 }
 
 .woocommerce div.product .woocommerce-tabs h2 {
@@ -2241,6 +2249,9 @@ button {
 .woocommerce div.product .related.products {
     width: 100%;
     flex: 0 0 100%;
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid #eee;
 }
 
 .woocommerce .related.products h2 {
@@ -2340,4 +2351,215 @@ button {
     border-color: var(--elena-orange);
     border-width: 1.5px;
     box-shadow: 0 0 8px rgba(45, 122, 62, 0.2);
+}
+
+/* ═══════════════════════════════════════════════
+   Product Variations & Swatches (100% Image Match)
+   ═══════════════════════════════════════════════ */
+.woocommerce div.product form.cart .variations {
+    width: 100%;
+    border: none;
+    margin-bottom: 2rem;
+}
+
+.woocommerce div.product form.cart .variations tbody,
+.woocommerce div.product form.cart .variations tr,
+.woocommerce div.product form.cart .variations td {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+}
+
+.woocommerce div.product form.cart .variations tr {
+    margin-bottom: 2rem;
+}
+
+.woocommerce div.product form.cart .variations td.label {
+    margin-bottom: 1rem;
+}
+
+.woocommerce div.product form.cart .variations td.label label {
+    font-family: var(--elena-font-heading);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: #1A1A1A;
+    display: inline-block;
+}
+
+.elena-selected-val {
+    color: #888;
+    font-size: 0.95rem;
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+/* Swatches Wrapper */
+.elena-swatches-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.elena-swatch-item {
+    min-width: 50px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 15px;
+    border: 1.5px solid #EBEBEB;
+    border-radius: 8px;
+    font-family: var(--elena-font-body);
+    font-weight: 500;
+    font-size: 1rem;
+    color: #1A1A1A;
+    cursor: pointer;
+    background: #FFF;
+    transition: all 0.2s ease;
+    user-select: none;
+    position: relative;
+}
+
+/* Color Swatches (thumbnails) */
+.couleur-swatches .elena-swatch-item {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+}
+
+.couleur-swatches .elena-swatch-item.active {
+    border-color: transparent;
+    border-bottom: 3.5px solid #000;
+    border-radius: 8px 8px 2px 2px;
+}
+
+/* Size Swatches */
+.pointure-swatches .elena-swatch-item {
+    min-width: 60px;
+    height: 55px;
+}
+
+.pointure-swatches .elena-swatch-item.active {
+    border: 2.5px solid #555;
+    background: #FFF;
+    color: #000;
+}
+
+/* Out of stock with Red X */
+.elena-swatch-item.out-of-stock {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: #555;
+}
+
+.elena-out-of-stock-x {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   Quantity & Buttons (Image Style)
+   ───────────────────────────────────────────── */
+.woocommerce div.product form.cart {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-top: 2rem;
+    border: none;
+    padding: 0;
+}
+
+/* Quantity Box */
+.woocommerce div.product form.cart .quantity {
+    display: flex !important;
+    align-items: stretch;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0;
+}
+
+.woocommerce div.product form.cart .quantity .minus,
+.woocommerce div.product form.cart .quantity .plus {
+    width: 40px;
+    height: 55px;
+    background: #fff;
+    border: 1.5px solid #EBEBEB;
+    color: #888;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.woocommerce div.product form.cart .quantity .qty {
+    width: 55px;
+    height: 55px;
+    border-top: 1.5px solid #EBEBEB;
+    border-bottom: 1.5px solid #EBEBEB;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Add to Cart Button (Light Green) */
+.woocommerce div.product form.cart .single_add_to_cart_button {
+    background-color: #E4F5D5 !important;
+    color: #1A1A1A !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    padding: 0 2.5rem !important;
+    height: 55px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    min-width: 220px;
+}
+
+/* Buy Now Button (Dark Green) */
+.elena-buy-now-btn {
+    background-color: #14C025 !important;
+    color: #FFFFFF !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    padding: 0 2.5rem !important;
+    height: 55px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    cursor: pointer;
+    min-width: 150px;
+    transition: background 0.2s;
+}
+
+.elena-buy-now-btn:hover {
+    background-color: #0E9B1A !important;
+}
+
+/* Reset Link */
+.reset_variations {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .woocommerce div.product form.cart {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .woocommerce div.product form.cart .quantity {
+        justify-content: center;
+    }
 }

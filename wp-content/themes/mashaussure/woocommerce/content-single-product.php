@@ -2,13 +2,7 @@
 /**
  * The template for displaying product content in the single-product.php template
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/content-single-product.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
+ * Replicated to match machaussure.ma reference design exactly.
  *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
@@ -36,6 +30,8 @@ if ( post_password_required() ) {
 <?php
 	// Remove default sale flash (it renders outside the gallery)
 	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
+	// Remove default breadcrumbs from the hook (we'll place them manually in the summary)
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 	?>
 
 	<div class="masha-product-gallery-wrap" style="position:relative;">
@@ -66,6 +62,23 @@ if ( post_password_required() ) {
 
 
 	<div class="summary entry-summary">
+		<?php
+		// ── Breadcrumbs ──
+		?>
+		<nav class="woocommerce-breadcrumb masha-breadcrumb">
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Accueil</a>
+			<span class="breadcrumb-separator">/</span>
+			<?php
+			$terms = wc_get_product_terms( $product->get_id(), 'product_cat', array( 'orderby' => 'parent', 'order' => 'DESC' ) );
+			if ( $terms ) {
+				foreach ( $terms as $term ) {
+					echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . esc_html( $term->name ) . '</a>';
+					echo '<span class="breadcrumb-separator">/</span>';
+				}
+			}
+			?>
+			<?php the_title(); ?>
+		</nav>
 		<?php
 		/**
 		 * Hook: woocommerce_single_product_summary.

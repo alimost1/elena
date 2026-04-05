@@ -507,28 +507,59 @@ function elena_admin_notice() {
 add_action( 'admin_notices', 'elena_admin_notice' );
 
 /* ─────────────────────────────────────────────
- * 11. Custom Buy Now Functionality
+ * 11. Product Page – Matching machaussure.ma reference
  * ───────────────────────────────────────────── */
 
-// Redirect to cart/checkout after add to cart if requested
-add_filter( 'woocommerce_add_to_cart_redirect', 'elena_buy_now_redirect' );
-function elena_buy_now_redirect( $url ) {
-    if ( isset( $_REQUEST['buy_now'] ) && $_REQUEST['buy_now'] == 'yes' ) {
-        return wc_get_cart_url();
+// Change "Add to Cart" button text to "AJOUTER AU PANIER"
+add_filter( 'woocommerce_product_single_add_to_cart_text', 'elena_custom_cart_button_text' );
+function elena_custom_cart_button_text() {
+    return __( 'AJOUTER AU PANIER', 'mashaussure' );
+}
+
+// Add Buy Now button after the cart form
+add_action( 'woocommerce_after_add_to_cart_button', 'masha_add_buy_now_button' );
+function masha_add_buy_now_button() {
+    global $product;
+    echo '<button type="submit" name="masha-buy-now" value="1" class="masha-buy-now-btn button alt">BUY NOW</button>';
+}
+
+// Handle Buy Now redirect
+add_filter( 'woocommerce_add_to_cart_redirect', 'masha_buy_now_redirect' );
+function masha_buy_now_redirect( $url ) {
+    if ( isset( $_POST['masha-buy-now'] ) ) {
+        return wc_get_checkout_url();
     }
     return $url;
 }
 
-// Ensure the "Add to Cart" button can be turned into a "Buy Now" button via template or hook
-// Or just globally redirect all add-to-carts to cart if that's what the user wants.
-// The user said "add buy button redirect to cart". I'll add a filter to redirect ALL to cart as it's common for these boutique sites.
-add_filter( 'woocommerce_add_to_cart_redirect', 'elena_custom_add_to_cart_redirect' );
-function elena_custom_add_to_cart_redirect() {
-    return wc_get_cart_url();
+// Add quantity +/- buttons
+add_action( 'woocommerce_before_quantity_input_field', 'masha_quantity_minus_btn' );
+function masha_quantity_minus_btn() {
+    echo '<button type="button" class="masha-qty-btn masha-qty-minus" aria-label="Decrease quantity">-</button>';
 }
 
-// Change "Add to Cart" button text to "BUY NOW"
-add_filter( 'woocommerce_product_single_add_to_cart_text', 'elena_custom_cart_button_text' );
-function elena_custom_cart_button_text() {
-    return __( 'ACHETER MAINTENANT', 'elena' );
+add_action( 'woocommerce_after_quantity_input_field', 'masha_quantity_plus_btn' );
+function masha_quantity_plus_btn() {
+    echo '<button type="button" class="masha-qty-btn masha-qty-plus" aria-label="Increase quantity">+</button>';
 }
+
+// Add "Livraison" tab to product tabs
+add_filter( 'woocommerce_product_tabs', 'masha_add_livraison_tab' );
+function masha_add_livraison_tab( $tabs ) {
+    $tabs['livraison'] = array(
+        'title'    => __( 'Livraison', 'mashaussure' ),
+        'priority' => 40,
+        'callback' => 'masha_livraison_tab_content',
+    );
+    return $tabs;
+}
+
+function masha_livraison_tab_content() {
+    echo '<h2>Livraison</h2>';
+    echo '<p><strong>Livraison partout au Maroc</strong> – Frais de livraison : 20 DH</p>';
+    echo '<p>Délai de livraison : 24h à 48h selon les villes.</p>';
+    echo '<p>Paiement à la livraison disponible.</p>';
+}
+
+// Remove default WooCommerce breadcrumbs (we handle them in the template)
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
