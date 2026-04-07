@@ -3302,16 +3302,21 @@ button {
     margin-bottom: 2em;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .woocommerce div.product .masha-product-gallery-wrap {
-        width: 50%;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        width: 50% !important;
         margin-bottom: 0;
     }
 
     .woocommerce div.product div.summary {
-        width: 45%;
+        flex: 0 0 45% !important;
+        max-width: 45% !important;
+        width: 45% !important;
         margin-left: auto;
         margin-bottom: 0;
+        clear: none !important;
     }
 }
 
@@ -3693,12 +3698,7 @@ button {
     width: 100%;
 }
 
-/* Cart actions row: qty + add to cart + buy now */
-.woocommerce div.product form.cart .woocommerce-variation-add-to-cart,
-.woocommerce div.product form.cart > .quantity,
-.woocommerce div.product form.cart > .single_add_to_cart_button {
-    /* handled below */
-}
+/* Cart actions row: qty + add to cart + buy now - handled below */
 
 /* Quantity Selector with +/- buttons */
 .woocommerce div.product form.cart .quantity {

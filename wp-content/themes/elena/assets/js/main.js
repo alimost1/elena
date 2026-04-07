@@ -1,8 +1,9 @@
 /**
- * Elena Theme - Main JavaScript
+ * Machaussure Theme - Main JavaScript
+ * Matching machaussure.ma reference design
  *
- * @package Elena
- * @version 1.0.0
+ * @package Mashaussure
+ * @version 3.0.0
  */
 
 (function () {
@@ -96,18 +97,124 @@
     }
 
     /* ─────────────────────────────────────────────
-     * Parallax-lite on Hero
+     * Scroll to Top Button
      * ───────────────────────────────────────────── */
-    function initHeroParallax() {
-        var hero = document.querySelector('.elena-hero');
-        if (!hero) return;
+    function initScrollToTop() {
+        var btn = document.getElementById('masha-scroll-top');
+        if (!btn) return;
 
         window.addEventListener('scroll', function () {
-            var scrolled = window.scrollY;
-            if (scrolled < hero.offsetHeight) {
-                hero.style.backgroundPositionY = (scrolled * 0.4) + 'px';
+            if (window.scrollY > 400) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
             }
         }, { passive: true });
+
+        btn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    /* ─────────────────────────────────────────────
+     * Hero Slider (auto-play + arrows)
+     * ───────────────────────────────────────────── */
+    function initHeroSlider() {
+        var slides = document.querySelectorAll('.masha-slide');
+        var prevBtn = document.querySelector('.masha-slider-prev');
+        var nextBtn = document.querySelector('.masha-slider-next');
+        if (!slides.length) return;
+
+        var current = 0;
+        var total = slides.length;
+        var autoInterval;
+
+        function showSlide(index) {
+            slides.forEach(function (s) { s.classList.remove('active'); });
+            current = (index + total) % total;
+            slides[current].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(current + 1);
+        }
+
+        function prevSlide() {
+            showSlide(current - 1);
+        }
+
+        if (nextBtn) nextBtn.addEventListener('click', function () {
+            nextSlide();
+            resetAutoplay();
+        });
+
+        if (prevBtn) prevBtn.addEventListener('click', function () {
+            prevSlide();
+            resetAutoplay();
+        });
+
+        function startAutoplay() {
+            autoInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoInterval);
+            startAutoplay();
+        }
+
+        if (total > 1) {
+            startAutoplay();
+        }
+    }
+
+    /* ─────────────────────────────────────────────
+     * Coups de Coeur Tabs
+     * ───────────────────────────────────────────── */
+    function initCoupsTabs() {
+        document.querySelectorAll('.masha-coups-tabs').forEach(function (tabList) {
+            var tabs = tabList.querySelectorAll('li');
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(function (t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                });
+            });
+        });
+    }
+
+    /* ─────────────────────────────────────────────
+     * Quantity +/- Buttons
+     * ───────────────────────────────────────────── */
+    function initQuantityButtons() {
+        document.addEventListener('click', function(e) {
+            var target = e.target;
+            
+            // Handle minus button
+            if (target.classList.contains('masha-qty-minus')) {
+                var input = target.parentElement.querySelector('.qty');
+                if (input) {
+                    var val = parseInt(input.value, 10) || 1;
+                    var min = parseInt(input.getAttribute('min'), 10) || 1;
+                    if (val > min) {
+                        input.value = val - 1;
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                }
+            }
+            
+            // Handle plus button
+            if (target.classList.contains('masha-qty-plus')) {
+                var input = target.parentElement.querySelector('.qty');
+                if (input) {
+                    var val = parseInt(input.value, 10) || 1;
+                    var max = parseInt(input.getAttribute('max'), 10) || Infinity;
+                    if (val < max) {
+                        input.value = val + 1;
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                }
+            }
+        });
     }
 
     /* ─────────────────────────────────────────────
@@ -124,23 +231,12 @@
             
             if ($parent.find('.elena-swatches-wrap').length) return;
 
-            // Add the label below the attribute name
-            var $tableRow = $select.closest('tr');
-            var $labelHeader = $tableRow.find('.label label');
-            var currentLabel = $labelHeader.text().trim();
-            
-            // Create selection text container
-            var $selectionDisplay = jQuery('<div class="elena-selected-val"></div>');
-            $tableRow.find('.label').append($selectionDisplay);
-
             var $wrapper = jQuery('<div class="elena-swatches-wrap"></div>');
             if (isColor) {
                 $wrapper.addClass('couleur-swatches');
             } else {
                 $wrapper.addClass('pointure-swatches');
             }
-
-            var variationsData = $select.closest('form.variations_form').data('product_variations');
 
             $select.find('option').each(function() {
                 var $opt = jQuery(this);
@@ -150,34 +246,21 @@
                 var isOutOfStock = label.toLowerCase().indexOf('out of stock') !== -1 || label.toLowerCase().indexOf('rupture') !== -1;
                 var cleanLabel = label.split(' (')[0];
 
-                var $item = jQuery('<div class="elena-swatch-item" data-value="'+$opt.val()+'"></div>');
-                
-                // If it's color, try to find an image in the variations data
-                var hasImage = false;
-                if (isColor && variationsData) {
-                    var attrName = $select.attr('data-attribute_name');
-                    var match = variationsData.find(function(v) {
-                        return v.attributes[attrName] === $opt.val();
-                    });
-                    if (match && match.image && match.image.thumb_src) {
-                        $item.append('<img src="'+match.image.thumb_src+'" alt="'+cleanLabel+'" style="width:100%; height:100%; object-fit:cover; border-radius:4px;">');
-                        hasImage = true;
-                    }
-                }
-
-                if (!hasImage) {
-                    $item.text(cleanLabel);
+                var $item;
+                if (isColor) {
+                    // Color swatches: try to find the product image for this variation
+                    $item = jQuery('<div class="elena-swatch-item elena-color-swatch" data-value="'+$opt.val()+'"><span class="swatch-label">'+cleanLabel+'</span></div>');
+                } else {
+                    // Size swatches: text-based
+                    $item = jQuery('<div class="elena-swatch-item elena-size-swatch" data-value="'+$opt.val()+'">'+cleanLabel+'</div>');
                 }
                 
                 if (isOutOfStock) {
                     $item.addClass('out-of-stock');
-                    // Add the 'X' SVG for out of stock
-                    $item.append('<svg class="elena-out-of-stock-x" viewBox="0 0 24 24"><line x1="2" y1="2" x2="22" y2="22" stroke="red" stroke-width="2"/><line x1="22" y1="2" x2="2" y2="22" stroke="red" stroke-width="2"/></svg>');
                 }
 
                 if ($opt.is(':selected')) {
                     $item.addClass('active');
-                    $selectionDisplay.text(cleanLabel);
                 }
 
                 $item.on('click', function() {
@@ -185,7 +268,6 @@
                     $select.val(jQuery(this).data('value')).trigger('change');
                     $wrapper.find('.elena-swatch-item').removeClass('active');
                     jQuery(this).addClass('active');
-                    $selectionDisplay.text(cleanLabel);
                 });
 
                 $wrapper.append($item);
@@ -196,42 +278,21 @@
             
             $select.on('change', function() {
                 var val = jQuery(this).val();
-                var selectedText = $select.find('option:selected').text().split(' (')[0];
-                $selectionDisplay.text(selectedText || '');
                 $wrapper.find('.elena-swatch-item').removeClass('active');
                 $wrapper.find('.elena-swatch-item[data-value="'+val+'"]').addClass('active');
             });
         });
+    }
 
-        // Add "BUY NOW" button if not already there
-        if (jQuery('form.cart .single_add_to_cart_button').length && !jQuery('.elena-buy-now-btn').length) {
-            var $addToCart = jQuery('form.cart .single_add_to_cart_button');
-            var $buyNow = jQuery('<button type="button" class="elena-buy-now-btn">BUY NOW</button>');
-            $addToCart.after($buyNow);
-            
-            $buyNow.on('click', function() {
-                $addToCart.trigger('click');
-            });
-        }
-
-        // Add quantity buttons if not already there
-        jQuery('div.quantity:not(.elena-qty-ready)').each(function() {
-            var $qty = jQuery(this);
-            var $input = $qty.find('input.qty');
-            $qty.addClass('elena-qty-ready');
-            $input.before('<button type="button" class="minus">-</button>');
-            $input.after('<button type="button" class="plus">+</button>');
-            
-            $qty.find('.minus').on('click', function() {
-                var val = parseInt($input.val()) || 1;
-                if (val > 1) $input.val(val - 1).trigger('change');
-            });
-            
-            $qty.find('.plus').on('click', function() {
-                var val = parseInt($input.val()) || 1;
-                $input.val(val + 1).trigger('change');
-            });
-        });
+    /* ─────────────────────────────────────────────
+     * Product Tabs Enhancement
+     * ───────────────────────────────────────────── */
+    function initProductTabs() {
+        var tabList = document.querySelector('.woocommerce-tabs .tabs');
+        if (!tabList) return;
+        
+        // Add center alignment class
+        tabList.classList.add('masha-tabs-centered');
     }
 
     /* ─────────────────────────────────────────────
@@ -242,8 +303,12 @@
         initStickyHeader();
         initMobileMenu();
         initSmoothScroll();
-        initHeroParallax();
+        initScrollToTop();
+        initHeroSlider();
+        initCoupsTabs();
+        initQuantityButtons();
         initVariationSwatches();
+        initProductTabs();
     });
 
 })();

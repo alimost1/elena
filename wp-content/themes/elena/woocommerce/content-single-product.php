@@ -2,13 +2,7 @@
 /**
  * The template for displaying product content in the single-product.php template
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/content-single-product.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
+ * Replicated to match machaussure.ma reference design exactly.
  *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
@@ -33,17 +27,58 @@ if ( post_password_required() ) {
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
 
-	<?php
-	/**
-	 * Hook: woocommerce_before_single_product_summary.
-	 *
-	 * @hooked woocommerce_show_product_sale_flash - 10
-	 * @hooked woocommerce_show_product_images - 20
-	 */
-	do_action( 'woocommerce_before_single_product_summary' );
+<?php
+	// Remove default sale flash (it renders outside the gallery)
+	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
+	// Remove default breadcrumbs from the hook (we'll place them manually in the summary)
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 	?>
 
+	<div class="masha-product-gallery-wrap" style="position:relative;">
+		<?php
+		// Calculate precise percentage for sale badge
+		global $product;
+		if ( $product->is_on_sale() && $product->get_regular_price() && (float) $product->get_regular_price() > 0 ) {
+			$percent = round( ( ( (float) $product->get_regular_price() - (float) $product->get_sale_price() ) / (float) $product->get_regular_price() ) * 100 );
+			echo '<span class="onsale masha-sale-badge">-' . esc_html( $percent ) . '%</span>';
+		}
+		
+		// Check for NEW condition
+		$is_new = false;
+		if ( has_term( 'new', 'product_tag', $product->get_id() ) || has_term( 'NEW', 'product_tag', $product->get_id() ) ) {
+			$is_new = true;
+		} elseif ( ( time() - get_the_time( 'U', $product->get_id() ) ) < ( 30 * 24 * 60 * 60 ) ) {
+			$is_new = true;
+		}
+
+		if ( $is_new ) {
+			echo '<span class="elena-new-badge elena-new-badge-green masha-single-new">NEW</span>';
+		}
+
+		// Output product images
+		woocommerce_show_product_images();
+		?>
+	</div>
+
+
 	<div class="summary entry-summary">
+		<?php
+		// ── Breadcrumbs ──
+		?>
+		<nav class="woocommerce-breadcrumb masha-breadcrumb">
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Accueil</a>
+			<span class="breadcrumb-separator">/</span>
+			<?php
+			$terms = wc_get_product_terms( $product->get_id(), 'product_cat', array( 'orderby' => 'parent', 'order' => 'DESC' ) );
+			if ( $terms && ! is_wp_error( $terms ) ) {
+				foreach ( $terms as $term ) {
+					echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . esc_html( $term->name ) . '</a>';
+					echo '<span class="breadcrumb-separator">/</span>';
+				}
+			}
+			?>
+			<span class="breadcrumb-current"><?php echo esc_html( $product->get_name() ); ?></span>
+		</nav>
 		<?php
 		/**
 		 * Hook: woocommerce_single_product_summary.

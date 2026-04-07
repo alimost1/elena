@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'ELENA_VERSION', '1.0.1' );
+define( 'ELENA_VERSION', time() );
 define( 'ELENA_DIR', get_template_directory() );
 define( 'ELENA_URI', get_template_directory_uri() );
 
@@ -481,3 +481,62 @@ function elena_admin_notice() {
     }
 }
 add_action( 'admin_notices', 'elena_admin_notice' );
+
+
+/* ─────────────────────────────────────────────
+ * 11. Product Page – Matching machaussure.ma reference
+ * ───────────────────────────────────────────── */
+
+// Change "Add to Cart" button text to "AJOUTER AU PANIER"
+add_filter( 'woocommerce_product_single_add_to_cart_text', 'elena_custom_cart_button_text' );
+function elena_custom_cart_button_text() {
+    return __( 'AJOUTER AU PANIER', 'elena' );
+}
+
+// Add Buy Now button after the cart form
+add_action( 'woocommerce_after_add_to_cart_button', 'masha_add_buy_now_button' );
+function masha_add_buy_now_button() {
+    global $product;
+    echo '<button type="submit" name="masha-buy-now" value="1" class="masha-buy-now-btn button alt">BUY NOW</button>';
+}
+
+// Handle Buy Now redirect
+add_filter( 'woocommerce_add_to_cart_redirect', 'masha_buy_now_redirect' );
+function masha_buy_now_redirect( $url ) {
+    if ( isset( $_POST['masha-buy-now'] ) ) {
+        return wc_get_checkout_url();
+    }
+    return $url;
+}
+
+// Add quantity +/- buttons
+add_action( 'woocommerce_before_quantity_input_field', 'masha_quantity_minus_btn' );
+function masha_quantity_minus_btn() {
+    echo '<button type="button" class="masha-qty-btn masha-qty-minus" aria-label="Decrease quantity">-</button>';
+}
+
+add_action( 'woocommerce_after_quantity_input_field', 'masha_quantity_plus_btn' );
+function masha_quantity_plus_btn() {
+    echo '<button type="button" class="masha-qty-btn masha-qty-plus" aria-label="Increase quantity">+</button>';
+}
+
+// Add "Livraison" tab to product tabs
+add_filter( 'woocommerce_product_tabs', 'masha_add_livraison_tab' );
+function masha_add_livraison_tab( $tabs ) {
+    $tabs['livraison'] = array(
+        'title'    => __( 'Livraison', 'elena' ),
+        'priority' => 40,
+        'callback' => 'masha_livraison_tab_content',
+    );
+    return $tabs;
+}
+
+function masha_livraison_tab_content() {
+    echo '<h2>Livraison</h2>';
+    echo '<p><strong>Livraison partout au Maroc</strong> – Frais de livraison : 20 DH</p>';
+    echo '<p>Délai de livraison : 24h à 48h selon les villes.</p>';
+    echo '<p>Paiement à la livraison disponible.</p>';
+}
+
+// Remove default WooCommerce breadcrumbs (we handle them in the template)
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
