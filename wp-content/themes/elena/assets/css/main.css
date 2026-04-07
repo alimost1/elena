@@ -2244,6 +2244,36 @@ button {
     clear: both;
 }
 
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    list-style: none !important;
+    margin: 0 0 2rem 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid #eee !important;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+    display: block !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    color: #555 !important;
+    text-decoration: none !important;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a {
+    color: var(--elena-orange) !important;
+    border-bottom: 2px solid var(--elena-orange) !important;
+}
+
 .woocommerce div.product .woocommerce-tabs h2 {
     font-family: 'Yeseva One', serif;
     font-size: 2rem;
