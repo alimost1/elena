@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'ELENA_VERSION', '1.1.7' );
+define( 'ELENA_VERSION', time() );
 
 
 define( 'ELENA_DIR', get_template_directory() );
@@ -513,7 +513,17 @@ add_action( 'admin_notices', 'elena_admin_notice' );
 // Change "Add to Cart" button text to "AJOUTER AU PANIER"
 add_filter( 'woocommerce_product_single_add_to_cart_text', 'elena_custom_cart_button_text' );
 function elena_custom_cart_button_text() {
-    return __( 'AJOUTER AU PANIER', 'mashaussure' );
+    return 'AJOUTER AU PANIER';
+}
+
+// Also override for variable products
+add_filter( 'woocommerce_product_add_to_cart_text', 'elena_custom_cart_button_text_archive' );
+function elena_custom_cart_button_text_archive( $text ) {
+    global $product;
+    if ( $product && $product->is_type( 'variable' ) && is_product() ) {
+        return 'AJOUTER AU PANIER';
+    }
+    return $text;
 }
 
 // Add Buy Now button after the cart form
@@ -521,6 +531,26 @@ add_action( 'woocommerce_after_add_to_cart_button', 'masha_add_buy_now_button' )
 function masha_add_buy_now_button() {
     global $product;
     echo '<button type="submit" name="masha-buy-now" value="1" class="masha-buy-now-btn button alt">BUY NOW</button>';
+}
+
+// Add wishlist & size guide links after add to cart form
+add_action( 'woocommerce_after_add_to_cart_form', 'masha_add_extra_links', 5 );
+function masha_add_extra_links() {
+    echo '<div class="masha-product-extras">';
+    echo '<a href="#"><span>♡</span> Add to wishlist</a>';
+    echo '<a href="#"><span>📏</span> Size guide</a>';
+    echo '</div>';
+}
+
+// Show stock status before add to cart
+add_action( 'woocommerce_before_add_to_cart_form', 'masha_show_stock_status', 10 );
+function masha_show_stock_status() {
+    global $product;
+    if ( $product->is_in_stock() ) {
+        echo '<p class="stock in-stock">En stock</p>';
+    } else {
+        echo '<p class="stock out-of-stock">Rupture de stock</p>';
+    }
 }
 
 // Handle Buy Now redirect

@@ -1652,7 +1652,7 @@ button {
 
 .woocommerce div.product p.price,
 .woocommerce div.product span.price {
-    color: var(--elena-orange) !important;
+    color: var(--elena-dark) !important;
     font-size: 1.5rem !important;
     font-weight: 600;
 }
@@ -2024,9 +2024,13 @@ button {
     margin-bottom: 4rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 3rem;
+    gap: 2rem;
     position: relative;
     align-items: flex-start;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2%;
 }
 
 .woocommerce div.product div.images,
@@ -2040,19 +2044,21 @@ button {
 @media (min-width: 992px) {
     .woocommerce div.product div.images,
     .woocommerce div.product .masha-product-gallery-wrap {
-        flex: 0 0 50% !important;
-        max-width: 50% !important;
-        width: 50% !important;
+        flex: 0 0 48% !important;
+        max-width: 48% !important;
+        width: 48% !important;
         margin-bottom: 0;
     }
 
     .woocommerce div.product div.summary {
-        flex: 0 0 45% !important;
-        max-width: 45% !important;
-        width: 45% !important;
+        flex: 0 0 48% !important;
+        max-width: 48% !important;
+        width: 48% !important;
         margin-left: auto;
         margin-bottom: 0;
         clear: none !important;
+        position: sticky;
+        top: 120px;
     }
 }
 
@@ -2127,27 +2133,28 @@ button {
 /* Summary Details */
 .woocommerce div.product .product_title {
     font-family: 'Yeseva One', serif;
-    font-size: 2.2rem;
-    color: var(--elena-orange);
-    margin-bottom: 0.5rem;
-    line-height: 1;
+    font-size: 1.6rem;
+    color: #1A1A1A;
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
     margin-top: 0;
+    text-transform: none;
 }
 
 .woocommerce div.product p.price,
 .woocommerce div.product span.price {
     font-family: 'Montserrat', sans-serif;
-    color: var(--elena-dark);
-    font-size: 2.2rem;
+    color: #1A1A1A !important;
+    font-size: 1.8rem !important;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .woocommerce div.product p.price del,
 .woocommerce div.product span.price del {
-    color: #888;
-    font-size: 1.2rem;
-    font-weight: 500;
+    color: #999;
+    font-size: 1rem;
+    font-weight: 400;
     margin-right: 0.5rem;
 }
 
@@ -2155,89 +2162,58 @@ button {
 .woocommerce div.product span.price ins {
     text-decoration: none;
     font-weight: 700;
+    color: #1A1A1A;
 }
 
 .woocommerce div.product .woocommerce-product-details__short-description {
     font-family: 'Montserrat', sans-serif;
-    color: var(--elena-text);
-    font-size: 1rem;
+    color: #555;
+    font-size: 0.95rem;
     line-height: 1.6;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 }
 
-/* Add to Cart Section */
-.woocommerce div.product form.cart {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid #eee;
-    width: 100%;
+/* Stock status */
+.woocommerce div.product .stock {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
 }
-
-.woocommerce div.product form.cart .quantity {
-    float: none;
-    margin: 0;
-    align-self: flex-start;
+.woocommerce div.product .stock.in-stock {
+    color: #2d7a3e;
 }
-
-.woocommerce div.product form.cart .quantity input.qty {
-    width: 120px;
-    height: 55px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 0;
-    text-align: center;
-}
-
-.woocommerce div.product form.cart .button {
-    float: none;
-    width: 100% !important;
-    height: 55px;
-    background-color: #000 !important;
-    color: white !important;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    border-radius: 0;
-    transition: all var(--elena-transition);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: block;
-    margin-top: 5px;
-    border: none;
-}
-
-.woocommerce div.product form.cart .button:hover {
-    background-color: #333 !important;
-    transform: translateY(-2px);
+.woocommerce div.product .stock.in-stock::before {
+    content: '✓ ';
 }
 
 /* Product Meta */
 .woocommerce div.product .product_meta {
     font-family: 'Montserrat', sans-serif;
     color: #666;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.woocommerce div.product .product_meta > span {
+    display: block;
+    margin-bottom: 0.35rem;
 }
 
 .woocommerce div.product .product_meta a {
-    color: var(--elena-orange);
+    color: #1A1A1A;
     font-weight: 500;
 }
 
 .woocommerce div.product .product_meta a:hover {
+    color: var(--elena-orange);
     text-decoration: underline;
 }
 
 /* Product Description Tabs */
 .woocommerce div.product .woocommerce-tabs {
-    margin: 4rem 0 2rem 0;
-    padding: 3rem 0;
+    margin: 2rem 0 2rem 0;
+    padding: 2rem 0;
     width: 100%;
     flex: 0 0 100%;
     border-top: 1px solid #eee;
@@ -2285,17 +2261,20 @@ button {
 .woocommerce div.product .related.products {
     width: 100%;
     flex: 0 0 100%;
-    margin-top: 4rem;
-    padding-top: 4rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
     border-top: 1px solid #eee;
 }
 
 .woocommerce .related.products h2 {
-    font-family: 'Yeseva One', serif;
-    font-size: 2.5rem;
-    color: var(--elena-orange);
-    text-align: center;
-    margin-bottom: 2.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    text-transform: uppercase;
+    text-align: left;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
 }
 
 /* ═══════════════════════════════════════════════
@@ -2501,17 +2480,20 @@ button {
 }
 
 /* ─────────────────────────────────────────────
-   Quantity & Buttons (Image Style)
+   Quantity & Buttons (Machaussure Reference Style)
    ───────────────────────────────────────────── */
 .woocommerce div.product form.cart {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    gap: 15px;
-    margin-top: 2rem;
+    gap: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
     border: none;
     padding: 0;
+    border-bottom: none;
+    width: 100%;
 }
 
 /* Quantity Box */
@@ -2519,53 +2501,91 @@ button {
     display: flex !important;
     align-items: stretch;
     background: #fff;
-    border-radius: 6px;
+    border: 1.5px solid #ddd;
+    border-radius: 0;
     overflow: hidden;
     margin: 0;
+    height: 48px;
 }
 
-.woocommerce div.product form.cart .quantity .minus,
-.woocommerce div.product form.cart .quantity .plus {
-    width: 40px;
-    height: 55px;
+.masha-qty-btn {
+    width: 36px;
+    height: 48px;
     background: #fff;
-    border: 1.5px solid #EBEBEB;
-    color: #888;
+    border: none;
+    color: #555;
     font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: background 0.2s ease;
+    line-height: 1;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.masha-qty-btn:hover {
+    background: #f5f5f5;
 }
 
 .woocommerce div.product form.cart .quantity .qty {
-    width: 55px;
-    height: 55px;
-    border-top: 1.5px solid #EBEBEB;
-    border-bottom: 1.5px solid #EBEBEB;
-    border-left: none;
-    border-right: none;
+    width: 45px;
+    height: 48px;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
     text-align: center;
     font-weight: 600;
+    font-size: 1rem;
     color: #333;
+    font-family: 'Montserrat', sans-serif;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
-/* Add to Cart Button (Black) */
+.woocommerce div.product form.cart .quantity .qty::-webkit-outer-spin-button,
+.woocommerce div.product form.cart .quantity .qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Add to Cart Button (Black) - matching reference exactly */
 .woocommerce div.product form.cart .single_add_to_cart_button {
     background-color: #000 !important;
     color: #FFFFFF !important;
-    font-size: 1rem !important;
+    font-size: 0.85rem !important;
     font-weight: 700 !important;
     text-transform: uppercase;
-    padding: 0 2.5rem !important;
-    height: 55px !important;
+    padding: 0 2rem !important;
+    height: 48px !important;
     border-radius: 0 !important;
     border: none !important;
-    min-width: 220px;
+    min-width: 180px;
+    letter-spacing: 0.5px;
+    font-family: 'Montserrat', sans-serif;
+    transition: background 0.3s ease;
+    cursor: pointer;
+    line-height: 48px !important;
 }
 
-.masha-buy-now-btn, .woocommerce div.product form.cart button.masha-buy-now-btn.alt {
-    height: 46px !important;
+.woocommerce div.product form.cart .single_add_to_cart_button:hover {
+    background-color: #333 !important;
+}
+
+/* Disabled state */
+.woocommerce div.product form.cart .single_add_to_cart_button.disabled,
+.woocommerce div.product form.cart .single_add_to_cart_button:disabled {
+    background-color: #000 !important;
+    color: #fff !important;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Buy Now Button (Blue) */
+.masha-buy-now-btn,
+.woocommerce div.product form.cart button.masha-buy-now-btn.alt {
+    height: 48px !important;
     background-color: #3399CC !important;
     color: white !important;
     font-weight: 700;
@@ -2578,15 +2598,37 @@ button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0 24px;
+    padding: 0 2rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
     white-space: nowrap;
-    min-width: 150px;
+    min-width: 130px;
 }
 
-.masha-buy-now-btn:hover, .woocommerce div.product form.cart button.masha-buy-now-btn.alt:hover {
+.masha-buy-now-btn:hover,
+.woocommerce div.product form.cart button.masha-buy-now-btn.alt:hover {
     background-color: #2980b9 !important;
+}
+
+/* Wishlist & Size Guide links */
+.masha-product-extras {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.masha-product-extras a {
+    color: #555;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.masha-product-extras a:hover {
+    color: #000;
 }
 
 /* Fix for Elena zoom trigger */
@@ -2599,10 +2641,66 @@ button {
     z-index: 99;
 }
 
-
 /* Reset Link */
 .reset_variations {
     display: none !important;
+}
+
+/* Breadcrumb inside summary */
+.masha-breadcrumb {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.masha-breadcrumb a {
+    color: #888;
+    text-decoration: none;
+}
+
+.masha-breadcrumb a:hover {
+    color: #1A1A1A;
+}
+
+.masha-breadcrumb .breadcrumb-separator {
+    margin: 0 0.3rem;
+    color: #ccc;
+}
+
+.masha-breadcrumb .breadcrumb-current {
+    color: #1A1A1A;
+    font-weight: 500;
+}
+
+/* Category label above title */
+.woocommerce div.product .summary .posted_in {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+/* NEW badge on single product */
+.masha-single-new {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    z-index: 10;
+    background: #2d7a3e;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+/* Sale badge on single product */
+.masha-sale-badge {
+    z-index: 10;
+}
+
+/* Variations section tighter */
+.woocommerce div.product form.cart .variations {
+    margin-bottom: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -2610,8 +2708,17 @@ button {
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .woocommerce div.product form.cart .quantity {
         justify-content: center;
+        align-self: flex-start;
+    }
+
+    .woocommerce div.product form.cart .single_add_to_cart_button {
+        width: 100% !important;
+    }
+
+    .masha-buy-now-btn {
+        width: 100% !important;
     }
 }

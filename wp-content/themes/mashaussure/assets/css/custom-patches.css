@@ -123,3 +123,84 @@
     width: 100%;
     max-width: 1200px;
 }
+
+/* ─────────────────────────────────────────────
+   Product Page Overrides (FINAL – loads last)
+   ───────────────────────────────────────────── */
+
+/* Stock status */
+.woocommerce div.product .stock {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.woocommerce div.product .stock.in-stock {
+    color: #2d7a3e;
+}
+
+.woocommerce div.product .stock.in-stock::before {
+    content: '✓ ';
+}
+
+.woocommerce div.product .stock.out-of-stock {
+    color: #c0392b;
+}
+
+/* Wishlist & Size Guide links */
+.masha-product-extras {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.masha-product-extras a {
+    color: #555;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.masha-product-extras a:hover {
+    color: #000;
+}
+
+/* FINAL Add to Cart Override (must win over any earlier rules) */
+.woocommerce div.product form.cart .single_add_to_cart_button,
+.woocommerce div.product form.cart button.single_add_to_cart_button {
+    background-color: #000 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.woocommerce div.product form.cart .single_add_to_cart_button.disabled,
+.woocommerce div.product form.cart .single_add_to_cart_button:disabled,
+.woocommerce div.product form.cart .single_add_to_cart_button.wc-variation-selection-needed {
+    background-color: #000 !important;
+    color: #fff !important;
+    opacity: 0.6;
+}
+
+/* FINAL Buy Now Override */
+.masha-buy-now-btn,
+.woocommerce div.product form.cart button.masha-buy-now-btn,
+.woocommerce div.product form.cart button.masha-buy-now-btn.alt {
+    background-color: #3399CC !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.masha-buy-now-btn:hover {
+    background-color: #2980b9 !important;
+}
+
+/* Product title - ensure clean styling */
+.woocommerce div.product .product_title {
+    text-transform: none !important;
+}

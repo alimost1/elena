@@ -500,6 +500,26 @@ function masha_add_buy_now_button() {
     echo '<button type="submit" name="masha-buy-now" value="1" class="masha-buy-now-btn button alt">BUY NOW</button>';
 }
 
+// Add wishlist & size guide links after add to cart form
+add_action( 'woocommerce_after_add_to_cart_form', 'masha_add_extra_links', 5 );
+function masha_add_extra_links() {
+    echo '<div class="masha-product-extras">';
+    echo '<a href="#"><span>♡</span> Add to wishlist</a>';
+    echo '<a href="#"><span>📏</span> Size guide</a>';
+    echo '</div>';
+}
+
+// Show stock status before add to cart
+add_action( 'woocommerce_before_add_to_cart_form', 'masha_show_stock_status', 10 );
+function masha_show_stock_status() {
+    global $product;
+    if ( $product->is_in_stock() ) {
+        echo '<p class="stock in-stock">En stock</p>';
+    } else {
+        echo '<p class="stock out-of-stock">Rupture de stock</p>';
+    }
+}
+
 // Handle Buy Now redirect
 add_filter( 'woocommerce_add_to_cart_redirect', 'masha_buy_now_redirect' );
 function masha_buy_now_redirect( $url ) {
