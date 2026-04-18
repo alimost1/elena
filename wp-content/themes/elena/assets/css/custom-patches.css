@@ -1,0 +1,88 @@
+/* 
+ * Elena Storefront Custom Patches
+ * Fixes for category grids, header alignment, and layout density.
+ */
+
+/* Header Utility Alignment */
+.elena-header-actions {
+    display: flex !important;
+    gap: 1.5rem !important;
+    align-items: center !important;
+}
+
+.elena-header-link {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Category Grid Restoration */
+.elena-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 40px 0;
+}
+
+@media (min-width: 768px) {
+    .elena-categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+}
+
+.elena-category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    aspect-ratio: 1/1;
+    background: #f8f8f8;
+    display: block;
+    text-decoration: none;
+}
+
+.elena-category-image {
+    width: 100%;
+    height: 100%;
+}
+
+.elena-category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.elena-category-card:hover img {
+    transform: scale(1.1);
+}
+
+.elena-category-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Product Card Density Polish */
+.woocommerce ul.products li.product {
+    padding: 0 10px 20px;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 10px 0 5px;
+}
+
+.woocommerce ul.products li.product .price {
+    font-size: 1rem;
+    color: var(--elena-accent);
+}

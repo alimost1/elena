@@ -3,6 +3,7 @@
  * White header on mobile with black icons/text
  */
 @media (max-width: 768px) {
+
     /* Hamburger icon: white on black header */
     .masha-header-left .elena-mobile-toggle span {
         background-color: #fff !important;
@@ -41,14 +42,15 @@
 
 .masha-lang-list {
     display: flex !important;
-    flex-direction: row !important; /* Force horizontal */
+    flex-direction: row !important;
+    /* Force horizontal */
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
     gap: 8px !important;
 }
 
-.masha-lang-list li, 
+.masha-lang-list li,
 .masha-lang-list .xl-list {
     margin: 0 !important;
     padding: 0 !important;
@@ -81,26 +83,25 @@
     border-color: #ff9d00 !important;
 }
 
-/* Base Paths with broad selectors */
-/* FR - fr_fr, french, first item usually */
-.masha-lang-list li[class*="fr"] a,
-.masha-lang-list li[class*="french"] a,
-.masha-lang-list li:nth-child(1) a {
-    background-image: url('/wp-content/themes/mashaussure/assets/images/flags/fr_fr.png') !important;
+/* FR - matches lang-fr_FR, fr_fr, french */
+.masha-lang-list a[class*="lang-fr"],
+.masha-lang-list a[class*="french"],
+.masha-lang-list a[class*="lang-FR"] {
+    background-image: url('/wp-content/themes/mashaussure/assets/images/flags/fr_fr.svg') !important;
 }
 
-/* EN - en_us, english, second item */
-.masha-lang-list li[class*="en"] a,
-.masha-lang-list li[class*="english"] a,
-.masha-lang-list li:nth-child(2) a {
+/* EN - matches lang-en_US, en_us, english */
+.masha-lang-list a[class*="lang-en"],
+.masha-lang-list a[class*="english"],
+.masha-lang-list a[class*="lang-EN"] {
     background-image: url('/wp-content/themes/mashaussure/assets/images/flags/en_us.png') !important;
 }
 
-/* AR - arabic, third item */
-.masha-lang-list li[class*="ar"] a,
-.masha-lang-list li[class*="arabic"] a,
-.masha-lang-list li:nth-child(3) a {
-    background-image: url('/wp-content/themes/mashaussure/assets/images/flags/ar_xx.png') !important;
+/* AR - Moroccan flag for Arabic */
+.masha-lang-list a[class*="lang-ar"],
+.masha-lang-list a[class*="arabic"],
+.masha-lang-list a[class*="lang-AR"] {
+    background-image: url('/wp-content/themes/mashaussure/assets/images/flags/ar_ma.svg') !important;
 }
 
 .masha-lang-list li.current-lang a {
@@ -203,4 +204,586 @@
 /* Product title - ensure clean styling */
 .woocommerce div.product .product_title {
     text-transform: none !important;
+}
+
+/* =========================================================
+   MACHaussure parity layer (loaded LAST)
+   Reference: https://machaussure.ma/
+   ========================================================= */
+
+/* Base */
+body {
+    background: #fff !important;
+    color: #111 !important;
+}
+
+.elena-container {
+    max-width: 1280px !important;
+}
+
+/* Top utility bar */
+.masha-topbar {
+    background: #000 !important;
+    color: #fff !important;
+    padding: 0.3rem 0 !important;
+    font-size: 0.72rem !important;
+    border: 0 !important;
+}
+
+.masha-topbar-inner {
+    justify-content: space-between !important;
+    gap: 0.4rem !important;
+}
+
+/* Main header row */
+.elena-header.masha-header {
+    background: #000 !important;
+    color: #fff !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    margin-top: 0 !important;
+}
+
+.masha-header-inner {
+    height: 72px !important;
+    padding: 0.5rem 0 !important;
+}
+
+.masha-logo {
+    margin: 0 !important;
+}
+
+.masha-logo .elena-logo-text,
+.masha-logo a {
+    color: #fff !important;
+    font-size: 2rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+.elena-header.masha-header {
+    color: #5e5e5e !important;
+}
+
+.masha-header-link,
+.masha-cart,
+.elena-cart-btn.masha-cart {
+    color: #5e5e5e !important;
+    font-size: 0.76rem !important;
+}
+
+.masha-header-link:hover,
+.masha-cart:hover {
+    color: #000 !important;
+}
+
+/* =========================================================
+   PREMIUM SEARCH BAR (Mobile & Desktop)
+   ========================================================= */
+.masha-header-search .header-search-input,
+.elena-header-search .header-search-input,
+.masha-mobile-search .header-search-input {
+    height: 44px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    background: #f9f9f9 !important;
+    color: #111 !important;
+    padding: 0 44px 0 1.25rem !important;
+    /* give space for the button */
+    font-size: 0.9rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.masha-header-search .header-search-input:focus,
+.elena-header-search .header-search-input:focus,
+.masha-mobile-search .header-search-input:focus {
+    background: #fff !important;
+    border-color: #ffffff !important;
+    outline: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Elevate the submit button */
+.masha-header-search .header-search-submit,
+.elena-header-search .header-search-submit,
+.masha-mobile-search .header-search-submit {
+    right: 4px !important;
+    width: 36px !important;
+    height: 36px !important;
+    background: #111 !important;
+    border-radius: 50% !important;
+    color: #fff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.masha-header-search .header-search-submit:hover,
+.elena-header-search .header-search-submit:hover,
+.masha-mobile-search .header-search-submit:hover {
+    background: #ff9d00 !important;
+    /* Accent color orange */
+    color: #fff !important;
+    transform: translateY(-50%) scale(1.05) !important;
+}
+
+/* Adjust svg size inside button */
+.masha-header-search .header-search-submit svg,
+.elena-header-search .header-search-submit svg,
+.masha-mobile-search .header-search-submit svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* White nav strip under black header */
+.masha-nav-wrap,
+.elena-nav.masha-nav-wrap {
+    background: #fff !important;
+    border-top: 1px solid #ececec !important;
+    border-bottom: 1px solid #ececec !important;
+    box-shadow: none !important;
+}
+
+.masha-nav-list {
+    padding: 0.62rem 0 !important;
+}
+
+.masha-nav-list .elena-nav-link,
+.elena-nav.masha-nav-wrap .elena-nav-link {
+    color: #5e5e5e !important;
+    font-size: 0.76rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+}
+
+.masha-nav-list .elena-nav-link:hover,
+.elena-nav.masha-nav-wrap .elena-nav-link:hover {
+    color: #2d7a3e !important;
+}
+
+.masha-nav-list .menu-item-has-children>a::after {
+    border-right-color: #555 !important;
+    border-bottom-color: #555 !important;
+}
+
+/* Promo strip should connect without white gap */
+.masha-promo-banner {
+    margin-top: 0 !important;
+    border-top: 0 !important;
+    background: #2f7f3a !important;
+    color: #fff !important;
+    padding: 0.82rem 0 !important;
+}
+
+.masha-promo-inner {
+    gap: 0.85rem !important;
+}
+
+.masha-promo-title {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+}
+
+.masha-promo-text {
+    font-size: 1.05rem !important;
+    font-weight: 500 !important;
+}
+
+.masha-promo-btn {
+    background: #fff !important;
+    color: #2f7f3a !important;
+    border-radius: 8px !important;
+    padding: 0.45rem 1.2rem !important;
+    font-weight: 600 !important;
+}
+
+/* Product cards */
+.elena-product-card {
+    background: #fff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.elena-product-card-inner {
+    padding: 0 !important;
+}
+
+.elena-product-image {
+    background: #f2f2f2 !important;
+}
+
+.elena-sale-badge-black {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.elena-new-badge {
+    background: #2f7f3a !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+}
+
+.elena-product-title {
+    font-size: 0.94rem !important;
+    line-height: 1.25 !important;
+    min-height: 2.5em !important;
+}
+
+.elena-product-actions .button {
+    width: 100% !important;
+    border-radius: 0 !important;
+    background: #2f7f3a !important;
+    color: #fff !important;
+}
+
+/* Services + footer black blocks */
+.masha-footer-services {
+    background: #000 !important;
+    border-top: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.masha-service-item h4,
+.masha-service-item p,
+.masha-service-icon {
+    color: #fff !important;
+}
+
+.elena-footer.masha-footer {
+    background: #000 !important;
+    color: #fff !important;
+    border-top: 0 !important;
+}
+
+.masha-footer-col a {
+    color: rgba(255, 255, 255, 0.86) !important;
+}
+
+.masha-footer-col a:hover {
+    color: #fff !important;
+}
+
+/* Single product structure */
+.woocommerce div.product {
+    margin-top: 0 !important;
+}
+
+.woocommerce div.product .product_title {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+    font-weight: 600 !important;
+}
+
+.woocommerce div.product p.price,
+.woocommerce div.product span.price {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .masha-header-search,
+    .elena-header-search {
+        display: none !important;
+    }
+
+    .masha-logo .elena-logo-text,
+    .masha-logo a {
+        font-size: 1.55rem !important;
+    }
+
+    .masha-topbar {
+        font-size: 0.64rem !important;
+    }
+
+    .masha-promo-banner {
+        padding: 0.68rem 0 !important;
+    }
+
+    .masha-promo-title {
+        font-size: 1.18rem !important;
+    }
+
+    .masha-promo-text {
+        font-size: 0.82rem !important;
+    }
+}
+
+/* ---- Hard separator fix (no white lines between stacks) ---- */
+.masha-topbar,
+.elena-header.masha-header,
+.masha-nav-wrap,
+.elena-nav.masha-nav-wrap,
+.masha-promo-banner {
+    margin: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.masha-topbar+.elena-header.masha-header,
+.elena-header.masha-header+.masha-promo-banner,
+.elena-header.masha-header+.elena-nav.masha-nav-wrap,
+.elena-nav.masha-nav-wrap+.masha-promo-banner {
+    margin-top: 0 !important;
+    border-top: 0 !important;
+}
+
+.elena-main,
+#content.elena-main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+}
+
+/* Mobile search strip between header and content:
+   keep seamless (no white line/gap) */
+.masha-mobile-search {
+    margin: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    padding: 0.45rem 0 !important;
+}
+
+.masha-mobile-search .elena-container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+@media (min-width: 769px) {
+    .masha-mobile-search {
+        display: none !important;
+    }
+}
+
+/* =========================================================
+   FOOTER: ENFORCE 2-COLUMN GRID (all breakpoints)
+   ========================================================= */
+.masha-footer-columns,
+.masha-footer .masha-footer-columns,
+.elena-footer .masha-footer-columns {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 2rem !important;
+    justify-items: start !important;
+}
+
+.masha-footer-col {
+    align-items: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+}
+
+.masha-footer-col ul,
+.masha-footer-col li {
+    text-align: left !important;
+}
+
+/* =========================================================
+   MOBILE FOOTER CLEANUP (readable + premium on phones)
+   ========================================================= */
+@media (max-width: 768px) {
+    .masha-footer-services {
+        padding: 1.25rem 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+    }
+
+    .masha-services-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .masha-service-item {
+        text-align: left !important;
+        padding: 0.4rem 0 !important;
+    }
+
+    .elena-footer.masha-footer {
+        padding: 1.5rem 0 1rem !important;
+    }
+
+    .masha-footer-columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 1.4rem !important;
+        margin-bottom: 1rem !important;
+        padding-bottom: 1rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    }
+
+    .masha-footer-col {
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .masha-footer-col h4 {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.65rem !important;
+        letter-spacing: 0.04em !important;
+    }
+
+    .masha-footer-col ul {
+        width: 100% !important;
+        align-items: flex-start !important;
+    }
+
+    .masha-footer-col li {
+        width: 100% !important;
+        margin-bottom: 0.45rem !important;
+        text-align: left !important;
+    }
+
+    .masha-footer-col a {
+        font-size: 0.92rem !important;
+        opacity: 0.95 !important;
+    }
+
+    /* Hide duplicate WP widget headings/content noise in footer */
+    .masha-footer .widgettitle,
+    .masha-footer .widget-title,
+    .masha-footer h2.widget-title,
+    .masha-footer h3.widget-title {
+        display: none !important;
+    }
+
+    .masha-footer .widget_archive {
+        display: none !important;
+    }
+
+    .masha-footer-bottom-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 0.9rem !important;
+        margin-bottom: 0.9rem !important;
+        text-align: left !important;
+    }
+
+    .masha-payment-badges,
+    .masha-payment-icons {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.45rem !important;
+    }
+
+    .masha-payment-badge {
+        min-width: 52px !important;
+        text-align: center !important;
+        padding: 0.35rem 0.55rem !important;
+        font-size: 0.74rem !important;
+    }
+
+    .masha-newsletter-form {
+        width: 100% !important;
+        flex-direction: column !important;
+        gap: 0.45rem !important;
+        margin-top: 0.35rem !important;
+    }
+
+    .masha-newsletter-form input[type="email"],
+    .masha-newsletter-form button {
+        width: 100% !important;
+        min-width: 0 !important;
+        border-radius: 4px !important;
+        height: 40px !important;
+    }
+
+    .masha-copyright,
+    .elena-footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding-top: 0.75rem !important;
+        margin-top: 0.75rem !important;
+        text-align: center !important;
+    }
+}
+
+/* =========================================================
+   SERVICES & BENEFITS: ENFORCE 2-COLUMN × 2-ROW GRID
+   Col 1: Livraison + Service Client
+   Col 2: Paiement Sécurisé + Livraison Rapide
+   ========================================================= */
+
+/* ── White benefits strip ── */
+.masha-benefits-row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    align-items: start !important;
+    justify-items: center !important;
+    gap: 2rem !important;
+    flex-direction: unset !important;
+}
+
+/* Hide the vertical dividers – they don't work in a grid */
+.masha-benefit-divider {
+    display: none !important;
+}
+
+.masha-benefit-item {
+    width: 100% !important;
+    flex: unset !important;
+    padding: 1.5rem 1rem !important;
+    border-bottom: 1px solid #ececec !important;
+}
+
+/* Remove bottom border on last two items (row 2) */
+.masha-benefit-item:nth-child(n+5) {
+    border-bottom: none !important;
+}
+
+/* ── Black services grid ── */
+.masha-services-grid,
+.masha-services-section .masha-services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0 !important;
+}
+
+.masha-service-box {
+    padding: 2rem 1.5rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
+    gap: 1rem !important;
+}
+
+/* Remove bottom border on last two boxes (row 2) */
+.masha-service-box:nth-child(n+3) {
+    border-bottom: none !important;
+}
+
+/* Add a vertical separator between the two columns */
+.masha-service-box:nth-child(odd) {
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.masha-benefit-item:nth-child(odd) {
+    border-right: 1px solid #ececec !important;
+}
+
+/* ── Featured card image: flush, no padding ── */
+.masha-fc-image {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.masha-fc-image img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* ── Right products grid: flush image, no padding ── */
+.masha-right-products .elena-product-image {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.masha-right-products .elena-product-image img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
 }

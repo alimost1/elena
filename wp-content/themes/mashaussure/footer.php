@@ -20,78 +20,64 @@ if (!defined('ABSPATH')) {
 			<div class="masha-footer-col masha-footer-col-categories">
 				<h4><?php 
                     $locale = get_locale();
-                    if ($locale === 'ar') echo 'الأقسام';
+                    if ( isset($_GET['lang']) ) {
+                        $locale = sanitize_text_field($_GET['lang']);
+                    }
+                    if (strpos($locale, 'ar') === 0) echo 'الأقسام';
                     elseif ($locale === 'en_US' || $locale === 'en_GB' || strpos($locale, 'en_') === 0) echo 'CATEGORIES';
                     else echo 'CATÉGORIES';
                 ?></h4>
-				<?php if (is_active_sidebar('footer-1')): ?>
-					<?php dynamic_sidebar('footer-1'); ?>
-				<?php else: ?>
 					<ul>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'أحذية كاحل نسائية';
-                            elseif (strpos($locale, 'en_') === 0) echo 'Women\'s Ankle Boots';
-                            else echo 'Bottines Femmes';
-                        ?></a></li>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'أحذية رجالية';
-                            elseif (strpos($locale, 'en_') === 0) echo 'Men\'s Boots';
-                            else echo 'Boots Hommes';
-                        ?></a></li>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'موكاسين نسائي';
-                            elseif (strpos($locale, 'en_') === 0) echo 'Women\'s Loafers';
-                            else echo 'Mocassins femmes';
-                        ?></a></li>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'موكاسين وأحذية قوارب';
-                            elseif (strpos($locale, 'en_') === 0) echo 'Loafers & Boat Shoes';
-                            else echo 'Mocassins et Chaussures Bateau';
-                        ?></a></li>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'أحذية كلاسيكية';
-                            elseif (strpos($locale, 'en_') === 0) echo 'Heels';
-                            else echo 'Escarpins';
-                        ?></a></li>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'أحذية مدينة';
-                            elseif (strpos($locale, 'en_') === 0) echo 'City Shoes';
-                            else echo 'Chaussures de ville';
-                        ?></a></li>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'أحذية رياضية نسائية';
-                            elseif (strpos($locale, 'en_') === 0) echo 'Women\'s Sneakers';
-                            else echo 'Baskets Femmes';
-                        ?></a></li>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'أحذية رياضية رجالية';
-                            elseif (strpos($locale, 'en_') === 0) echo 'Men\'s Sneakers';
-                            else echo 'Baskets Hommes';
-                        ?></a></li>
-						<li><a href="#"><?php 
-                            if ($locale === 'ar') echo 'أحذية أطفال';
-                            elseif (strpos($locale, 'en_') === 0) echo 'Kids\' Shoes';
-                            else echo 'Chaussures Enfants';
-                        ?></a></li>
+						<?php
+						$lang_val = (strpos($locale, 'ar') === 0) ? 'ar' : ((strpos($locale, 'en_') === 0) ? 'en' : 'fr');
+						$meta_query = array(
+							'relation' => 'OR',
+							array('key' => 'category_language', 'value' => $lang_val, 'compare' => '='),
+							array('key' => 'category_language', 'value' => 'all', 'compare' => '=')
+						);
+						if ( $lang_val === 'fr' ) {
+							$meta_query[] = array('key' => 'category_language', 'compare' => 'NOT EXISTS');
+						}
+
+						$cat_args = array(
+							'taxonomy'   => 'product_cat',
+							'hide_empty' => false,
+							'orderby'    => 'count',
+							'order'      => 'DESC',
+							'number'     => 6,
+							'meta_query' => $meta_query
+						);
+						if ( taxonomy_exists( 'product_cat' ) ) {
+							$product_categories = get_terms( $cat_args );
+							if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) {
+								foreach ( $product_categories as $cat ) {
+									echo '<li><a href="' . esc_url( get_term_link( $cat ) ) . '">' . esc_html( $cat->name ) . '</a></li>';
+								}
+							} else {
+								// Fallback 
+								echo '<li><a href="#">' . ((strpos($locale, 'ar') === 0) ? 'أحذية كاحل نسائية' : ((strpos($locale, 'en_') === 0) ? 'Women\'s Ankle Boots' : 'Bottines Femmes')) . '</a></li>';
+								echo '<li><a href="#">' . ((strpos($locale, 'ar') === 0) ? 'أحذية رياضية' : ((strpos($locale, 'en_') === 0) ? 'Sneakers' : 'Baskets')) . '</a></li>';
+							}
+						}
+						?>
 					</ul>
-				<?php endif; ?>
 			</div>
 
 			<!-- Column 2: Business + Nos Boutiques -->
 			<div class="masha-footer-col">
 				<h4><?php 
-                    if ($locale === 'ar') echo 'الأعمال';
+                    if (strpos($locale, 'ar') === 0) echo 'الأعمال';
                     elseif (strpos($locale, 'en_') === 0) echo 'BUSINESS';
                     else echo 'BUSINESS';
                 ?></h4>
 				<ul>
 					<li><a href="#"><?php 
-                        if ($locale === 'ar') echo 'الشراء بالجملة';
+                        if (strpos($locale, 'ar') === 0) echo 'الشراء بالجملة';
                         elseif (strpos($locale, 'en_') === 0) echo 'Wholesale';
                         else echo 'Acheter en Gros';
                     ?></a></li>
 					<li><a href="#"><?php 
-                        if ($locale === 'ar') echo 'كن وكيلاً';
+                        if (strpos($locale, 'ar') === 0) echo 'كن وكيلاً';
                         elseif (strpos($locale, 'en_') === 0) echo 'Become a Franchisee';
                         else echo 'Devenir franchiseur';
                     ?></a></li>
@@ -102,28 +88,28 @@ if (!defined('ABSPATH')) {
 			<!-- Column 3: Liens -->
 			<div class="masha-footer-col">
 				<h4><?php 
-                    if ($locale === 'ar') echo 'روابط';
+                    if (strpos($locale, 'ar') === 0) echo 'روابط';
                     elseif (strpos($locale, 'en_') === 0) echo 'LINKS';
                     else echo 'LIENS';
                 ?></h4>
 				<ul>
 					<li><a href="#"><?php 
-                        if ($locale === 'ar') echo 'من نحن';
+                        if (strpos($locale, 'ar') === 0) echo 'من نحن';
                         elseif (strpos($locale, 'en_') === 0) echo 'About Us';
                         else echo 'A Propos de Nous';
                     ?></a></li>
 					<li><a href="#"><?php 
-                        if ($locale === 'ar') echo 'سياسة الاستبدال';
+                        if (strpos($locale, 'ar') === 0) echo 'سياسة الاستبدال';
                         elseif (strpos($locale, 'en_') === 0) echo 'Exchange Policy';
                         else echo 'Politique d\'Échange';
                     ?></a></li>
 					<li><a href="#"><?php 
-                        if ($locale === 'ar') echo 'الخصوصية';
+                        if (strpos($locale, 'ar') === 0) echo 'الخصوصية';
                         elseif (strpos($locale, 'en_') === 0) echo 'Privacy';
                         else echo 'Confidentialité';
                     ?></a></li>
 					<li><a href="#"><?php 
-                        if ($locale === 'ar') echo 'الشروط العامة';
+                        if (strpos($locale, 'ar') === 0) echo 'الشروط العامة';
                         elseif (strpos($locale, 'en_') === 0) echo 'Terms & Conditions';
                         else echo 'CGV';
                     ?></a></li>
@@ -133,7 +119,7 @@ if (!defined('ABSPATH')) {
 			<!-- Column 4: Social + Payments + Newsletter -->
 			<div class="masha-footer-col masha-footer-col-social">
 				<h4><?php 
-                    if ($locale === 'ar') echo 'تابع Elena.ma';
+                    if (strpos($locale, 'ar') === 0) echo 'تابع Elena.ma';
                     elseif (strpos($locale, 'en_') === 0) echo 'Follow Elena.ma';
                     else echo 'Suivre Elena.ma';
                 ?></h4>
@@ -179,7 +165,7 @@ if (!defined('ABSPATH')) {
 				</div>
 
 				<h4><?php 
-                    if ($locale === 'ar') echo 'طرق الدفع';
+                    if (strpos($locale, 'ar') === 0) echo 'طرق الدفع';
                     elseif (strpos($locale, 'en_') === 0) echo 'Payment Methods';
                     else echo 'Mode de Paiements';
                 ?></h4>
@@ -190,18 +176,18 @@ if (!defined('ABSPATH')) {
 				</div>
 
 				<h4><?php 
-                    if ($locale === 'ar') echo 'اشترك';
+                    if (strpos($locale, 'ar') === 0) echo 'اشترك';
                     elseif (strpos($locale, 'en_') === 0) echo 'Subscribe';
                     else echo 'S\'abonner';
                 ?></h4>
 				<form class="masha-newsletter-form" action="#" method="post">
 					<input type="email" placeholder="<?php 
-                        if ($locale === 'ar') echo 'بريدك الإلكتروني';
+                        if (strpos($locale, 'ar') === 0) echo 'بريدك الإلكتروني';
                         elseif (strpos($locale, 'en_') === 0) echo 'Your email';
                         else echo 'Votre email';
                     ?>" name="masha_email" aria-label="Email">
 					<button type="submit"><?php 
-                        if ($locale === 'ar') echo 'اشترك';
+                        if (strpos($locale, 'ar') === 0) echo 'اشترك';
                         elseif (strpos($locale, 'en_') === 0) echo 'Subscribe';
                         else echo 'S\'abonner';
                     ?></button>
@@ -211,7 +197,7 @@ if (!defined('ABSPATH')) {
 
 		<div class="elena-footer-bottom masha-copyright">
 			<p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. <?php 
-                if ($locale === 'ar') echo 'جميع الحقوق محفوظة.';
+                if (strpos($locale, 'ar') === 0) echo 'جميع الحقوق محفوظة.';
                 elseif (strpos($locale, 'en_') === 0) echo 'All rights reserved.';
                 else echo 'Tous droits réservés.';
             ?></p>
@@ -227,7 +213,11 @@ if (!defined('ABSPATH')) {
 			<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
 			<polyline points="9 22 9 12 15 12 15 22" />
 		</svg>
-		<span>Home</span>
+		<span><?php 
+            if (strpos($locale, 'ar') === 0) echo 'الرئيسية';
+            elseif (strpos($locale, 'en_') === 0) echo 'Home';
+            else echo 'Accueil';
+        ?></span>
 	</a>
 	<a href="<?php echo class_exists('WooCommerce') ? esc_url(wc_get_cart_url()) : '#'; ?>"
 		class="masha-bottom-nav-item">
@@ -239,7 +229,11 @@ if (!defined('ABSPATH')) {
 		<?php if (class_exists('WooCommerce') && WC()->cart->get_cart_contents_count() > 0): ?>
 			<span class="masha-bottom-nav-badge"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
 		<?php endif; ?>
-		<span>Cart</span>
+		<span><?php 
+            if (strpos($locale, 'ar') === 0) echo 'السلة';
+            elseif (strpos($locale, 'en_') === 0) echo 'Cart';
+            else echo 'Panier';
+        ?></span>
 	</a>
 	<a href="<?php echo class_exists('WooCommerce') ? esc_url(wc_get_page_permalink('shop')) : '#'; ?>"
 		class="masha-bottom-nav-item">
@@ -249,7 +243,11 @@ if (!defined('ABSPATH')) {
 			<rect x="3" y="14" width="7" height="7" />
 			<rect x="14" y="14" width="7" height="7" />
 		</svg>
-		<span>Categories</span>
+		<span><?php 
+            if (strpos($locale, 'ar') === 0) echo 'الأقسام';
+            elseif (strpos($locale, 'en_') === 0) echo 'Categories';
+            else echo 'Catégories';
+        ?></span>
 	</a>
 </div>
 

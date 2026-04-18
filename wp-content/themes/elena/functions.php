@@ -74,10 +74,10 @@ add_action( 'after_setup_theme', 'elena_setup' );
  * 2. Enqueue Assets
  * ───────────────────────────────────────────── */
 function elena_enqueue_assets() {
-    // Google Fonts: Yeseva One + Montserrat + Inter
+    // Google Fonts: Playfair Display (display/heading) + Inter (body/UI)
     wp_enqueue_style(
         'elena-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Yeseva+One&family=Montserrat:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap',
         array(),
         null
     );
@@ -94,6 +94,14 @@ function elena_enqueue_assets() {
     wp_enqueue_style(
         'elena-style',
         get_stylesheet_uri(),
+        array( 'elena-main' ),
+        ELENA_VERSION
+    );
+
+    // Custom patches for storefront alignment
+    wp_enqueue_style(
+        'elena-custom-patches',
+        ELENA_URI . '/assets/css/custom-patches.css',
         array( 'elena-main' ),
         ELENA_VERSION
     );
@@ -490,22 +498,28 @@ add_action( 'admin_notices', 'elena_admin_notice' );
 // Change "Add to Cart" button text to "AJOUTER AU PANIER"
 add_filter( 'woocommerce_product_single_add_to_cart_text', 'elena_custom_cart_button_text' );
 function elena_custom_cart_button_text() {
-    return __( 'AJOUTER AU PANIER', 'elena' );
+    $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
+    return (strpos($loc, 'ar') === 0) ? 'أضف إلى السلة' : __( 'AJOUTER AU PANIER', 'elena' );
 }
 
 // Add Buy Now button after the cart form
 add_action( 'woocommerce_after_add_to_cart_button', 'masha_add_buy_now_button' );
 function masha_add_buy_now_button() {
     global $product;
-    echo '<button type="submit" name="masha-buy-now" value="1" class="masha-buy-now-btn button alt">BUY NOW</button>';
+    $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
+    $text = (strpos($loc, 'ar') === 0) ? 'اشتري الآن' : 'BUY NOW';
+    echo '<button type="submit" name="masha-buy-now" value="1" class="masha-buy-now-btn button alt">' . esc_html($text) . '</button>';
 }
 
 // Add wishlist & size guide links after add to cart form
 add_action( 'woocommerce_after_add_to_cart_form', 'masha_add_extra_links', 5 );
 function masha_add_extra_links() {
+    $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
+    $wishlist = (strpos($loc, 'ar') === 0) ? 'أضف إلى المفضلة' : 'Add to wishlist';
+    $size = (strpos($loc, 'ar') === 0) ? 'دليل المقاسات' : 'Size guide';
     echo '<div class="masha-product-extras">';
-    echo '<a href="#"><span>♡</span> Add to wishlist</a>';
-    echo '<a href="#"><span>📏</span> Size guide</a>';
+    echo '<a href="#"><span>♡</span> ' . esc_html($wishlist) . '</a>';
+    echo '<a href="#"><span>📏</span> ' . esc_html($size) . '</a>';
     echo '</div>';
 }
 
@@ -513,10 +527,13 @@ function masha_add_extra_links() {
 add_action( 'woocommerce_before_add_to_cart_form', 'masha_show_stock_status', 10 );
 function masha_show_stock_status() {
     global $product;
+    $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
     if ( $product->is_in_stock() ) {
-        echo '<p class="stock in-stock">En stock</p>';
+        $text = (strpos($loc, 'ar') === 0) ? 'مخزون متوفر' : 'En stock';
+        echo '<p class="stock in-stock">' . esc_html($text) . '</p>';
     } else {
-        echo '<p class="stock out-of-stock">Rupture de stock</p>';
+        $text = (strpos($loc, 'ar') === 0) ? 'غير متوفر' : 'Rupture de stock';
+        echo '<p class="stock out-of-stock">' . esc_html($text) . '</p>';
     }
 }
 
@@ -543,8 +560,9 @@ function masha_quantity_plus_btn() {
 // Add "Livraison" tab to product tabs
 add_filter( 'woocommerce_product_tabs', 'masha_add_livraison_tab' );
 function masha_add_livraison_tab( $tabs ) {
+    $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
     $tabs['livraison'] = array(
-        'title'    => __( 'Livraison', 'elena' ),
+        'title'    => (strpos($loc, 'ar') === 0) ? 'التوصيل' : __( 'Livraison', 'elena' ),
         'priority' => 40,
         'callback' => 'masha_livraison_tab_content',
     );
@@ -552,11 +570,74 @@ function masha_add_livraison_tab( $tabs ) {
 }
 
 function masha_livraison_tab_content() {
-    echo '<h2>Livraison</h2>';
-    echo '<p><strong>Livraison partout au Maroc</strong> – Frais de livraison : 20 DH</p>';
-    echo '<p>Délai de livraison : 24h à 48h selon les villes.</p>';
-    echo '<p>Paiement à la livraison disponible.</p>';
+    $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
+    if ( strpos($loc, 'ar') === 0 ) {
+        echo '<h2>التوصيل</h2>';
+        echo '<p><strong>توصيل لجميع أنحاء المغرب</strong> – رسوم التوصيل: 20 درهم</p>';
+        echo '<p>مدة التوصيل: من 24 إلى 48 ساعة حسب المدن.</p>';
+        echo '<p>الدفع عند الاستلام متاح.</p>';
+    } else {
+        echo '<h2>Livraison</h2>';
+        echo '<p><strong>Livraison partout au Maroc</strong> – Frais de livraison : 20 DH</p>';
+        echo '<p>Délai de livraison : 24h à 48h selon les villes.</p>';
+        echo '<p>Paiement à la livraison disponible.</p>';
+    }
 }
 
 // Remove default WooCommerce breadcrumbs (we handle them in the template)
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+
+/**
+ * Add Language Selection to Categories and Product Categories
+ */
+add_action( 'init', 'elena_add_taxonomy_language_fields' );
+function elena_add_taxonomy_language_fields() {
+$taxonomies = array( 'category', 'product_cat' );
+foreach ( $taxonomies as $taxonomy ) {
+    add_action( $taxonomy . "_add_form_fields", 'elena_add_category_language_field', 10, 1 );
+    add_action( $taxonomy . "_edit_form_fields", 'elena_edit_category_language_field', 10, 2 );
+    add_action( "created_" . $taxonomy, 'elena_save_category_language_field', 10, 2 );
+    add_action( "edited_" . $taxonomy, 'elena_save_category_language_field', 10, 2 );
+}
+}
+
+function elena_add_category_language_field( $taxonomy ) {
+    ?>
+    <div class="form-field term-language-wrap">
+        <label for="category_language"><?php esc_html_e( 'Language', 'elena' ); ?></label>
+        <select name="category_language" id="category_language">
+            <option value="all"><?php esc_html_e( 'All Languages', 'elena' ); ?></option>
+            <option value="ar">Arabic</option>
+            <option value="fr">French</option>
+            <option value="en">English</option>
+        </select>
+        <p><?php esc_html_e( 'Select the language this category applies to.', 'elena' ); ?></p>
+    </div>
+    <?php
+}
+
+function elena_edit_category_language_field( $term, $taxonomy ) {
+    $lang = get_term_meta( $term->term_id, 'category_language', true );
+    if ( empty( $lang ) ) $lang = 'all';
+    ?>
+    <tr class="form-field term-language-wrap">
+        <th scope="row"><label for="category_language"><?php esc_html_e( 'Language', 'elena' ); ?></label></th>
+        <td>
+            <select name="category_language" id="category_language">
+                <option value="all" <?php selected( $lang, 'all' ); ?>><?php esc_html_e( 'All Languages', 'elena' ); ?></option>
+                <option value="ar" <?php selected( $lang, 'ar' ); ?>>Arabic</option>
+                <option value="fr" <?php selected( $lang, 'fr' ); ?>>French</option>
+                <option value="en" <?php selected( $lang, 'en' ); ?>>English</option>
+            </select>
+            <p class="description"><?php esc_html_e( 'Select the language this category applies to.', 'elena' ); ?></p>
+        </td>
+    </tr>
+    <?php
+}
+
+function elena_save_category_language_field( $term_id, $tt_id ) {
+    if ( isset( $_POST['category_language'] ) ) {
+        update_term_meta( $term_id, 'category_language', sanitize_text_field( $_POST['category_language'] ) );
+    }
+}
+

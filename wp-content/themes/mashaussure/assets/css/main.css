@@ -184,8 +184,9 @@
 }
 
 .masha-nav-wrap {
-    background: #fff;
-    border-bottom: 0px solid #ebebeb;
+    background: #000;
+    border-top: 0;
+    border-bottom: 0;
 }
 
 .masha-nav-list {
@@ -199,7 +200,7 @@
 }
 
 .masha-nav-list .elena-nav-link {
-    color: #333;
+    color: #fff;
     font-weight: 500;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -214,8 +215,8 @@
     height: 6px;
     margin-left: 6px;
     vertical-align: middle;
-    border-right: 1.5px solid #666;
-    border-bottom: 1.5px solid #666;
+    border-right: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
     transform: rotate(45deg) translateY(-2px);
     transition: all 0.2s ease;
 }
@@ -232,6 +233,8 @@
 .masha-promo-banner {
     background: linear-gradient(135deg, var(--masha-green) 0%, var(--masha-green-dark) 100%);
     color: var(--elena-white);
+    margin-top: 0 !important;
+    border-top: 0 !important;
     padding: 1.25rem 0;
     text-align: center;
 }
@@ -1464,6 +1467,14 @@ button {
     padding: 0.25rem 0.75rem;
     border-radius: 0;
     text-transform: uppercase;
+    height: auto !important;
+    max-height: 26px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    min-width: 45px !important;
+    width: max-content !important;
+    z-index: 100 !important;
 }
 
 .elena-new-badge-green {
@@ -2444,6 +2455,15 @@ button {
     letter-spacing: 0.05em !important;
     line-height: normal !important;
     width: auto !important;
+    height: auto !important;
+    max-height: 24px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    min-width: 45px !important;
+    width: max-content !important;
+    z-index: 100 !important;
 }
 
 
@@ -3470,16 +3490,25 @@ button {
 /* ── NEW Badge ── */
 .masha-single-new {
     position: absolute !important;
-    bottom: 15px !important;
+    top: 20px !important;
+    bottom: auto !important;
     left: 15px !important;
     z-index: 10;
     background: #4CAF50;
     color: #fff;
-    padding: 4px 12px;
+    padding: 2px 12px;
     font-size: 0.75rem;
     font-weight: 700;
     border-radius: 2px;
     text-transform: uppercase;
+    height: auto !important;
+    max-height: 26px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    min-width: 45px !important;
+    width: max-content !important;
+    z-index: 100 !important;
 }
 
 /* ══════════════════════════════════════
@@ -4126,11 +4155,11 @@ button {
 }
 
 .xl-list.lang-fr_fr a.elena-nav-link {
-    background-image: url('../images/flags/fr_fr.png');
+    background-image: url('../images/flags/fr_fr.svg');
 }
 
 .xl-list.lang-arabic a.elena-nav-link {
-    background-image: url('../images/flags/ar_xx.png');
+    background-image: url('../images/flags/ar_ma.svg');
 }
 
 /* Current language style */
@@ -5468,4 +5497,336 @@ html[dir="rtl"] .masha-section-heading {
 html[dir="rtl"] .masha-section-heading h2::after {
     left: auto;
     right: 0;
+}
+
+/* =========================================================
+   MACHAUSSURE.MA MATCH LAYER (high priority visual override)
+   ========================================================= */
+
+/* Base */
+body {
+    background: #fff !important;
+    color: #111 !important;
+}
+
+.elena-container {
+    max-width: 1280px;
+}
+
+/* Top bar */
+.masha-topbar {
+    background: #000 !important;
+    color: #fff !important;
+    padding: 0.32rem 0 !important;
+    font-size: 0.72rem !important;
+}
+
+.masha-topbar-inner {
+    justify-content: space-between !important;
+    gap: 0.35rem !important;
+}
+
+/* Main header */
+.elena-header.masha-header {
+    background: #000 !important;
+    color: #fff !important;
+    min-height: 72px !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.masha-header-inner {
+    height: 72px !important;
+    padding: 0.5rem 0 !important;
+}
+
+.masha-logo {
+    margin: 0 !important;
+}
+
+.masha-logo .elena-logo-text,
+.masha-logo a {
+    color: #fff !important;
+    font-size: 2rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.08em !important;
+}
+
+.masha-header-link,
+.masha-cart {
+    color: #fff !important;
+    font-size: 0.76rem !important;
+}
+
+.masha-header-link:hover,
+.masha-cart:hover {
+    color: #d6d6d6 !important;
+}
+
+.masha-header-search .header-search-input {
+    height: 38px !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+}
+
+/* Nav bar (white row like reference) */
+.masha-nav-wrap,
+.elena-nav.masha-nav-wrap {
+    background: #fff !important;
+    border-top: 1px solid #ececec !important;
+    border-bottom: 1px solid #ececec !important;
+    box-shadow: none !important;
+}
+
+.masha-nav-list {
+    padding: 0.62rem 0 !important;
+}
+
+.masha-nav-list .elena-nav-link,
+.elena-nav.masha-nav-wrap .elena-nav-link {
+    color: #1a1a1a !important;
+    font-size: 0.76rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+}
+
+.masha-nav-list .elena-nav-link:hover,
+.elena-nav.masha-nav-wrap .elena-nav-link:hover {
+    color: #2d7a3e !important;
+}
+
+.masha-nav-list .menu-item-has-children > a::after {
+    border-right-color: #444 !important;
+    border-bottom-color: #444 !important;
+}
+
+/* Promo strip */
+.masha-promo-banner {
+    margin-top: 0 !important;
+    border-top: 0 !important;
+    background: #2f7f3a !important;
+    color: #fff !important;
+    padding: 0.82rem 0 !important;
+}
+
+.masha-promo-inner {
+    gap: 0.85rem !important;
+}
+
+.masha-promo-title {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+}
+
+.masha-promo-text {
+    font-size: 1.05rem !important;
+    font-weight: 500 !important;
+}
+
+.masha-promo-btn {
+    background: #fff !important;
+    color: #2f7f3a !important;
+    border-radius: 8px !important;
+    padding: 0.45rem 1.2rem !important;
+    font-weight: 600 !important;
+}
+
+/* Hero */
+.elena-hero {
+    margin-top: 0 !important;
+    min-height: 62vh !important;
+}
+
+/* Product cards closer to reference */
+.elena-product-card {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.elena-product-card-inner {
+    padding: 0 !important;
+}
+
+.elena-product-image {
+    background: #f3f3f3 !important;
+}
+
+.elena-sale-badge-black {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.elena-new-badge {
+    background: #2f7f3a !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+}
+
+.elena-product-title {
+    font-size: 0.94rem !important;
+    line-height: 1.25 !important;
+    min-height: 2.5em;
+}
+
+.elena-product-price {
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+}
+
+.elena-product-price del {
+    font-size: 0.92rem !important;
+}
+
+.elena-product-actions .button {
+    width: 100% !important;
+    border-radius: 0 !important;
+    background: #2f7f3a !important;
+    color: #fff !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em !important;
+}
+
+.elena-product-actions .button:hover {
+    background: #23642f !important;
+}
+
+/* Services strip + footer like reference */
+.masha-footer-services {
+    background: #000 !important;
+    border-top: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+.masha-service-item h4,
+.masha-service-item p,
+.masha-service-icon {
+    color: #fff !important;
+}
+
+.elena-footer.masha-footer {
+    background: #000 !important;
+    color: #fff !important;
+    border-top: 0 !important;
+}
+
+.masha-footer-columns {
+    border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+.masha-footer-col a {
+    color: rgba(255,255,255,0.86) !important;
+}
+
+.masha-footer-col a:hover {
+    color: #fff !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .masha-header-search {
+        display: none !important;
+    }
+
+    .masha-logo .elena-logo-text,
+    .masha-logo a {
+        font-size: 1.55rem !important;
+    }
+
+    .masha-topbar {
+        font-size: 0.64rem !important;
+    }
+
+    .masha-nav-wrap {
+        border-top: 0 !important;
+        border-bottom: 0 !important;
+    }
+
+    .masha-promo-banner {
+        padding: 0.68rem 0 !important;
+    }
+
+    .masha-promo-title {
+        font-size: 1.18rem !important;
+    }
+
+    .masha-promo-text {
+        font-size: 0.82rem !important;
+    }
+}
+
+/* ===============================================
+   DESIGN HOTFIX OVERRIDES (stable final layer)
+   =============================================== */
+
+/* Header + nav should be fully dark, no white separators */
+.elena-header.masha-header {
+    background: #000 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    margin-top: 0 !important;
+}
+
+.masha-nav-wrap,
+.elena-nav.masha-nav-wrap {
+    background: #000 !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+}
+
+.masha-nav-list .elena-nav-link,
+.elena-nav.masha-nav-wrap .elena-nav-link {
+    color: #fff !important;
+}
+
+/* Promo joins cleanly with header/nav (no white line) */
+.masha-promo-banner {
+    margin-top: 0 !important;
+    border-top: 0 !important;
+}
+
+/* Hero starts right after promo/header stack */
+.elena-hero {
+    margin-top: 0 !important;
+}
+
+/* Product card consistency */
+.elena-product-card {
+    background: #fff !important;
+    border: 1px solid #ececec !important;
+    border-radius: 8px !important;
+}
+
+.elena-product-card-inner {
+    padding: 0.5rem !important;
+}
+
+.elena-product-title {
+    min-height: 2.6em;
+}
+
+/* Keep size chips tidy */
+.elena-product-card .elena-product-sizes {
+    max-height: 64px;
+    overflow: hidden;
+}
+
+/* Mobile spacing and clarity */
+@media (max-width: 768px) {
+    .elena-section {
+        padding: 2rem 0 !important;
+    }
+
+    .elena-products-grid,
+    .elena-shop-page ul.products,
+    .woocommerce .related.products ul.products {
+        gap: 0.75rem !important;
+    }
+
+    .masha-header-search,
+    .elena-header-search {
+        display: none !important;
+    }
 }

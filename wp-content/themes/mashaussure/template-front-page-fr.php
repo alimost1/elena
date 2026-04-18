@@ -8,10 +8,11 @@
 
 get_header();
 
-$shop_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#';
+$theme_uri = get_template_directory_uri();
+$shop_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/');
 $hero_image = get_theme_mod('elena_hero_image', '');
 $featured_img = get_the_post_thumbnail_url(get_the_ID(), 'full');
-$hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_URI . '/assets/images/hero-bg.png');
+$hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : $theme_uri . '/assets/images/hero-bg.png');
 ?>
 
 <!-- ═══════════ HERO SLIDER ═══════════ -->
@@ -57,15 +58,15 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                     if (!$thumb_url) {
                         $cat_n = strtolower($cat->name);
                         if (strpos($cat_n, 'escarpin') !== false || strpos($cat_n, 'heels') !== false)
-                            $thumb_url = ELENA_URI . '/assets/images/categories/heels.png';
+                            $thumb_url = $theme_uri . '/assets/images/categories/heels.png';
                         elseif (strpos($cat_n, 'mocassin') !== false || strpos($cat_n, 'bateau') !== false || strpos($cat_n, 'mule') !== false || strpos($cat_n, 'derbies') !== false)
-                            $thumb_url = ELENA_URI . '/assets/images/categories/loafers.png';
+                            $thumb_url = $theme_uri . '/assets/images/categories/loafers.png';
                         elseif (strpos($cat_n, 'sac') !== false || strpos($cat_n, 'bag') !== false)
-                            $thumb_url = ELENA_URI . '/assets/images/categories/bag.png';
+                            $thumb_url = $theme_uri . '/assets/images/categories/bag.png';
                         elseif (strpos($cat_n, 'fille') !== false || strpos($cat_n, 'garçon') !== false || strpos($cat_n, 'enfant') !== false || strpos($cat_n, 'kids') !== false)
-                            $thumb_url = ELENA_URI . '/assets/images/categories/kids.png';
+                            $thumb_url = $theme_uri . '/assets/images/categories/kids.png';
                         else
-                            $thumb_url = ELENA_URI . '/assets/images/categories/heels.png';
+                            $thumb_url = $theme_uri . '/assets/images/categories/heels.png';
                     }
 
                     $cat_link = get_term_link($cat);
@@ -94,7 +95,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                     ?>
                     <a href="<?php echo esc_url($shop_url); ?>" class="masha-cat-card">
                         <div class="masha-cat-img-wrap">
-                            <img src="<?php echo esc_url(ELENA_URI . '/assets/images/categories/' . $cat_img); ?>"
+                            <img src="<?php echo esc_url($theme_uri . '/assets/images/categories/' . $cat_img); ?>"
                                 alt="<?php echo esc_attr($cat_name); ?>">
                         </div>
                         <span class="masha-cat-name"><?php echo esc_html(strtoupper($cat_name)); ?></span>
@@ -156,14 +157,11 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                 <div class="masha-benefit-icon">
                     <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
                         stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                     </svg>
                 </div>
                 <h3>Livraison Rapide</h3>
-                <p>Sous 48h</p>
+                <p>&nbsp;</p>
             </div>
         </div>
     </div>
@@ -209,35 +207,9 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                         global $product;
                         $product = wc_get_product(get_the_ID());
 
-                        $sale_badge = '';
-                        if ($product->is_on_sale() && (float) $product->get_regular_price() > 0) {
-                            $percent = round((((float) $product->get_regular_price() - (float) $product->get_sale_price()) / (float) $product->get_regular_price()) * 100);
-                            $sale_badge = '-' . $percent . '%';
-                        }
-
-                        $is_new = false;
-                        if (has_term('new', 'product_tag', $product->get_id()) || has_term('NEW', 'product_tag', $product->get_id())) {
-                            $is_new = true;
-                        } elseif ((time() - get_the_time('U', $product->get_id())) < (30 * 24 * 60 * 60)) {
-                            $is_new = true;
-                        }
-
-                        $size_attrs = array();
-                        if ($product->is_type('variable')) {
-                            $attrs = $product->get_variation_attributes();
-                            if (!empty($attrs)) {
-                                foreach ($attrs as $name => $options) {
-                                    if (stripos($name, 'pointure') !== false || stripos($name, 'size') !== false || stripos($name, 'taille') !== false) {
-                                        $size_attrs = is_array($options) ? $options : array();
-                                        break;
-                                    }
-                                }
-                                if (empty($size_attrs)) {
-                                    $size_attrs = reset($attrs);
-                                    $size_attrs = is_array($size_attrs) ? $size_attrs : array();
-                                }
-                            }
-                        }
+                        $sale_badge = masha_fp_get_sale_badge($product);
+                        $is_new = masha_fp_is_new_product($product);
+                        $size_attrs = masha_fp_get_size_attributes($product);
                         ?>
                         <div class="masha-featured-card">
                             <a href="<?php echo esc_url($product->get_permalink()); ?>" class="masha-fc-link">
@@ -355,30 +327,9 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                         global $product;
                         $product = wc_get_product(get_the_ID());
 
-                        $sale_badge = '';
-                        if ($product->is_on_sale() && (float) $product->get_regular_price() > 0) {
-                            $percent = round((((float) $product->get_regular_price() - (float) $product->get_sale_price()) / (float) $product->get_regular_price()) * 100);
-                            $sale_badge = '-' . $percent . '%';
-                        }
-
-                        $is_new = (time() - get_the_time('U', $product->get_id())) < (30 * 24 * 60 * 60);
-
-                        $size_attrs = array();
-                        if ($product->is_type('variable')) {
-                            $attrs = $product->get_variation_attributes();
-                            if (!empty($attrs)) {
-                                foreach ($attrs as $name => $options) {
-                                    if (stripos($name, 'pointure') !== false || stripos($name, 'size') !== false || stripos($name, 'taille') !== false) {
-                                        $size_attrs = is_array($options) ? $options : array();
-                                        break;
-                                    }
-                                }
-                                if (empty($size_attrs)) {
-                                    $size_attrs = reset($attrs);
-                                    $size_attrs = is_array($size_attrs) ? $size_attrs : array();
-                                }
-                            }
-                        }
+                        $sale_badge = masha_fp_get_sale_badge($product);
+                        $is_new = masha_fp_is_new_product($product);
+                        $size_attrs = masha_fp_get_size_attributes($product);
                         ?>
                         <div class="masha-featured-card">
                             <a href="<?php echo esc_url($product->get_permalink()); ?>" class="masha-fc-link">
@@ -460,10 +411,10 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
 
 <!-- ═══════════ STORE BANNER ═══════════ -->
 <section class="masha-store-banner" id="store-banner"
-    style="background-image: url('<?php echo esc_url(ELENA_URI . '/assets/images/store-banner.jpg'); ?>'); background-size: cover; background-position: center; background-attachment: fixed;">
+    style="background-image: url('<?php echo esc_url($theme_uri . '/assets/images/store-banner.jpg'); ?>'); background-size: cover; background-position: center; background-attachment: fixed;">
     <div class="masha-store-banner-overlay">
         <div class="elena-container">
-            <p class="masha-store-banner-text">DécouvrezElena.ma, votre destination pour les meilleures offres en ligne
+            <p class="masha-store-banner-text">Découvrez Elena.ma, votre destination pour les meilleures offres en ligne
                 et dans la boutique en exclusivité !</p>
         </div>
     </div>
@@ -522,15 +473,12 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : ELENA_UR
                 <div class="masha-service-icon">
                     <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
                         stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                     </svg>
                 </div>
                 <div class="masha-service-info">
                     <h3>Livraison Rapide</h3>
-                    <p>Sous 48h</p>
+                    <p>&nbsp;</p>
                 </div>
             </div>
         </div>

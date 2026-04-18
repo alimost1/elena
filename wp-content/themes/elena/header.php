@@ -1,7 +1,7 @@
 <?php
 /**
- * Elena Theme Header – Machaussure.ma style
- * Black top bar + black main header (search, logo, cart) + white nav bar.
+ * Elena Theme Header – Premium fashion storefront
+ * Top info bar + main header (search, logo, cart) + category nav bar.
  *
  * @package Elena
  */
@@ -28,13 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="elena-topbar">
 		<div class="elena-container elena-topbar-inner">
 			<span class="elena-topbar-delivery"><?php echo esc_html( get_theme_mod( 'elena_announcement_text', 'Livraison 20 DH partout au Maroc' ) ); ?></span>
-			<span class="elena-topbar-contact"><?php esc_html_e( 'Contactez-Nous:', 'elena' ); ?> <?php echo esc_html( get_theme_mod( 'elena_footer_email', 'sav.machaussure@gmail.com' ) ); ?> | <?php echo esc_html( get_theme_mod( 'elena_footer_phone', '+212 687873820' ) ); ?></span>
+			<span class="elena-topbar-contact"><?php esc_html_e( 'Contactez-Nous:', 'elena' ); ?> <?php echo esc_html( get_theme_mod( 'elena_footer_email', 'contact@elena.ma' ) ); ?> | <?php echo esc_html( get_theme_mod( 'elena_footer_phone', '+212 687873820' ) ); ?></span>
 		</div>
 	</div>
 	<?php endif; ?>
 
-	<!-- Main header (black): search, logo, login, wishlist, cart -->
-	<header id="elena-header" class="elena-header elena-header-dark">
+	<!-- Main header: search, logo, login, wishlist, cart -->
+	<header id="elena-header" class="elena-header elena-header-light">
 		<div class="elena-container elena-header-inner">
 			<div class="elena-header-search">
 				<?php get_search_form(); ?>
@@ -47,20 +47,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 					the_custom_logo();
 				} else {
 					?>
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="elena-logo-text">MACHAUSSURE</a>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="elena-logo-text">ELENA</a>
 				<?php } ?>
 			</div>
 
 			<div class="elena-header-actions">
-				<a href="<?php echo esc_url( function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : '#' ); ?>" class="elena-header-link"><?php esc_html_e( 'Login / Register', 'elena' ); ?></a>
-				<a href="#" class="elena-header-link elena-wishlist-link">
+				<a href="<?php echo esc_url( function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : '#' ); ?>" class="elena-header-link" title="<?php esc_attr_e( 'Account', 'elena' ); ?>">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+					<span class="elena-action-label"><?php esc_html_e( 'Login', 'elena' ); ?></span>
+				</a>
+				<a href="#" class="elena-header-link elena-wishlist-link" title="<?php esc_attr_e( 'Wishlist', 'elena' ); ?>">
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-					<span class="elena-wishlist-count">0</span> <?php esc_html_e( 'items', 'elena' ); ?> د.م. 0,00
+					<span class="elena-wishlist-count">0</span>
 				</a>
 				<?php if ( class_exists( 'WooCommerce' ) ) : ?>
 				<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="elena-cart-btn" title="<?php esc_attr_e( 'Cart', 'elena' ); ?>">
 					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-					<span class="elena-cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span> <?php esc_html_e( 'items', 'elena' ); ?> <?php echo WC()->cart->get_cart_total(); ?>
+					<span class="elena-cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+					<span class="elena-cart-total-value"><?php echo WC()->cart->get_cart_total(); ?></span>
 				</a>
 				<?php endif; ?>
 				<button class="elena-mobile-toggle" id="elena-mobile-toggle" aria-label="<?php esc_attr_e( 'Menu', 'elena' ); ?>">
@@ -69,30 +73,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<!-- Nav bar (white background, below header) -->
+		<!-- Category navigation bar -->
 		<nav id="elena-nav" class="elena-nav elena-nav-wrap">
 			<div class="elena-container">
-				<?php
-				wp_nav_menu( array(
-					'theme_location' => 'primary',
-					'container'      => false,
-					'menu_class'     => 'elena-nav-list',
-					'walker'         => class_exists( 'Elena_Nav_Walker' ) ? new Elena_Nav_Walker() : null,
-					'fallback_cb'    => function() {
-						echo '<ul class="elena-nav-list">';
-						echo '<li><a href="' . esc_url( home_url( '/' ) ) . '" class="elena-nav-link">' . esc_html__( 'Accueil', 'elena' ) . '</a></li>';
-						if ( function_exists( 'wc_get_page_permalink' ) ) {
-							echo '<li><a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="elena-nav-link">' . esc_html__( 'Boutique', 'elena' ) . '</a></li>';
-						}
-						echo '</ul>';
-					},
-				) );
-				?>
+				<ul class="elena-nav-list">
+					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>" class="elena-nav-link"><?php esc_html_e( 'Femmes', 'elena' ); ?></a></li>
+					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>" class="elena-nav-link"><?php esc_html_e( 'Hommes', 'elena' ); ?></a></li>
+					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>" class="elena-nav-link"><?php esc_html_e( 'Enfants', 'elena' ); ?></a></li>
+					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>" class="elena-nav-link"><?php esc_html_e( 'Nouveautés', 'elena' ); ?></a></li>
+					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>?on_sale=1" class="elena-nav-link"><?php esc_html_e( 'Promotions', 'elena' ); ?></a></li>
+				</ul>
 			</div>
 		</nav>
 	</header>
 
-	<!-- Promo banner (green) -->
+	<!-- Promo banner -->
 	<?php if ( get_theme_mod( 'elena_promo_show', true ) && ( is_front_page() || get_theme_mod( 'elena_promo_all_pages', false ) ) ) : ?>
 	<?php
 		$promo_url = get_theme_mod( 'elena_promo_url', '' );

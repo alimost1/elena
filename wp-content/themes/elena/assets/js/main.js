@@ -1,9 +1,9 @@
 /**
- * Machaussure Theme - Main JavaScript
- * Matching machaussure.ma reference design
+ * Elena Theme - Main JavaScript
+ * Premium Moroccan fashion storefront
  *
- * @package Mashaussure
- * @version 3.0.0
+ * @package Elena
+ * @version 2.0.0
  */
 
 (function () {
