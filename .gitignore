@@ -14,24 +14,76 @@ wp-content/cache/
 wp-content/upgrade/
 wp-content/backup*/
 wp-content/ai1wm-backups/
-wp-content/wpvividbackups/
 wp-content/wflogs/
 
-# === Default WP themes (included in Docker image, only track elena) ===
-wp-content/themes/twenty*/
+# WPvivid — backup plugin runtime + data (never commit these)
+wp-content/wpvividbackups/
+wp-content/wpvivid_staging/
+wp-content/wpvivid_uploads/
+wp-content/wpvivid_*/
 
-# === Default WP plugins (hello.php, akismet etc.) ===
+# === Default / 3rd-party WP themes (only track our custom theme) ===
+wp-content/themes/twenty*/
+wp-content/themes/mashaussure/
+
+# === 3rd-party WP plugins (re-installable from WP repo / vendor; don't bloat git) ===
 wp-content/plugins/hello.php
 wp-content/plugins/akismet/
+wp-content/plugins/wpvivid-backuprestore/
+wp-content/plugins/wordfence/
+wp-content/plugins/wp-super-cache/
+wp-content/plugins/w3-total-cache/
+wp-content/plugins/wp-rocket/
+wp-content/plugins/duplicator/
+wp-content/plugins/all-in-one-wp-migration/
+wp-content/plugins/updraftplus/
+
+# === Backup / DB dumps / archives — never commit these ===
+*.sql
+*.sql.gz
+*.sql.bz2
+*.sqlite
+*.sqlite3
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+*.bak
+*.backup
+*.dump
 
 # === Local dev files ===
 wp-config.php
+wp-config-local.php
+wp-config-staging.php
 local-xdebuginfo.php
 check_images.php
 add_gallery.php
+audit-pages-short.php
+auth_keys.txt
+phpinfo.php
 
 # === Environment & secrets ===
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets.php
+credentials.php
+auth.json
+
+# === Logs & debug ===
+*.log
+debug.log
+error_log
+wp-content/debug.log
+wp-content/logs/
 
 # === OS / editor junk ===
 .DS_Store
@@ -43,7 +95,12 @@ desktop.ini
 
 # === Node (if ever used) ===
 node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json.bak
 
 # === IDE ===
 .vscode/
 .idea/
+*.sublime-workspace
+*.sublime-project
