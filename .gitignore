@@ -22,9 +22,8 @@ wp-content/wpvivid_staging/
 wp-content/wpvivid_uploads/
 wp-content/wpvivid_*/
 
-# === Default / 3rd-party WP themes (only track our custom theme) ===
+# === Default / 3rd-party WP themes (track elena + mashaussure; elena depends on mashaussure assets) ===
 wp-content/themes/twenty*/
-wp-content/themes/mashaussure/
 
 # === 3rd-party WP plugins (re-installable from WP repo / vendor; don't bloat git) ===
 wp-content/plugins/hello.php

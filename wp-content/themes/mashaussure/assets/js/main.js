@@ -61,6 +61,8 @@
         var toggle = document.getElementById('elena-mobile-toggle');
         var nav = document.getElementById('elena-nav');
         if (!toggle || !nav) return;
+        if (toggle.dataset.elenaMenuBound === '1') return;
+        toggle.dataset.elenaMenuBound = '1';
 
         toggle.addEventListener('click', function () {
             var isOpen = nav.classList.toggle('elena-nav-open');
@@ -172,11 +174,22 @@
      * ───────────────────────────────────────────── */
     function initCoupsTabs() {
         document.querySelectorAll('.masha-coups-tabs').forEach(function (tabList) {
+            var section = tabList.closest('.masha-coups-right');
+            if (!section) return;
+            var panels = section.querySelectorAll('.masha-tab-panel');
             var tabs = tabList.querySelectorAll('li');
             tabs.forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     tabs.forEach(function (t) { t.classList.remove('active'); });
                     tab.classList.add('active');
+
+                    var targetCat = tab.getAttribute('data-tab-cat');
+                    if (!targetCat || !panels.length) return;
+                    panels.forEach(function (panel) {
+                        var isMatch = panel.getAttribute('data-tab-cat') === targetCat;
+                        panel.classList.toggle('is-active', isMatch);
+                        panel.style.display = isMatch ? '' : 'none';
+                    });
                 });
             });
         });

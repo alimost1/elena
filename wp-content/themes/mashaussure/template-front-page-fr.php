@@ -13,6 +13,62 @@ $shop_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('sh
 $hero_image = get_theme_mod('elena_hero_image', '');
 $featured_img = get_the_post_thumbnail_url(get_the_ID(), 'full');
 $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : $theme_uri . '/assets/images/hero-bg.png');
+$xl_lang = function_exists('elena_current_lang_slug') ? elena_current_lang_slug() : (function_exists('xili_curlang') ? strtolower((string) xili_curlang()) : 'fr_fr');
+if ('fr' === $xl_lang) {
+    $xl_lang = 'fr_fr';
+} elseif ('en' === $xl_lang) {
+    $xl_lang = 'en_us';
+} elseif ('ar' === $xl_lang) {
+    $xl_lang = 'ar_ar';
+}
+$homepage_category_terms = array();
+$products_for_cats = get_posts(
+    array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => 300,
+        'fields' => 'ids',
+        'lang' => $xl_lang,
+        'suppress_filters' => false,
+        'no_found_rows' => true,
+    )
+);
+if (!empty($products_for_cats)) {
+    $homepage_category_terms = wp_get_object_terms(
+        $products_for_cats,
+        'product_cat',
+        array(
+            'orderby' => 'count',
+            'order' => 'DESC',
+            'hide_empty' => true,
+            'exclude' => array((int) get_option('default_product_cat')),
+        )
+    );
+    if (is_wp_error($homepage_category_terms)) {
+        $homepage_category_terms = array();
+    }
+}
+$tabs_categories = array();
+if (!empty($homepage_category_terms)) {
+    foreach ($homepage_category_terms as $tabs_category) {
+        if (preg_match('/\p{Arabic}/u', (string) $tabs_category->name)) {
+            continue;
+        }
+        $tabs_categories[] = $tabs_category;
+        if (count($tabs_categories) >= 3) {
+            break;
+        }
+    }
+}
+// Fallback: if all categories have Arabic names, use them anyway so the filter always appears
+if (empty($tabs_categories) && !empty($homepage_category_terms)) {
+    foreach ($homepage_category_terms as $tabs_category) {
+        $tabs_categories[] = $tabs_category;
+        if (count($tabs_categories) >= 3) {
+            break;
+        }
+    }
+}
 ?>
 
 <!-- ═══════════ HERO SLIDER ═══════════ -->
@@ -38,18 +94,19 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : $theme_u
         </div>
         <div class="masha-categories-grid">
             <?php
-            // Get WooCommerce product categories
-            $cat_args = array(
-                'taxonomy' => 'product_cat',
-                'orderby' => 'count',
-                'order' => 'DESC',
-                'hide_empty' => true,
-                'number' => 8,
-                'exclude' => get_option('default_product_cat'), // exclude "Uncategorized"
-            );
-            $categories = get_terms($cat_args);
-
-            if (!empty($categories) && !is_wp_error($categories)) {
+            $categories = array();
+            if (!empty($homepage_category_terms)) {
+                foreach ($homepage_category_terms as $category_term) {
+                    if (preg_match('/\p{Arabic}/u', (string) $category_term->name)) {
+                        continue;
+                    }
+                    $categories[] = $category_term;
+                    if (count($categories) >= 8) {
+                        break;
+                    }
+                }
+            }
+            if (!empty($categories)) {
                 foreach ($categories as $cat) {
                     $thumb_id = get_term_meta($cat->term_id, 'thumbnail_id', true);
                     $thumb_url = $thumb_id ? wp_get_attachment_url($thumb_id) : '';
@@ -76,29 +133,6 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : $theme_u
                             <img src="<?php echo esc_url($thumb_url); ?>" alt="<?php echo esc_attr($cat->name); ?>">
                         </div>
                         <span class="masha-cat-name"><?php echo esc_html(strtoupper($cat->name)); ?></span>
-                    </a>
-                    <?php
-                }
-            } else {
-                // Fallback if no categories exist in WooCommerce yet
-                $fallback_cats = array(
-                    'Derbies & Richelieu' => 'loafers.png',
-                    'Escarpins' => 'heels.png',
-                    'Fille' => 'kids.png',
-                    'Garçon' => 'kids.png',
-                    'Mocassins Femmes' => 'loafers.png',
-                    'Mocassins & Chaussures Bateau' => 'loafers.png',
-                    'Mules' => 'loafers.png',
-                    'Sacs' => 'bag.png'
-                );
-                foreach ($fallback_cats as $cat_name => $cat_img) {
-                    ?>
-                    <a href="<?php echo esc_url($shop_url); ?>" class="masha-cat-card">
-                        <div class="masha-cat-img-wrap">
-                            <img src="<?php echo esc_url($theme_uri . '/assets/images/categories/' . $cat_img); ?>"
-                                alt="<?php echo esc_attr($cat_name); ?>">
-                        </div>
-                        <span class="masha-cat-name"><?php echo esc_html(strtoupper($cat_name)); ?></span>
                     </a>
                     <?php
                 }
@@ -185,6 +219,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : $theme_u
                         'meta_key' => 'total_sales',
                         'orderby' => 'meta_value_num',
                         'order' => 'DESC',
+                        'lang' => $xl_lang,
                         'tax_query' => array(
                             array(
                                 'taxonomy' => 'product_cat',
@@ -247,31 +282,43 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : $theme_u
                 <!-- RIGHT GRID -->
                 <div class="masha-coups-right">
                     <ul class="masha-coups-tabs">
-                        <li class="active">ESCARPINS CHIC</li>
-                        <li>MOCASSINS</li>
-                        <li>DERBIES</li>
+                        <?php foreach ($tabs_categories as $tab_index => $tab_category): ?>
+                            <li class="<?php echo 0 === $tab_index ? 'active' : ''; ?>" data-tab-cat="<?php echo esc_attr($tab_category->slug); ?>">
+                                <?php echo esc_html(strtoupper($tab_category->name)); ?>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                     <div class="masha-coups-grid">
-                        <ul class="elena-products-grid masha-right-products">
-                            <?php
-                            $args_grid = array(
-                                'post_type' => 'product',
-                                'posts_per_page' => 6,
-                                'offset' => 1,
-                                'meta_key' => 'total_sales',
-                                'orderby' => 'meta_value_num',
-                                'order' => 'DESC',
-                            );
-                            $grid = new WP_Query($args_grid);
-                            if ($grid->have_posts()) {
-                                while ($grid->have_posts()) {
-                                    $grid->the_post();
-                                    wc_get_template_part('content', 'product');
+                        <?php foreach ($tabs_categories as $tab_index => $tab_category): ?>
+                            <ul class="elena-products-grid masha-right-products masha-tab-panel<?php echo 0 === $tab_index ? ' is-active' : ''; ?>"
+                                data-tab-cat="<?php echo esc_attr($tab_category->slug); ?>"<?php echo 0 === $tab_index ? '' : ' style="display:none;"'; ?>>
+                                <?php
+                                $args_grid = array(
+                                    'post_type' => 'product',
+                                    'posts_per_page' => 6,
+                                    'meta_key' => 'total_sales',
+                                    'orderby' => 'meta_value_num',
+                                    'order' => 'DESC',
+                                    'lang' => $xl_lang,
+                                    'tax_query' => array(
+                                        array(
+                                            'taxonomy' => 'product_cat',
+                                            'field' => 'slug',
+                                            'terms' => array($tab_category->slug),
+                                        ),
+                                    ),
+                                );
+                                $grid = new WP_Query($args_grid);
+                                if ($grid->have_posts()) {
+                                    while ($grid->have_posts()) {
+                                        $grid->the_post();
+                                        wc_get_template_part('content', 'product');
+                                    }
                                 }
-                            }
-                            wp_reset_postdata();
-                            ?>
-                        </ul>
+                                wp_reset_postdata();
+                                ?>
+                            </ul>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -305,6 +352,7 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : $theme_u
                         'meta_key' => 'total_sales',
                         'orderby' => 'meta_value_num',
                         'order' => 'DESC',
+                        'lang' => $xl_lang,
                         'tax_query' => array(
                             array(
                                 'taxonomy' => 'product_cat',
@@ -367,31 +415,43 @@ $hero_bg = $featured_img ? $featured_img : ($hero_image ? $hero_image : $theme_u
                 <!-- RIGHT GRID -->
                 <div class="masha-coups-right">
                     <ul class="masha-coups-tabs">
-                        <li class="active">MOCASSINS</li>
-                        <li>BASKETS URBAINES</li>
-                        <li>VILLE & ÉLÉGANCE</li>
+                        <?php foreach ($tabs_categories as $tab_index => $tab_category): ?>
+                            <li class="<?php echo 0 === $tab_index ? 'active' : ''; ?>" data-tab-cat="<?php echo esc_attr($tab_category->slug); ?>">
+                                <?php echo esc_html(strtoupper($tab_category->name)); ?>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                     <div class="masha-coups-grid">
-                        <ul class="elena-products-grid masha-right-products">
-                            <?php
-                            $args_men_grid = array(
-                                'post_type' => 'product',
-                                'posts_per_page' => 6,
-                                'offset' => 3,
-                                'meta_key' => 'total_sales',
-                                'orderby' => 'meta_value_num',
-                                'order' => 'DESC',
-                            );
-                            $men_grid = new WP_Query($args_men_grid);
-                            if ($men_grid->have_posts()) {
-                                while ($men_grid->have_posts()) {
-                                    $men_grid->the_post();
-                                    wc_get_template_part('content', 'product');
+                        <?php foreach ($tabs_categories as $tab_index => $tab_category): ?>
+                            <ul class="elena-products-grid masha-right-products masha-tab-panel<?php echo 0 === $tab_index ? ' is-active' : ''; ?>"
+                                data-tab-cat="<?php echo esc_attr($tab_category->slug); ?>"<?php echo 0 === $tab_index ? '' : ' style="display:none;"'; ?>>
+                                <?php
+                                $args_men_grid = array(
+                                    'post_type' => 'product',
+                                    'posts_per_page' => 6,
+                                    'meta_key' => 'total_sales',
+                                    'orderby' => 'meta_value_num',
+                                    'order' => 'DESC',
+                                    'lang' => $xl_lang,
+                                    'tax_query' => array(
+                                        array(
+                                            'taxonomy' => 'product_cat',
+                                            'field' => 'slug',
+                                            'terms' => array($tab_category->slug),
+                                        ),
+                                    ),
+                                );
+                                $men_grid = new WP_Query($args_men_grid);
+                                if ($men_grid->have_posts()) {
+                                    while ($men_grid->have_posts()) {
+                                        $men_grid->the_post();
+                                        wc_get_template_part('content', 'product');
+                                    }
                                 }
-                            }
-                            wp_reset_postdata();
-                            ?>
-                        </ul>
+                                wp_reset_postdata();
+                                ?>
+                            </ul>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>

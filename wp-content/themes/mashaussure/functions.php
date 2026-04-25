@@ -10,6 +10,128 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+/* ─────────────────────────────────────────────
+ * Clean Language Management
+ * ───────────────────────────────────────────── */
+
+/**
+ * Multilang-plugin detection — back off when xili-language or Polylang owns the language system.
+ */
+if ( ! function_exists( 'masha_is_multilang_plugin_active' ) ) {
+    function masha_is_multilang_plugin_active() {
+        return function_exists( 'xili_curlang' )
+            || function_exists( 'the_curlang' )
+            || function_exists( 'pll_current_language' )
+            || defined( 'POLYLANG_VERSION' );
+    }
+}
+
+/**
+ * Early force lang=ar internally if the URL is Arabic but parameter is missing.
+ */
+add_action( 'init', 'masha_force_lang_internal', 1 );
+function masha_force_lang_internal() {
+    if ( masha_is_multilang_plugin_active() ) return;
+    if ( is_admin() ) return;
+    
+    $uri = $_SERVER['REQUEST_URI'];
+    $is_arabic = ( strpos( $uri, '%D8' ) !== false || strpos( $uri, '%D9' ) !== false );
+    
+    if ( ! $is_arabic ) {
+        $decoded_uri = urldecode( $uri );
+        $is_arabic = preg_match( '/[\x{0600}-\x{06FF}]/u', $decoded_uri );
+    }
+
+    if ( $is_arabic ) {
+        if ( ! isset( $_GET['lang'] ) ) {
+            $_GET['lang'] = 'ar';
+        }
+        add_filter( 'locale', function() { return 'ar_AR'; }, 99 );
+    }
+
+    // Check cookie for persistence
+    if ( ! isset( $_GET['lang'] ) && isset( $_COOKIE['elena_lang'] ) ) {
+        $cookie_lang = sanitize_text_field( $_COOKIE['elena_lang'] );
+        if ( $cookie_lang === 'ar' ) {
+            $_GET['lang'] = 'ar';
+            add_filter( 'locale', function() { return 'ar_AR'; }, 99 );
+        }
+    }
+}
+
+/**
+ * Detect and force locale based on URI or parameter or cookie.
+ */
+add_filter( 'locale', 'masha_detect_and_force_locale', 20 );
+function masha_detect_and_force_locale( $locale ) {
+    // Defensive: never propagate a null/empty locale — WP >= 6.5 errors if set_locale() receives null.
+    if ( ! is_string( $locale ) || $locale === '' ) {
+        $locale = 'fr_FR';
+    }
+
+    if ( masha_is_multilang_plugin_active() ) return $locale;
+    if ( is_admin() ) return $locale;
+
+    if ( isset( $_GET['lang'] ) ) {
+        $l = strtolower( sanitize_text_field( $_GET['lang'] ) );
+        if ( strpos( $l, 'ar' ) === 0 ) return 'ar_AR';
+        if ( strpos( $l, 'fr' ) === 0 ) return 'fr_FR';
+    }
+
+    $uri = $_SERVER['REQUEST_URI'];
+    if ( strpos( $uri, '%D8' ) !== false || strpos( $uri, '%D9' ) !== false || preg_match( '/[\x{0600}-\x{06FF}]/u', urldecode( $uri ) ) ) {
+        return 'ar_AR';
+    }
+
+    if ( isset( $_COOKIE['elena_lang'] ) ) {
+        $cookie_lang = sanitize_text_field( $_COOKIE['elena_lang'] );
+        if ( $cookie_lang === 'ar' ) return 'ar_AR';
+        if ( $cookie_lang === 'fr' ) return 'fr_FR';
+    }
+
+    return $locale;
+}
+
+
+/**
+ * Force WooCommerce Arabic translation
+ */
+add_action( 'init', 'masha_force_woocommerce_translation', 5 );
+function masha_force_woocommerce_translation() {
+    $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
+    if (strpos($loc, 'ar') === 0 || $loc === 'ar_AR') {
+        $mofile = WP_LANG_DIR . '/plugins/woocommerce-ar_AR.mo';
+        if (file_exists($mofile)) {
+            unload_textdomain('woocommerce');
+            load_textdomain('woocommerce', $mofile);
+        }
+    }
+}
+
+/**
+ * Force common WooCommerce strings to Arabic as a fallback
+ */
+add_filter( 'gettext', 'masha_force_arabic_strings', 20, 3 );
+function masha_force_arabic_strings( $translated_text, $text, $domain ) {
+    if ( $domain === 'woocommerce' ) {
+        $loc = get_locale();
+        if ( strpos($loc, 'ar') === 0 ) {
+            $overrides = array(
+                'Showing the single result' => 'عرض النتيجة الوحيدة',
+                'Default sorting' => 'الترتيب الافتراضي',
+                'Search products…' => 'البحث عن المنتجات...',
+                'Add to cart' => 'أضف إلى السلة',
+                'View cart' => 'عرض السلة',
+                'Cart' => 'السلة',
+            );
+            if ( isset( $overrides[$text] ) ) {
+                return $overrides[$text];
+            }
+        }
+    }
+    return $translated_text;
+}
+
 define( 'masha_legacy_legacy_VERSION', time() );
 
 
@@ -25,9 +147,13 @@ if ( file_exists( $masha_front_page_helpers ) ) {
  * 1. Theme Setup
  * ───────────────────────────────────────────── */
 function masha_legacy_legacy_setup() {
+    error_log('Masha Legacy: setup function called.');
     // Load text domain
-    load_theme_textdomain('mashaussure', __DIR__ . '/languages');
-    load_theme_textdomain('elena', __DIR__ . '/languages');
+    $domain = 'mashaussure';
+    $path = wp_normalize_path(__DIR__ . '/languages');
+    error_log("Masha Legacy: loading textdomain '$domain' from path '$path'");
+    load_theme_textdomain($domain, $path);
+    load_theme_textdomain('elena', $path);
 
     // Title tag
     add_theme_support( 'title-tag' );
@@ -519,7 +645,10 @@ add_action( 'admin_notices', 'masha_legacy_legacy_admin_notice' );
 add_filter( 'woocommerce_product_single_add_to_cart_text', 'masha_legacy_legacy_custom_cart_button_text' );
 function masha_legacy_legacy_custom_cart_button_text() {
     $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
-    return (strpos($loc, 'ar') === 0) ? 'أضف إلى السلة' : 'AJOUTER AU PANIER';
+    if (strpos($loc, 'ar') === 0 || $loc === 'ar_AR') {
+        return 'أضف إلى السلة';
+    }
+    return 'AJOUTER AU PANIER';
 }
 
 // Also override for variable products
@@ -528,7 +657,10 @@ function masha_legacy_legacy_custom_cart_button_text_archive( $text ) {
     global $product;
     if ( $product && $product->is_type( 'variable' ) && is_product() ) {
         $loc = isset($_GET['lang']) ? $_GET['lang'] : get_locale();
-        return (strpos($loc, 'ar') === 0) ? 'أضف إلى السلة' : 'AJOUTER AU PANIER';
+        if (strpos($loc, 'ar') === 0 || $loc === 'ar_AR') {
+            return 'أضف إلى السلة';
+        }
+        return 'AJOUTER AU PANIER';
     }
     return $text;
 }
@@ -670,4 +802,90 @@ function masha_save_category_language_field( $term_id, $tt_id ) {
     if ( isset( $_POST['category_language'] ) ) {
         update_term_meta( $term_id, 'category_language', sanitize_text_field( $_POST['category_language'] ) );
     }
+}
+
+/**
+ * Clean up URLs: Redirect ?lang=ar_ar to clean URL if possible.
+ */
+add_action( 'template_redirect', 'masha_clean_language_urls', 1 );
+function masha_clean_language_urls() {
+    if ( masha_is_multilang_plugin_active() ) return;
+    if ( is_admin() ) return;
+
+    if ( isset( $_GET['lang'] ) && strpos( $_SERVER['QUERY_STRING'], 'lang=' ) !== false ) {
+        $lang = strtolower( sanitize_text_field( $_GET['lang'] ) );
+        
+        if ( strpos( $lang, 'ar' ) === 0 ) {
+            setcookie( 'elena_lang', 'ar', time() + ( 86400 * 30 ), '/' );
+            $url = remove_query_arg( 'lang' );
+            wp_redirect( $url, 301 );
+            exit;
+        } elseif ( strpos( $lang, 'fr' ) === 0 ) {
+            setcookie( 'elena_lang', 'fr', time() + ( 86400 * 30 ), '/' );
+            $url = remove_query_arg( 'lang' );
+            wp_redirect( $url, 301 );
+            exit;
+        }
+    }
+}
+
+/**
+ * Adjust term links: Don't add ?lang=ar if the content is Arabic or cookie is set.
+ */
+add_filter( 'term_link', 'masha_adjust_category_link_language', 10, 3 );
+function masha_adjust_category_link_language( $termlink, $term, $taxonomy ) {
+    if ( masha_is_multilang_plugin_active() ) return $termlink;
+    if ( is_admin() ) return $termlink;
+    
+    if ( $taxonomy === 'product_cat' || $taxonomy === 'category' ) {
+        $term_id = is_object( $term ) ? $term->term_id : $term;
+        $lang = get_term_meta( $term_id, 'category_language', true );
+        
+        if ( ! empty( $lang ) && $lang !== 'all' ) {
+            if ( $lang === 'ar' ) {
+                return remove_query_arg( 'lang', $termlink );
+            }
+            return add_query_arg( 'lang', $lang, $termlink );
+        }
+        
+        $current_lang = '';
+        if ( isset( $_GET['lang'] ) ) $current_lang = $_GET['lang'];
+        elseif ( isset( $_COOKIE['elena_lang'] ) ) $current_lang = $_COOKIE['elena_lang'];
+
+        if ( strpos( $current_lang, 'ar' ) !== false ) {
+             return remove_query_arg( 'lang', $termlink );
+        }
+        
+        if ( ! empty( $current_lang ) ) {
+            return add_query_arg( 'lang', $current_lang, $termlink );
+        }
+    }
+    return $termlink;
+}
+
+/**
+ * Adjust product links: Ensure Arabic products have clean URLs.
+ */
+add_filter( 'post_type_link', 'masha_adjust_product_link_language', 20, 2 );
+function masha_adjust_product_link_language( $post_link, $post ) {
+    if ( masha_is_multilang_plugin_active() ) return $post_link;
+    if ( is_admin() || $post->post_type !== 'product' ) return $post_link;
+    
+    if ( preg_match( '/[\x{0600}-\x{06FF}]/u', urldecode( $post->post_name ) ) ) {
+        return remove_query_arg( 'lang', $post_link );
+    }
+    
+    $current_lang = '';
+    if ( isset( $_GET['lang'] ) ) $current_lang = $_GET['lang'];
+    elseif ( isset( $_COOKIE['elena_lang'] ) ) $current_lang = $_COOKIE['elena_lang'];
+
+    if ( strpos( $current_lang, 'ar' ) !== false ) {
+         return remove_query_arg( 'lang', $post_link );
+    }
+    
+    if ( ! empty( $current_lang ) && $current_lang !== 'ar' ) {
+        return add_query_arg( 'lang', $current_lang, $post_link );
+    }
+    
+    return $post_link;
 }

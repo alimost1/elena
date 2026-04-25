@@ -18,9 +18,8 @@ wp-content/wflogs/
 wp-content/debug.log
 wp-content/logs/
 
-# Other themes (only elena ships in the image)
+# Other themes (only elena and mashaussure ship — elena depends on mashaussure CSS/JS)
 wp-content/themes/twenty*/
-wp-content/themes/mashaussure/
 
 # Plugins to skip baking
 wp-content/plugins/wpvivid-backuprestore/

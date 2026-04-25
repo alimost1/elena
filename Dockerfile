@@ -11,8 +11,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Use our env-driven wp-config in production
 COPY wp-config-production.php /var/www/html/wp-config.php
 
-# Custom theme + plugins + mu-plugins + languages
+# Custom theme (elena) + reference theme (mashaussure: elena loads its CSS/JS for the homepage)
 COPY wp-content/themes/elena/ /var/www/html/wp-content/themes/elena/
+COPY wp-content/themes/mashaussure/ /var/www/html/wp-content/themes/mashaussure/
+
+# Plugins + mu-plugins + languages
 COPY wp-content/plugins/ /var/www/html/wp-content/plugins/
 COPY wp-content/mu-plugins* /var/www/html/wp-content/mu-plugins/
 COPY wp-content/languages* /var/www/html/wp-content/languages/
