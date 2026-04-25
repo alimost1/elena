@@ -28,7 +28,7 @@ log "Running upstream WordPress setup..."
 # 2) Wait for MySQL
 log "Waiting for MySQL at $DB_HOST:$DB_PORT ..."
 for i in $(seq 1 60); do
-    if mysqladmin ping -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --silent >/dev/null 2>&1; then
+    if mysqladmin ping -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --ssl-mode=DISABLED --silent >/dev/null 2>&1; then
         log "MySQL reachable."
         break
     fi
@@ -36,12 +36,12 @@ for i in $(seq 1 60); do
 done
 
 # 3) If wp_options is missing, import the seed and rewrite URLs
-TABLES_EXIST=$(mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" -N -B \
+TABLES_EXIST=$(mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --ssl-mode=DISABLED "$DB_NAME" -N -B \
     -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DB_NAME}' AND table_name='wp_options';" 2>/dev/null || echo 0)
 
 if [ "$TABLES_EXIST" = "0" ] && [ -f "$SEED_FILE" ]; then
     log "wp_options missing — importing seed from $SEED_FILE ..."
-    mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" < "$SEED_FILE"
+    mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --ssl-mode=DISABLED "$DB_NAME" < "$SEED_FILE"
     log "Seed imported."
 
     if [ -n "$SEED_URL_TO" ] && [ "$SEED_URL_TO" != "$SEED_URL_FROM" ]; then
