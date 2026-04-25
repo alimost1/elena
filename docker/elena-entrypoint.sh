@@ -25,11 +25,21 @@ log() { printf '[elena] %s\n' "$*"; }
 log "Running upstream WordPress setup..."
 /usr/local/bin/docker-entrypoint.sh true || true
 
-# 2) Wait for MySQL
-log "Waiting for MySQL at $DB_HOST:$DB_PORT ..."
+# 2) Wait for MySQL — TCP probe (no SSL/auth, works with any client)
+log "Waiting for MySQL TCP at $DB_HOST:$DB_PORT ..."
 for i in $(seq 1 60); do
-    if mysqladmin ping -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --ssl-mode=DISABLED --silent >/dev/null 2>&1; then
-        log "MySQL reachable."
+    if (timeout 2 bash -c "echo > /dev/tcp/$DB_HOST/$DB_PORT") >/dev/null 2>&1; then
+        log "MySQL TCP open."
+        break
+    fi
+    sleep 2
+done
+
+# Then verify we can authenticate
+log "Verifying MySQL credentials..."
+for i in $(seq 1 30); do
+    if mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --ssl-mode=DISABLED -e "SELECT 1;" >/dev/null 2>&1; then
+        log "MySQL authenticated OK."
         break
     fi
     sleep 2
