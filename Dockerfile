@@ -11,19 +11,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Use our env-driven wp-config in production
 COPY wp-config-production.php /var/www/html/wp-config.php
 
-# Copy custom theme (the elena theme)
+# Custom theme + plugins + mu-plugins + languages
 COPY wp-content/themes/elena/ /var/www/html/wp-content/themes/elena/
-
-# Copy plugins (must be tracked in git — see .gitignore)
 COPY wp-content/plugins/ /var/www/html/wp-content/plugins/
-
-# Copy mu-plugins if present (force-loaded utility plugins)
 COPY wp-content/mu-plugins* /var/www/html/wp-content/mu-plugins/
-
-# Copy bundled language files (Arabic, French, etc.)
 COPY wp-content/languages* /var/www/html/wp-content/languages/
 
-# Set correct ownership for Apache
+# Bake the DB seed into the image so it's available to the auto-import entrypoint.
+COPY db-init/init.sql /opt/elena/init.sql
+
+# Entrypoint that imports the DB on first deploy if empty, then runs Apache.
+COPY docker/elena-entrypoint.sh /usr/local/bin/elena-entrypoint.sh
+RUN chmod +x /usr/local/bin/elena-entrypoint.sh
+
 RUN chown -R www-data:www-data /var/www/html/wp-content
 
 EXPOSE 80
+
+ENTRYPOINT ["elena-entrypoint.sh"]
+CMD ["apache2-foreground"]

@@ -1,0 +1,4 @@
+# Force LF for shell scripts (Docker bash refuses CRLF)
+*.sh text eol=lf
+docker/* text eol=lf
+Dockerfile text eol=lf
