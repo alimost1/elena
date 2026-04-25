@@ -21,9 +21,16 @@ SEED_URL_TO="${WP_HOME:-}"
 
 log() { printf '[elena] %s\n' "$*"; }
 
-# 1) Run upstream entrypoint with a benign command so it sets up files and exits.
-log "Running upstream WordPress setup..."
-/usr/local/bin/docker-entrypoint.sh true || true
+# 1) Copy WordPress core files if /var/www/html is missing them.
+#    The upstream entrypoint only does this when it sees an "apache2*" CMD,
+#    so we replicate its core-file copy here directly.
+if [ ! -f /var/www/html/wp-includes/version.php ]; then
+    log "Copying WordPress core to /var/www/html (first run)..."
+    # Use cp -an so we never overwrite files we COPY'd in (theme, plugins, wp-config).
+    cp -an /usr/src/wordpress/. /var/www/html/ 2>/dev/null || true
+    chown -R www-data:www-data /var/www/html
+    log "WordPress core copied."
+fi
 
 # 2) Wait for MySQL — TCP probe (no SSL/auth, works with any client)
 log "Waiting for MySQL TCP at $DB_HOST:$DB_PORT ..."
