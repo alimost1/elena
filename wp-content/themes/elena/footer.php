@@ -15,95 +15,14 @@ if (!defined('ABSPATH')) {
 
 <?php
 $locale = get_locale();
-if (isset($_GET['lang'])) {
+if ( function_exists( 'xili_curlang' ) ) {
+	$locale = xili_curlang();
+} elseif ( function_exists( 'the_curlang' ) ) {
+	$locale = the_curlang();
+} elseif (isset($_GET['lang'])) {
 	$locale = sanitize_text_field($_GET['lang']);
 }
 ?>
-
-<!-- Service features bar (SVG icons) -->
-<div class="elena-footer-services">
-	<div class="elena-container elena-services-grid">
-		<div class="elena-service-item">
-			<span class="elena-service-icon">
-				<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-					stroke-linecap="round" stroke-linejoin="round">
-					<rect x="1" y="3" width="15" height="13" />
-					<polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-					<circle cx="5.5" cy="18.5" r="2.5" />
-					<circle cx="18.5" cy="18.5" r="2.5" />
-				</svg>
-			</span>
-			<h4><?php echo (strpos($locale, 'ar') === 0) ? 'توصيل في كل مكان' : esc_html__('Livraison Partout', 'elena'); ?>
-			</h4>
-			<p>+1400
-				<?php echo (strpos($locale, 'ar') === 0) ? 'وجهة' : esc_html__('Destinations', 'elena'); ?></p>
-		</div>
-		<div class="elena-service-item">
-			<span class="elena-service-icon">
-				<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-					stroke-linecap="round" stroke-linejoin="round">
-					<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-					<circle cx="9" cy="7" r="4" />
-					<path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-					<path d="M16 3.13a4 4 0 0 1 0 7.75" />
-				</svg>
-			</span>
-			<h4><?php echo (strpos($locale, 'ar') === 0) ? 'خدمة العملاء' : esc_html__('Service Client', 'elena'); ?>
-			</h4>
-			<p><?php echo (strpos($locale, 'ar') === 0) ? '9ص - 6م' : '9h - 18h'; ?></p>
-		</div>
-		<div class="elena-service-item">
-			<span class="elena-service-icon">
-				<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-					stroke-linecap="round" stroke-linejoin="round">
-					<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-					<path d="M9 12l2 2 4-4" />
-				</svg>
-			</span>
-			<h4><?php echo (strpos($locale, 'ar') === 0) ? 'دفع آمن' : esc_html__('Paiement Sécurisé', 'elena'); ?>
-			</h4>
-			<p><?php echo (strpos($locale, 'ar') === 0) ? 'عبر الإنترنت أو عند التسليم' : esc_html__('En ligne ou à la livraison', 'elena'); ?>
-			</p>
-		</div>
-		<div class="elena-service-item">
-			<span class="elena-service-icon">
-				<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-					stroke-linecap="round" stroke-linejoin="round">
-					<circle cx="12" cy="12" r="10" />
-					<polyline points="12 6 12 12 16 14" />
-				</svg>
-			</span>
-			<h4><?php echo (strpos($locale, 'ar') === 0) ? 'توصيل سريع' : esc_html__('Livraison Rapide', 'elena'); ?>
-			</h4>
-			<p><?php echo (strpos($locale, 'ar') === 0) ? 'تحت 48 ساعة' : esc_html__('Sous 48h', 'elena'); ?>
-			</p>
-		</div>
-	</div>
-</div>
-
-<!-- Newsletter Section -->
-<section class="elena-newsletter-section">
-	<div class="elena-container">
-		<div class="elena-newsletter-inner">
-			<h3 class="elena-newsletter-title">
-				<?php echo (strpos($locale, 'ar') === 0) ? 'انضم إلى عائلة إيلينا' : esc_html__('Rejoignez la Famille Elena', 'elena'); ?>
-			</h3>
-			<p class="elena-newsletter-subtitle">
-				<?php echo (strpos($locale, 'ar') === 0) ? 'احصل على عروضنا الحصرية والجديد مباشرة في صندوق الوارد الخاص بك.' : esc_html__('Recevez nos offres exclusives et nouveautés directement dans votre boîte mail.', 'elena'); ?>
-			</p>
-			<form class="elena-newsletter-form" action="#" method="post">
-				<input type="email"
-					placeholder="<?php echo (strpos($locale, 'ar') === 0) ? 'بريدك الإلكتروني' : esc_attr__('Votre adresse email', 'elena'); ?>"
-					name="elena_email" aria-label="Email" required>
-				<button
-					type="submit"><?php echo (strpos($locale, 'ar') === 0) ? 'اشترك' : esc_html__("S'inscrire", 'elena'); ?></button>
-			</form>
-			<p class="elena-newsletter-privacy">
-				<?php echo (strpos($locale, 'ar') === 0) ? 'نحن نحترم خصوصيتك.' : esc_html__('Nous respectons votre vie privée.', 'elena'); ?>
-			</p>
-		</div>
-	</div>
-</section>
 
 <footer class="elena-footer elena-footer-dark">
 	<div class="elena-container">
@@ -168,24 +87,17 @@ if (isset($_GET['lang'])) {
 					</li>
 				</ul>
 			</div>
-			<div class="elena-footer-col">
-				<h4><?php echo (strpos($locale, 'ar') === 0) ? 'فروعنا' : esc_html__('Nos Boutiques', 'elena'); ?>
-				</h4>
-				<ul>
-					<li><a
-							href="#"><?php echo (strpos($locale, 'ar') === 0) ? 'فرع المعاريف' : esc_html__('Boutique Maarif', 'elena'); ?></a>
-					</li>
-					<li><a
-							href="#"><?php echo (strpos($locale, 'ar') === 0) ? 'فرع عين الشق' : esc_html__('Boutique Ain Chock', 'elena'); ?></a>
-					</li>
-					<li><a
-							href="#"><?php echo (strpos($locale, 'ar') === 0) ? 'فرع الألفة' : esc_html__('Boutique Oulfa', 'elena'); ?></a>
-					</li>
-					<li><a
-							href="#"><?php echo (strpos($locale, 'ar') === 0) ? 'موروكو مول' : esc_html__('Morocco Mall', 'elena'); ?></a>
-					</li>
-				</ul>
-			</div>
+			<?php if ( strpos( $locale, 'ar' ) !== 0 && strpos( $locale, 'fr' ) !== 0 ) : ?>
+				<div class="elena-footer-col">
+					<h4><?php esc_html_e( 'Nos Boutiques', 'elena' ); ?></h4>
+					<ul>
+						<li><a href="#"><?php esc_html_e( 'Boutique Maarif', 'elena' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e( 'Boutique Ain Chock', 'elena' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e( 'Boutique Oulfa', 'elena' ); ?></a></li>
+						<li><a href="#"><?php esc_html_e( 'Morocco Mall', 'elena' ); ?></a></li>
+					</ul>
+				</div>
+			<?php endif; ?>
 			<div class="elena-footer-col">
 				<h4><?php echo (strpos($locale, 'ar') === 0) ? 'روابط' : esc_html__('Liens', 'elena'); ?></h4>
 				<ul>
@@ -231,7 +143,7 @@ if (isset($_GET['lang'])) {
 
 		<div class="elena-footer-bottom">
 			<p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>.
-				<?php echo ($localestrpos($locale, 'ar') === 0) ? 'جميع الحقوق محفوظة.' : esc_html__('Tous droits réservés.', 'elena'); ?>
+				<?php echo (strpos($locale, 'ar') === 0) ? 'جميع الحقوق محفوظة.' : esc_html__('Tous droits réservés.', 'elena'); ?>
 			</p>
 		</div>
 	</div>

@@ -14,7 +14,15 @@ get_header();
     <div class="elena-container">
         <header class="elena-shop-header">
             <?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-                <h1 class="elena-page-title"><?php woocommerce_page_title(); ?></h1>
+                <h1 class="elena-page-title">
+                    <?php
+                    $elena_shop_title = woocommerce_page_title( false );
+                    if ( function_exists( 'elena_ar' ) ) {
+                        $elena_shop_title = elena_ar( $elena_shop_title );
+                    }
+                    echo esc_html( $elena_shop_title );
+                    ?>
+                </h1>
             <?php endif; ?>
             <?php do_action( 'woocommerce_archive_description' ); ?>
         </header>

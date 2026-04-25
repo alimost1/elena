@@ -25,10 +25,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<!-- Top bar (black): Livraison + Contact -->
 	<?php if ( get_theme_mod( 'elena_announcement_show', true ) ) : ?>
+	<?php
+	$elena_announce_default = 'Livraison 20 DH partout au Maroc';
+	$elena_announce_text    = get_theme_mod( 'elena_announcement_text', $elena_announce_default );
+	if ( function_exists( 'elena_is_arabic' ) && elena_is_arabic() ) {
+		$elena_announce_text = function_exists( 'elena_ar' ) ? elena_ar( $elena_announce_text ) : $elena_announce_text;
+	}
+	$elena_contact_label = function_exists( 'elena_ar' ) ? elena_ar( 'Contactez-Nous:' ) : __( 'Contactez-Nous:', 'elena' );
+	?>
 	<div class="elena-topbar">
 		<div class="elena-container elena-topbar-inner">
-			<span class="elena-topbar-delivery"><?php echo esc_html( get_theme_mod( 'elena_announcement_text', 'Livraison 20 DH partout au Maroc' ) ); ?></span>
-			<span class="elena-topbar-contact"><?php esc_html_e( 'Contactez-Nous:', 'elena' ); ?> <?php echo esc_html( get_theme_mod( 'elena_footer_email', 'contact@elena.ma' ) ); ?> | <?php echo esc_html( get_theme_mod( 'elena_footer_phone', '+212 687873820' ) ); ?></span>
+			<span class="elena-topbar-delivery"><?php echo esc_html( $elena_announce_text ); ?></span>
+			<span class="elena-topbar-contact"><?php echo esc_html( $elena_contact_label ); ?> <?php echo esc_html( get_theme_mod( 'elena_footer_email', 'contact@elena.ma' ) ); ?> | <?php echo esc_html( get_theme_mod( 'elena_footer_phone', '+212 687873820' ) ); ?></span>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -52,6 +60,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="elena-header-actions">
+				<div class="elena-header-lang-flags" aria-label="<?php esc_attr_e( 'Language switch', 'elena' ); ?>">
+					<?php
+					if ( function_exists( 'elena_render_language_switcher' ) ) {
+						elena_render_language_switcher( 'desktop' );
+					}
+					?>
+				</div>
+				<div class="elena-mobile-lang-flags" aria-label="<?php esc_attr_e( 'Language switch mobile', 'elena' ); ?>">
+					<?php
+					if ( function_exists( 'elena_render_language_switcher' ) ) {
+						elena_render_language_switcher( 'mobile' );
+					}
+					?>
+				</div>
 				<a href="<?php echo esc_url( function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : '#' ); ?>" class="elena-header-link" title="<?php esc_attr_e( 'Account', 'elena' ); ?>">
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
 					<span class="elena-action-label"><?php esc_html_e( 'Login', 'elena' ); ?></span>
@@ -69,6 +91,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 				<button class="elena-mobile-toggle" id="elena-mobile-toggle" aria-label="<?php esc_attr_e( 'Menu', 'elena' ); ?>">
 					<span></span><span></span><span></span>
+					<strong class="elena-menu-label"><?php esc_html_e( 'Menu', 'elena' ); ?></strong>
 				</button>
 			</div>
 		</div>
@@ -76,35 +99,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Category navigation bar -->
 		<nav id="elena-nav" class="elena-nav elena-nav-wrap">
 			<div class="elena-container">
-				<ul class="elena-nav-list">
-					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>" class="elena-nav-link"><?php esc_html_e( 'Femmes', 'elena' ); ?></a></li>
-					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>" class="elena-nav-link"><?php esc_html_e( 'Hommes', 'elena' ); ?></a></li>
-					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>" class="elena-nav-link"><?php esc_html_e( 'Enfants', 'elena' ); ?></a></li>
-					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>" class="elena-nav-link"><?php esc_html_e( 'Nouveautés', 'elena' ); ?></a></li>
-					<li><a href="<?php echo esc_url( function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/') ); ?>?on_sale=1" class="elena-nav-link"><?php esc_html_e( 'Promotions', 'elena' ); ?></a></li>
-				</ul>
+				<?php
+				$current_lang = function_exists( 'elena_current_lang_slug' ) ? elena_current_lang_slug() : '';
+				$menu_location = 'primary';
+				if ( $current_lang && has_nav_menu( 'primary_' . $current_lang ) ) {
+					$menu_location = 'primary_' . $current_lang;
+				} elseif ( 'fr' === $current_lang && has_nav_menu( 'primary_fr_fr' ) ) {
+					$menu_location = 'primary_fr_fr';
+				} elseif ( 'en' === $current_lang && has_nav_menu( 'primary_en_us' ) ) {
+					$menu_location = 'primary_en_us';
+				} elseif ( 'ar_ar' === $current_lang && has_nav_menu( 'primary_ar_ar' ) ) {
+					$menu_location = 'primary_ar_ar';
+				} elseif ( 'ar_ar' === $current_lang && has_nav_menu( 'primary_ar' ) ) {
+					$menu_location = 'primary_ar';
+				}
+
+				$manual_menu_id = function_exists( 'elena_get_menu_id_by_lang' ) ? elena_get_menu_id_by_lang( $current_lang ) : 0;
+
+				if ( has_nav_menu( $menu_location ) || $manual_menu_id ) {
+					$menu_args = array(
+						'container'      => false,
+						'menu_class'     => 'elena-nav-list',
+						'fallback_cb'    => false,
+					);
+					if ( $manual_menu_id ) {
+						$menu_args['menu'] = $manual_menu_id;
+					} else {
+						$menu_args['theme_location'] = $menu_location;
+					}
+					if ( class_exists( 'Elena_Nav_Walker' ) ) {
+						$menu_args['walker'] = new Elena_Nav_Walker();
+					}
+					wp_nav_menu(
+						$menu_args
+					);
+				} else {
+					?>
+					<ul class="elena-nav-list">
+						<li><a href="<?php echo esc_url( function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' ) ); ?>" class="elena-nav-link"><?php esc_html_e( 'Shop', 'elena' ); ?></a></li>
+						<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="elena-nav-link"><?php esc_html_e( 'Home', 'elena' ); ?></a></li>
+					</ul>
+				<?php } ?>
 			</div>
 		</nav>
 	</header>
-
-	<!-- Promo banner -->
-	<?php if ( get_theme_mod( 'elena_promo_show', true ) && ( is_front_page() || get_theme_mod( 'elena_promo_all_pages', false ) ) ) : ?>
-	<?php
-		$promo_url = get_theme_mod( 'elena_promo_url', '' );
-		if ( ! $promo_url && function_exists( 'wc_get_page_permalink' ) ) {
-			$promo_url = wc_get_page_permalink( 'shop' );
-		}
-		if ( ! $promo_url ) {
-			$promo_url = '#';
-		}
-	?>
-	<div class="elena-promo-banner">
-		<div class="elena-container elena-promo-inner">
-			<span class="elena-promo-title"><?php echo esc_html( get_theme_mod( 'elena_promo_title', 'رمضان كريم' ) ); ?></span>
-			<span class="elena-promo-text"><?php echo esc_html( get_theme_mod( 'elena_promo_text', 'Nouvelle Collection' ) ); ?> <strong><?php echo esc_html( get_theme_mod( 'elena_promo_discount', '-30%' ) ); ?></strong></span>
-			<a href="<?php echo esc_url( $promo_url ); ?>" class="elena-promo-btn"><?php echo esc_html( get_theme_mod( 'elena_promo_btn', 'Découvrir' ) ); ?></a>
-		</div>
-	</div>
-	<?php endif; ?>
 
 	<main id="content" class="elena-main">

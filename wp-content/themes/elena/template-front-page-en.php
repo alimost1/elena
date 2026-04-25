@@ -118,7 +118,7 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
             if ( class_exists( 'WooCommerce' ) ) {
                 $args = array(
                     'post_type'      => 'product',
-                    'posts_per_page' => 8,
+                    'posts_per_page' => 16,
                     'meta_key'       => 'total_sales',
                     'orderby'        => 'meta_value_num',
                     'order'          => 'DESC',
@@ -126,7 +126,45 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                 $products = new WP_Query( $args );
 
                 if ( $products->have_posts() ) {
-                    echo '<ul class="elena-products-grid elena-animate">';
+                    // Collect unique categories present in the fetched products for filter tabs
+                    $product_ids   = wp_list_pluck( $products->posts, 'ID' );
+                    $filter_terms  = array();
+                    foreach ( $product_ids as $pid ) {
+                        $terms = get_the_terms( $pid, 'product_cat' );
+                        if ( $terms && ! is_wp_error( $terms ) ) {
+                            foreach ( $terms as $t ) {
+                                if ( $t->slug === 'uncategorized' ) continue;
+                                $filter_terms[ $t->slug ] = $t;
+                            }
+                        }
+                    }
+
+                    if ( ! empty( $filter_terms ) ) {
+                        echo '<ul class="elena-favourites-filter elena-animate" role="tablist">';
+                        echo '<li class="elena-favourites-filter-btn is-active" data-cat-filter="__all"><button type="button">' . esc_html__( 'All', 'elena' ) . '</button></li>';
+                        foreach ( $filter_terms as $slug => $term ) {
+                            printf(
+                                '<li class="elena-favourites-filter-btn" data-cat-filter="%s"><button type="button">%s</button></li>',
+                                esc_attr( $slug ),
+                                esc_html( $term->name )
+                            );
+                        }
+                        echo '</ul>';
+                    }
+
+                    // Add per-product category classes so JS can filter client-side
+                    $elena_cat_class_filter = function ( $classes, $class, $post_id ) {
+                        $terms = get_the_terms( $post_id, 'product_cat' );
+                        if ( $terms && ! is_wp_error( $terms ) ) {
+                            foreach ( $terms as $t ) {
+                                $classes[] = 'elena-cat-' . $t->slug;
+                            }
+                        }
+                        return $classes;
+                    };
+                    add_filter( 'post_class', $elena_cat_class_filter, 10, 3 );
+
+                    echo '<ul class="elena-products-grid elena-favourites-grid elena-animate">';
                     while ( $products->have_posts() ) {
                         $products->the_post();
                         global $product;
@@ -136,6 +174,8 @@ if ( false && function_exists( 'elementor_theme_do_location' ) && elementor_them
                         }
                     }
                     echo '</ul>';
+
+                    remove_filter( 'post_class', $elena_cat_class_filter, 10 );
                     wp_reset_postdata();
                 } else {
                     echo '<ul class="elena-products-grid elena-animate">';

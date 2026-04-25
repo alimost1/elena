@@ -63,7 +63,7 @@ if ( $product->is_type( 'variable' ) ) {
                 <?php endif; ?>
             </div>
             <?php if ( $is_new ) : ?>
-                <span class="elena-new-badge">NEW</span>
+                <span class="elena-new-badge"><?php echo esc_html( function_exists( 'elena_ar' ) ? elena_ar( 'NEW' ) : 'NEW' ); ?></span>
             <?php endif; ?>
         </a>
         <div class="elena-product-info">
