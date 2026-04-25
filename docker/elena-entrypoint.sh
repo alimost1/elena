@@ -38,7 +38,7 @@ done
 # Then verify we can authenticate
 log "Verifying MySQL credentials..."
 for i in $(seq 1 30); do
-    if mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --ssl-mode=DISABLED -e "SELECT 1;" >/dev/null 2>&1; then
+    if mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --skip-ssl-verify-server-cert --ssl=0 -e "SELECT 1;" >/dev/null 2>&1; then
         log "MySQL authenticated OK."
         break
     fi
@@ -46,12 +46,12 @@ for i in $(seq 1 30); do
 done
 
 # 3) If wp_options is missing, import the seed and rewrite URLs
-TABLES_EXIST=$(mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --ssl-mode=DISABLED "$DB_NAME" -N -B \
+TABLES_EXIST=$(mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --skip-ssl-verify-server-cert --ssl=0 "$DB_NAME" -N -B \
     -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DB_NAME}' AND table_name='wp_options';" 2>/dev/null || echo 0)
 
 if [ "$TABLES_EXIST" = "0" ] && [ -f "$SEED_FILE" ]; then
     log "wp_options missing — importing seed from $SEED_FILE ..."
-    mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --ssl-mode=DISABLED "$DB_NAME" < "$SEED_FILE"
+    mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASS" --skip-ssl-verify-server-cert --ssl=0 "$DB_NAME" < "$SEED_FILE"
     log "Seed imported."
 
     if [ -n "$SEED_URL_TO" ] && [ "$SEED_URL_TO" != "$SEED_URL_FROM" ]; then
