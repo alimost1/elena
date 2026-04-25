@@ -1,0 +1,63 @@
+# Local-only files — never bake into the image
+.env
+.env.*
+!.env.example
+wp-config.php
+wp-config-local.php
+local-xdebuginfo.php
+
+# Heavy / generated runtime
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup*/
+wp-content/ai1wm-backups/
+wp-content/wpvividbackups/
+wp-content/wpvivid_*/
+wp-content/wflogs/
+wp-content/debug.log
+wp-content/logs/
+
+# Other themes (only elena ships in the image)
+wp-content/themes/twenty*/
+wp-content/themes/mashaussure/
+
+# Plugins to skip baking
+wp-content/plugins/wpvivid-backuprestore/
+wp-content/plugins/wordfence/
+wp-content/plugins/wp-rocket/
+
+# Debug + dev scripts
+audit-pages-short.php
+check-*.php
+debug-*.php
+force-domains-*.php
+test-*.php
+info.php
+phpinfo.php
+create-mo.php
+add_gallery.php
+check_images.php
+auth_keys.txt
+
+# Backups & DB dumps in repo root (DB lives in db-init/, not root)
+/*.sql
+/*.sql.gz
+/*.zip
+/*.tar
+/*.tar.gz
+/*.bak
+
+# Git + IDE + OS junk
+.git/
+.gitignore
+.vscode/
+.idea/
+.agents/
+.DS_Store
+Thumbs.db
+desktop.ini
+node_modules/
+*.swp
+*.swo
+*.log

@@ -38,10 +38,13 @@ wp-content/plugins/duplicator/
 wp-content/plugins/all-in-one-wp-migration/
 wp-content/plugins/updraftplus/
 
-# === Backup / DB dumps / archives — never commit these ===
+# === Backup / DB dumps / archives — never commit these EXCEPT db-init/init.sql ===
+# (The Coolify deploy needs the seed SQL inside db-init/ to be tracked.)
 *.sql
 *.sql.gz
 *.sql.bz2
+!db-init/*.sql
+!db-init/*.sql.gz
 *.sqlite
 *.sqlite3
 *.zip

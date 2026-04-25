@@ -12,23 +12,34 @@ services:
       WORDPRESS_TABLE_PREFIX: ${TABLE_PREFIX:-wp_}
       WP_HOME: ${WP_HOME:-http://localhost}
       WP_SITEURL: ${WP_SITEURL:-http://localhost}
+      AUTH_KEY: ${AUTH_KEY}
+      SECURE_AUTH_KEY: ${SECURE_AUTH_KEY}
+      LOGGED_IN_KEY: ${LOGGED_IN_KEY}
+      NONCE_KEY: ${NONCE_KEY}
+      AUTH_SALT: ${AUTH_SALT}
+      SECURE_AUTH_SALT: ${SECURE_AUTH_SALT}
+      LOGGED_IN_SALT: ${LOGGED_IN_SALT}
+      NONCE_SALT: ${NONCE_SALT}
     volumes:
+      # Persistent uploads — survive rebuilds and image upgrades
       - wp_uploads:/var/www/html/wp-content/uploads
-      - root/elena/wp-content/uploads:/var/www/html/wp-content/uploads
-      - root/elena/wp-content/themes:/var/www/html/wp-content/themes
-      - data/coolify/services/josgk00c0ook04cs8cck00c4/themes:/var/www/html/wp-content/themes
     depends_on:
       db:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost/wp-login.php" ]
+      test: ["CMD-SHELL", "curl -fsS http://localhost/wp-login.php || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
+      start_period: 60s
 
   db:
     image: mysql:8.0
     restart: unless-stopped
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_DATABASE: ${DB_NAME:-elena_wp}
       MYSQL_USER: ${DB_USER:-elena}
@@ -36,11 +47,13 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?DB_ROOT_PASSWORD is required}
     volumes:
       - db_data:/var/lib/mysql
+      # Auto-imports any *.sql / *.sql.gz files on first boot when db_data is empty
+      - ./db-init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_ROOT_PASSWORD}"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
 
 volumes:
   db_data:
